@@ -5,6 +5,7 @@
             <div class="box">
                 <h1 class="textrejis" >สมัครสมาชิก</h1>
                 <div class="boxtext">
+                    
                     <h3 class="textmail">Username</h3>
                     <div class="boxemail"> <p class="plsemail">Username</p></div>
 
