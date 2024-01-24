@@ -1,17 +1,31 @@
 <template>
+    <NavView />
     <div>
         <div class="Bigbox">
             <div class="box">
                 <h1 class="textrejis" >สมัครสมาชิก</h1>
                 <div class="boxtext">
-                    <h3 class="textmail">อีเมล</h3>
-                    <div class="boxemail"> <p class="plsemail">ใส่อีเมล</p></div>
+                    <h3 class="textmail">Username</h3>
+                    <div class="boxemail"> <p class="plsemail">Username</p></div>
+
+                    <h3 class="textname">ชื่อ</h3> 
+                     <h3 class="textsurname">นามสกุล</h3>
+                    <div class="boxname"><p class="plsname">กรอกชื่อ</p></div> 
+                    <div class="boxsurname" style="margin-top:-38px;"><p class="plssurname">กรอกนามสกุล</p></div> 
+
+                    <h3 class="textpasswordagain">อีเมล</h3>
+                    <div class="boxpasswordagain"><p class="plspassword">กรอกอีเมล</p></div> 
+
+                    <h3 class="textpasswordagain">เบอร์โทรศัพท์</h3>
+                    <div class="boxpasswordagain"><p class="plspassword">กรอกเบอร์โทรศัพท์</p></div> 
 
                     <h3 class="textpassword">รหัสผ่าน</h3>
                     <div class="boxpassword"><p class="plspassword">ใส่รหัสผ่าน(6-16ตัวอักษร)</p></div>
 
                     <h3 class="textpasswordagain">รหัสผ่านอีกครั้ง</h3>
-                    <div class="boxpasswordagain"><p class="plspassword">ใส่รหัสผ่าน(6-16ตัวอักษร)</p></div>    
+                    <div class="boxpasswordagain"><p class="plspassword">ใส่รหัสผ่าน(6-16ตัวอักษร)</p></div>  
+                    
+
                 </div>
                 <div class="boxsmall"> </div>
                 <p class="accept">รับทราบและยอมรับ นโยบายความเป็นส่วนตัว</p>
@@ -21,10 +35,10 @@
                 <p class="linetext">หรือ</p>
 
                 <div class="img">
-                    <img src="../img/line.png" alt="" width="60px" height="60px" style="margin-left:125px; ">
-                    <img src="../img/facebook.png" alt="" width="60px" height="60px"  style="margin-left:30px">
-                    <img src="../img/twitter.png" alt="" width="60px" height="60px" style="margin-left:30px">
-                    <img src="../img/search.png" alt="" width="60px" height="60px" style="margin-left:30px">
+                    <img src="../img/line.png" alt="" width="55px" height="55px" style="margin-left:125px; ">
+                    <img src="../img/facebook.png" alt="" width="55px" height="55px"  style="margin-left:30px">
+                    <img src="../img/twitter.png" alt="" width="55px" height="55px" style="margin-left:30px">
+                    <img src="../img/search.png" alt="" width="55px" height="55px" style="margin-left:30px">
                 </div>
 
             </div>
@@ -43,20 +57,21 @@
   <style scoped>
     .box{
         width: 567px;
-        height: 608px;
+        height: 852px;
         border-radius: 5px;
         background: linear-gradient(0deg, #FFF9E8 0%, #FFF9E8 100%), #FFF;
+        margin-top: 60px;
     }
     .Bigbox{
         display: flex;
         justify-content: center;
     }
     .textrejis{
-        margin-top: 20px;
+        margin-top: 30px;
         text-align: center;
     }
     .textmail{
-        padding-top: 50px;
+        padding-top: 30px;
         padding-left: 95px;
     }
     .textpassword{
@@ -66,6 +81,14 @@
     .textpasswordagain{
         padding-top: 15px;
         padding-left: 95px;
+    }
+    .textname{
+        margin-top: 15px;
+        padding-left: 95px;
+    }
+    .textsurname{
+        margin-top: -30px;
+        padding-left: 300px;
     }
     .plsemail{
         font-size: 16px;
@@ -79,9 +102,21 @@
         margin-left: 10px;
         color: #00000047; 
     }
+    .plsname{
+        font-size: 16px;
+        margin-top: 4px;
+        margin-left: 10px;
+        color: #00000047; 
+    }
+    .plssurname{
+        font-size: 16px;
+        margin-top: 4px;
+        margin-left: 10px;
+        color: #00000047; 
+    }
     .boxemail{
         width: 367px;
-        height: 34px;
+        height: 32px;
         border-radius: 4px;
         background-color: #FFF;
         border: 2px solid #000000;
@@ -90,7 +125,7 @@
     }
     .boxpassword{
         width: 367px;
-        height: 34px;
+        height: 32px;
         border-radius: 4px;
         background-color: #FFF;
         border: 2px solid #000000;
@@ -99,19 +134,38 @@
     }
     .boxpasswordagain{
         width: 367px;
-        height: 34px;
+        height: 32px;
         border-radius: 4px;
         background-color: #FFF;
         border: 2px solid #000000;
         margin: 2px;
         margin-left: 90px;
     }
+    .boxname{
+        width: 173px;
+        height: 32px;
+        border-radius: 4px;
+        background-color: #FFF;
+        border: 2px solid #000000;
+        margin: 2px;
+        margin-left: 90px;
+    }
+    .boxsurname{
+        width: 173px;
+        height: 32px;
+        border-radius: 4px;
+        background-color: #FFF;
+        border: 2px solid #000000;
+        margin: 2px;
+        margin-left: 285px;
+        margin-top: -66px;
+    }
     .boxsmall{
         width: 20px;
         height: 20px;
         background: #D9D9D9;
         margin-left: 95px;
-        margin-top: 30px;
+        margin-top: 50px;
     }
     .accept{
         padding-left: 130px;
@@ -133,7 +187,7 @@
         cursor: pointer;
         border-radius: 20px;
         margin-left: 215px;
-        margin-top: 30px;
+        margin-top: 20px;
     }
     .button {
     background-color: #D8AB53; 
@@ -148,7 +202,7 @@
         width: 200.003px;
         height: 1px;
         background: #00000047;
-        margin-top: 45px;
+        margin-top: 30px;
         margin-left: 45px;
     }
     .line1{
