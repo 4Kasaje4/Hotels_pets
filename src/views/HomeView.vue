@@ -1,21 +1,22 @@
 <template>
+  <NavView /> 
   <div>
    
     <div class="container"> 
           <div class="img">
-            <img class="slides" src="../img/cat.jpg" alt="" width="1536px" height="550px">
+            <img class="slides" src="../img/cat.jpg" alt="" width="1536px" height="600px">
           </div>
 
           <div class="img">
-            <img class="slides" src="../img/dcat.jpg" alt="" width="1536px" height="550px">
+            <img class="slides" src="../img/dcat.jpg" alt="" width="1536px" height="600px">
           </div>
 
           <div class="img">
-            <img class="slides" src="../img/dog.jpg" alt="" width="1536px" height="550px">
+            <img class="slides" src="../img/dog.jpg" alt="" width="1536px" height="600px">
           </div>
 
           <div class="img">
-            <img class="slides" src="../img/dogg.jpg" alt="" width="1536px" height="550px">
+            <img class="slides" src="../img/dogg.jpg" alt="" width="1536px" height="600px">
           </div>
     </div>
     
@@ -58,7 +59,8 @@
 </template>
 
 <script>
-    
+
+
 
 </script >
 
@@ -87,7 +89,6 @@
   justify-content: center;
   color: #DA8F00;
   margin-top: 90px;
-  font-family: 'Kanit', sans-serif;
 }
 
 .Bigbox{

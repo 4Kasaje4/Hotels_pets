@@ -1,4 +1,5 @@
 <template>
+    <NavView />
     <div>
         <div class="Bigbox">
             <div class="box">
@@ -46,6 +47,7 @@
         height: 608px;
         border-radius: 5px;
         background: linear-gradient(0deg, #FFF9E8 0%, #FFF9E8 100%), #FFF;
+        margin-top: 120px;
     }
     .Bigbox{
         display: flex;
