@@ -1,71 +1,112 @@
 <template>
     <NavView />
-    <div>
+    <div style="display: flex; justify-content: center; margin-top: 0%;">
 
-        <div>
+        <form @submit.prevent="register_Form">
+            <div style="width: 30vw; background-color: rgba(255, 249, 232, 1); border-radius: 10px; padding-bottom: 2%;">
+            <p style="text-align: center; font-size: xx-large; margin-top: 3%;">สมัครสมาชิก</p>
+            <div style="width: 80%; margin: auto; margin-top: 2%; padding-bottom: 3%;">
+                <p style="font-size: larger;">Username</p>
+                <input v-model="username"   type="text" placeholder="Username" style="width: 90%; height: 4vh; margin-top: 2%; padding-left: 10px; border-radius: 4px;" required>
+            </div>
+            <div style="width: 80%; display: flex; margin: auto; justify-content:start;  padding-bottom: 3%;"> 
+                <div style="text-align: left;">
+                    <p style="font-size: larger;">ชื่อ</p>
+                    <input v-model="firstname"  type="text" placeholder="กรอกชื่อ" style="width: 80%; height: 4vh; margin-top: 2%; padding-left: 10px;  border-radius: 4px;" required>
+                </div>
+                <div style="margin-left: auto;">
+                    <p style="font-size: larger;">นามสกุล</p>
+                    <input v-model="lastname" type="text" placeholder="กรอกนามสกุล" style="width: 80%; height: 4vh; margin-top: 2%; padding-left: 10px;  border-radius: 4px;" required>
+                </div>
+            </div>
+            <div style="width: 80%; margin: auto; padding-bottom: 3%;">
+                <p style="font-size: larger;">Email</p>
+                <input  v-model="email" type="text" placeholder="กรอกอีเมล์" style="width: 90%; height: 4vh; margin-top: 2%; padding-left: 10px; border-radius: 4px;" required>
+            </div>
+            <div style="width: 80%; margin: auto; padding-bottom: 3%;">
+                <p style="font-size: larger;">เบอร์โทรศัพท์</p>
+                <input v-model="phone" type="text" placeholder="กรอกเบอร์โทรศัพท์" style="width: 90%; height: 4vh; margin-top: 2%; padding-left: 10px; border-radius: 4px;" required>
+            </div>
+            <div style="width: 80%; margin: auto; padding-bottom: 3%;">
+                <p style="font-size: larger;">รหัสผ่าน</p>
+                <input v-model="password1"  type="password" placeholder="ใส่รหัสผ่าน(6-16ตัวอักษร)" style="width: 90%; height: 4vh; margin-top: 2%; padding-left: 10px;  border-radius: 4px;" required>
+            </div>
+            <div style="width: 80%; margin: auto; padding-bottom: 3%;">
+                <p style="font-size: larger;">รหัสผ่านอีกครั้ง</p>
+                <input v-model="password2" type="password" placeholder="ใส่รหัสผ่าน(6-16ตัวอักษร)" style="width: 90%; height: 4vh; margin-top: 2%; padding-left: 10px;  border-radius: 4px;" required>
+            </div>
             
-        </div>
-
-        <!-- <div class="Bigbox">
-            <div class="box">
-                <h1 class="textrejis" >สมัครสมาชิก</h1>
-                <div class="boxtext">
-                    <h3 class="textmail">Username</h3>
-                    <div class="boxemail"> <p class="plsemail">Username</p></div>
-                    <div style="text-align: center; margin-top: 1%;">
-                        <input name="username" style="width: 367px; height: 32px; border-radius: 4px; padding-left: 10px; font-size:medium"  placeholder="Username" type="text">
-                    </div>
-
-                    <h3 class="textname">ชื่อ</h3> 
-                     <h3 class="textsurname">นามสกุล</h3>
-                    <div class="boxname"><p class="plsname">กรอกชื่อ</p></div> 
-                    <div style="text-align: center; display: flex; justify-content: center;">
-                        <div style="display: flex;  justify-content:space-between; width: 385px;">
-                            <input name="fristname" style="width: 173px; height: 32px; border-radius: 4px; font-size: medium; padding-left: 10px;" placeholder="ชื่อ" type="text">
-                            <input name="lastname" style="width: 173px; height: 32px; border-radius: 4px; font-size: medium; padding-left: 10px;" placeholder="นามสกุล" type="text">
-                        </div>
-                    </div>
-                    <div class="boxsurname" style="margin-top:-38px;"><p class="plssurname">กรอกนามสกุล</p></div> 
-
-                    <h3 class="textpasswordagain">อีเมล</h3>
-                    <div class="boxpasswordagain"><p class="plspassword">กรอกอีเมล</p></div> 
-
-                    <h3 class="textpasswordagain">เบอร์โทรศัพท์</h3>
-                    <div class="boxpasswordagain"><p class="plspassword">กรอกเบอร์โทรศัพท์</p></div> 
-
-                    <h3 class="textpassword">รหัสผ่าน</h3>
-                    <div class="boxpassword"><p class="plspassword">ใส่รหัสผ่าน(6-16ตัวอักษร)</p></div>
-
-                    <h3 class="textpasswordagain">รหัสผ่านอีกครั้ง</h3>
-                    <div class="boxpasswordagain"><p class="plspassword">ใส่รหัสผ่าน(6-16ตัวอักษร)</p></div>  
-                    
-
-                </div>
-                <div class="boxsmall"> </div>
-                <p class="accept">รับทราบและยอมรับ นโยบายความเป็นส่วนตัว</p>
-                <button class="accept button"> ยืนยัน </button>
-                <div class="line"> </div>
-                <div class="line1"> </div>
-                <p class="linetext">หรือ</p>
-
-                <div class="img">
-                    <img src="../img/line.png" alt="" width="55px" height="55px" style="margin-left:125px; ">
-                    <img src="../img/facebook.png" alt="" width="55px" height="55px"  style="margin-left:30px">
-                    <img src="../img/twitter.png" alt="" width="55px" height="55px" style="margin-left:30px">
-                    <img src="../img/search.png" alt="" width="55px" height="55px" style="margin-left:30px">
-                </div>
-
+            <div style="text-align: center;">
+                <button class="accept button" type="submit" >ยืนยัน</button>
             </div>
 
-        </div> -->
+            <div style="display: flex; justify-content: space-evenly; margin-top: 4%;margin-bottom: 5%;">
+                <div style="width: 30%; "><div style="border: 1px solid black;"></div></div>
+                <p>หรือ</p>
+                <div style=" width: 30%; "><div style="border: 1px solid black;"></div></div>
+            </div>
+           
+                <div class="img" style="display: flex; justify-content: space-evenly;">
+                    <img src="../img/line.png" alt="" width="50px" height="50px" >
+                    <img src="../img/facebook.png" alt="" width="50px" height="50px"  >
+                    <img src="../img/twitter.png" alt="" width="50px" height="50px" >
+                    <img src="../img/search.png" alt="" width="50px" height="50px" >
+                </div>
+            </div>
+
+        </form>
+        
     </div>
+    
   </template>
   
   <script>
   export default {
-    name:'RegisterView'
+    name:'RegisterView',
+    data(){
+        return {
+            username : "",
+            firstname: "",
+            lastname: "",
+            email: "",
+            phone: "",
+            password1: "",
+            password2: ""
+        }
+    },
+    methods:{
+        async register_Form(){
+            if(this.password1 != this.password2){
+                this.$router.go(0);
+                alert("Password is not match, Please try again.");
+            }else{
+                const data_for_register = {
+                    username : this.username,
+                    firstname : this.firstname,
+                    lastname : this.lastname,
+                    email : this.email,
+                    phone : this.phone,
+                    password1 : this.password1
+                }
+                const response = await fetch('http://127.0.0.1:3000/register_user', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data_for_register)
+                });
+
+                const response_data = await response.json();
+                console.log(response_data);
+            }
+        }
+
+
+    }
    
   }
+
+
   </script>
   
   <style scoped>
@@ -202,8 +243,8 @@
         transition-duration: 0.4s;
         cursor: pointer;
         border-radius: 20px;
-        margin-left: 215px;
-        margin-top: 20px;
+        
+
     }
     .button {
     background-color: #D8AB53; 
