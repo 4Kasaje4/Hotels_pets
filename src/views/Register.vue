@@ -1,26 +1,31 @@
 <template>
     <NavView />
     <div>
-        <div class="Bigbox">
+
+        <div>
+            
+        </div>
+
+        <!-- <div class="Bigbox">
             <div class="box">
                 <h1 class="textrejis" >สมัครสมาชิก</h1>
                 <div class="boxtext">
                     <h3 class="textmail">Username</h3>
-                    <!-- <div class="boxemail"> <p class="plsemail">Username</p></div> -->
+                    <div class="boxemail"> <p class="plsemail">Username</p></div>
                     <div style="text-align: center; margin-top: 1%;">
                         <input name="username" style="width: 367px; height: 32px; border-radius: 4px; padding-left: 10px; font-size:medium"  placeholder="Username" type="text">
                     </div>
 
                     <h3 class="textname">ชื่อ</h3> 
                      <h3 class="textsurname">นามสกุล</h3>
-                    <!-- <div class="boxname"><p class="plsname">กรอกชื่อ</p></div>  -->
+                    <div class="boxname"><p class="plsname">กรอกชื่อ</p></div> 
                     <div style="text-align: center; display: flex; justify-content: center;">
                         <div style="display: flex;  justify-content:space-between; width: 385px;">
                             <input name="fristname" style="width: 173px; height: 32px; border-radius: 4px; font-size: medium; padding-left: 10px;" placeholder="ชื่อ" type="text">
                             <input name="lastname" style="width: 173px; height: 32px; border-radius: 4px; font-size: medium; padding-left: 10px;" placeholder="นามสกุล" type="text">
                         </div>
                     </div>
-                    <!-- <div class="boxsurname" style="margin-top:-38px;"><p class="plssurname">กรอกนามสกุล</p></div>  -->
+                    <div class="boxsurname" style="margin-top:-38px;"><p class="plssurname">กรอกนามสกุล</p></div> 
 
                     <h3 class="textpasswordagain">อีเมล</h3>
                     <div class="boxpasswordagain"><p class="plspassword">กรอกอีเมล</p></div> 
@@ -52,18 +57,20 @@
 
             </div>
 
-        </div>
+        </div> -->
     </div>
   </template>
   
   <script>
   export default {
-    name:'RejisterView'
+    name:'RegisterView'
    
   }
   </script>
   
   <style scoped>
+
+
     .box{
         width: 567px;
         height: 852px;
