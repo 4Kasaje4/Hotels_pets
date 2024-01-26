@@ -5,7 +5,7 @@ import about from '../views/about.vue'
 import login from '../views/login.vue'
 import mainpage from '../views/mainpage.vue'
 import Register from '../views/Register.vue'
-import packageView from '../views/package .vue'
+import packageView from '../views/package.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
