@@ -1,44 +1,37 @@
 <template>
-  <NavView />
+  <NavView /> 
     <div>
-      
-      <div class="box">
-        <div class="bigbox">
+      <div class="bigbox">
+        <div class="box">
           <h1 class="textlogin">เข้าสู่ระบบ</h1>
 
           <h3 class="textemail">อีเมล</h3>
-          <div class="boxemail"><p class="plsemail">กรอกอีเมล . . .</p></div>  
+          <div class="boxemail">
+            <p class="textplsemail">กรุณากรอกอีเมล . . . </p>
+          </div>
 
           <h3 class="textpassword">รหัสผ่าน</h3>
           <div class="boxpassword">
-            <p class="plspassword">กรอกรหัสผ่าน . . .
-              <img class="imgeye" src="../img/eye-open.png" alt="" width="20px;">
+            <p class="textplspassword">กรุณากรอกรหัสผ่าน . . .  
+              <img class="imgpassword" src="../img/image 5.png" alt="">
             </p>
-            <p class="forget">ลืมรหัสผ่าน</p>
+          </div>
 
-            <div class="boxbutton">
-              <button class="accept button"> เข้าสู่ระบบ </button>
-              <button class="accept button1"> เข้าสู่ระบบ </button>
-            </div>
+          <p class="textforget">ลืมรหัสผ่าน</p>
 
-            <div class="line"> </div>
-                <div class="line1"> </div>
-                <p class="linetext">หรือ</p>
-                <div class="img">
-                    <img src="../img/line.png" alt="" width="55px;" style="margin-top:10px; margin-left:50px;">
-                    <img src="../img/facebook.png" alt="" width="55px" style="margin-left:20px;"> 
-                    <img src="../img/twitter.png" alt="" width="55px" style="margin-left:20px;">
-                    <img src="../img/search.png" alt="" width="55px" style="margin-left:20px;" >
-                </div>
-    
-          </div>  
+          <button class="button2"> <p class="textbut">สมัครสมาชิก</p> </button>
+          <button class="button3"><p class="textbut1">เข้าสู่ระบบ</p></button>
 
-    
+          <div class="line"> </div> <p class="textline">หรือ</p> <div class="line1"></div>
+
+          <img src="../img/line.png" alt="" width="65px" style="margin-left:100px; margin-top:30px;">
+          <img src="../img/facebook.png" alt="" width="65px"  style="margin-left:30px;">
+          <img src="../img/twitter.png" alt="" width="65px" style="margin-left:30px;">
+          <img src="../img/search.png" alt="" width="65px" style="margin-left:30px;">
 
         </div>
 
       </div>
-
     </div>
   </template>
   
@@ -50,154 +43,157 @@
   </script>
   
   <style scoped>
-
-    .box{
+    .textline{
+      margin-top: -15px;
+      margin-left: 265px;
+      position: absolute;
+      color: #00000060;
+    }
+    .line{
+      width: 180px;
+      height: 2px;
+      background-color: #00000060;
+      margin-top: 30px;
+      margin-left: 50px;
+    }
+    .line1{
+      width: 180px;
+      height: 1.8px;
+      background-color: #00000060;
+      margin-top: -2px;
+      margin-left: 320px;
+    }
+    .bigbox{
       display: flex;
       justify-content: center;
     }
-    .bigbox{
+    .box{
       width: 567px;
       height: 608px;
       border-radius: 5px;
       background: linear-gradient(0deg, #FFF9E8 0%, #FFF9E8 100%), #FFF;
-      margin-top: 50px;
+      margin-top: 90px;
     }
     .textlogin{
       text-align: center;
-      margin-top: 40px;
-    }
-    .textemail{
-        padding-top: 55px;
-        padding-left: 95px;
-    }
-    .boxemail{
-        width: 367px;
-        height: 32px;
-        border-radius: 4px;
-        background-color: #FFF;
-        border: 2px solid #000000;
-        margin: 2px;
-        margin-left: 90px;
-    }
-     .plsemail{
-        font-size: 16px;
-        margin-top: 4px;
-        margin-left: 10px;
-        color: #00000047; 
-    }
-
-    .textpassword{
-        padding-top: 25px;
-        padding-left: 95px;
-    }
-    .boxpassword{
-        width: 367px;
-        height: 32px;
-        border-radius: 4px;
-        background-color: #FFF;
-        border: 2px solid #000000;
-        margin: 2px;
-        margin-left: 90px;
-    }
-     .plspassword{
-        font-size: 16px;
-        margin-top: 4px;
-        margin-left: 10px;
-        color: #00000047; 
-    }
-    .imgeye{
-      padding-top: -25px;
-      margin-left: 200px;
-      position: absolute;
-
-    }
-    .forget{
-      font-size: 16px;
-      margin-top: 15px;
-      margin-left: 280px;
-      color: #000000;
-    }
-    .boxbutton{
-      display: flex;
       margin-top: 30px;
     }
-    .button{
+    .textemail{
+      margin-top: 60px;
+      margin-left: 100px;
+    }
+    .textplsemail{
+      margin-left: 15px;
+      margin-top: 5px;
+      color: #727171;
+    }
+      
+    .boxemail{
+      background-color: #ffffff;
+      width: 367px;
+      height: 34px;
+      border: 2px solid #000000;
+      padding: 1px;
+      margin: 20px;
+      border-radius: 4px;
+      margin-top: 10px;
+      margin-left: 95px;
+    }
+   
+    .textpassword{
+      margin-top: 10px;
+      margin-left: 100px;
+    }
+    .boxpassword{
+      background-color: #ffffff;
+      width: 367px;
+      height: 34px;
+      border: 2px solid #000000;
+      padding: 1px;
+      margin: 20px;
+      border-radius: 4px;
+      margin-top: 10px;
+      margin-left: 95px;
+    }
+    .textplspassword{
+      margin-left: 15px;
+      margin-top: 5px;
+      color: #727171;
+    }
+    .imgpassword{
+      margin-left: 160px;
+      margin-top: 5px;
+      position: absolute;
+    }
+    .textforget{
+      margin-left: 380px;
+      margin-top: -10px;
+      color: #727171;
+    }
+    .textbut{
+      text-align: center;
+      margin-top: -9px;
+      font-size: 19px;
+    }
+    .button2{
       width: 169px;
       height: 43px;
-      background-color: #D8AB53;
+      background-color: #04AA6D;
       border: none;
       color: white;
-      padding: 6px 32px;
+      padding: 16px 32px;
       text-align: center;
       text-decoration: none;
       display: inline-block;
-      font-size: 20px;
+      font-size: 16px;
       margin: 4px 2px;
       transition-duration: 0.4s;
       cursor: pointer;
-      border-radius: 20px;
-      margin-left: 190px;
-      margin-top: 20px;
+      border-radius: 10px;
+      margin-left: 100px;
     }
-    .button {
-    background-color: #D8AB53; 
-    color: #ffffff; 
-     border: 2px solid #D8AB53;
-    }
-    .button:hover {
-    background-color: #996805;
-    border: 2px solid #996805;
-    color: white;
+    .button2 {
+      background-color: #464141; 
+      color: rgb(255, 255, 255); 
+      border: 2px solid #464141;
     }
 
-    .button1{
+    .button2:hover {
+      background-color: #1e1a1a;
+      color: #ffffff;
+    }
+    .textbut1{
+      text-align: center;
+      margin-top: -9px;
+      font-size: 19px;
+    }
+
+    .button3{
       width: 169px;
       height: 43px;
-      background-color: #D8AB53;
+      background-color: #ffffff;
       border: none;
       color: white;
-      padding: 6px 32px;
+      padding: 16px 32px;
       text-align: center;
       text-decoration: none;
       display: inline-block;
-      font-size: 20px;
+      font-size: 16px;
       margin: 4px 2px;
       transition-duration: 0.4s;
       cursor: pointer;
-      border-radius: 20px;
-      margin-left:  -355px;
-      margin-top: 21px;
+      border-radius: 10px;
+      margin-left: 20px;
     }
-    .button1{
-    background-color: #464141; 
-    color: #ffffff; 
-    border: 2px solid #464141;
-    }
-    .button1:hover {
-    background-color: #996805;
-    border: 2px solid #996805;
-    color: white;
+    .button3 {
+      background-color: #D8AB53; 
+      color: #ffffff; 
+      border: 2px solid #D8AB53;
     }
 
-    .line{
-        width: 170px;
-        height: 1px;
-        background: #00000047;
-        margin-top: 30px;
-        margin-left: -30px;
+    .button3:hover {
+      background-color: #8c6311;
+      color: #ffffff;
     }
-    .line1{
-        width: 170px;
-        height: 1px;
-        background: #00000047;
-        margin-left: 220px;
-        
-    }
-    .linetext{
-        margin-top: -21px;
-        margin-left: 165px;
-        color: #00000047;
-        font-size: 20px;
-    }
-
+      
   </style>

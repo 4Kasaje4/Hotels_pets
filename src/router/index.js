@@ -21,7 +21,7 @@ const router = createRouter({
     },
     {
       path:'/Rejister',
-      name:'Rejistert',
+      name:'Rejister',
       component:Rejister
     },
     {
@@ -39,8 +39,7 @@ const router = createRouter({
       name:'mainpage',
       component:mainpage
     }
-   
-   
+
   
  
   ]
