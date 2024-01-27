@@ -13,5 +13,5 @@ app.use(router)
 app.component('NavView',NavView)
 app.component('FooterView',FooterView)
 
-
+ 
 app.mount('#app')

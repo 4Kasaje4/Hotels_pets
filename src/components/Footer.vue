@@ -15,6 +15,12 @@
             <h2 class="text2" >099-999-9999</h2>
             <h2 class="text3" >CATDOGHOTEL999@GMAIL.COM</h2>   
         </div>
+        <div class="img">
+            <img class="imgface" src="../img/เฟซ.png" alt="" width="80px" height="61px">
+            <img class="imgline" src="../img/ไลน์.png" alt=""  width="100px" height="80px">
+            <img class="imgig" src="../img/ไอจี.png" alt=""  width="80px" height="61px"> 
+            <img class="imgyoutobe" src="../img/ยูทูป.png" alt=""  width="130px" height="80px">
+        </div>
 
        </div> -->
     </div>
@@ -28,6 +34,25 @@
   </script>
   
   <style scoped>
+  .img{
+    display: flex;
+    justify-content: center;
+  }
+  .imgyoutobe{
+    margin-top: 39px;
+    margin-left: -20px;
+  }
+  .imgig{
+    margin-top: 45px;
+    margin-left: -8px;
+  }
+    .imgface{
+        margin-top: 50px;
+    }
+    .imgline{
+        margin-top: 38px;
+        margin-left: -8px;
+    }
     .bigbox{
         width: auto;
         height: 390px;
