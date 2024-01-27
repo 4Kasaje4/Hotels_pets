@@ -3,7 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import about from '../views/about.vue'
 import RegisterView from '@/views/Register.vue'
 import login from '../views/login.vue'
-import mainpage from '../views/mainpage.vue'
+import Homepage from '../views/Homepage.vue'
 import packageView from '@/views/package.vue'
 import caretakerView from '@/views/caretaker.vue'
 
@@ -37,9 +37,9 @@ const router = createRouter({
       component:login
     },
     {
-      path:'/mainpage',
-      name:'mainpage',
-      component:mainpage
+      path:'/Homepage',
+      name:'Homepage',
+      component:Homepage
     },
     {
       path:'/caretaker',

@@ -1,6 +1,5 @@
 <template>
   <div>
-    
     <div class="nav">
      <div class="bigline">
         <div class="line"> </div>
