@@ -1,13 +1,19 @@
 <template>
-  <div class="Nav">
+  <div class="Nav" >
         <img class="logo" src="../img/logo.png" alt="" width="300px" height="100px" style="margin-top:-30px" >
-      <div class="text"> 
-        <h3 class="t">หน้าแรก</h3>
-        <h3 class="t">แพ็กเกจ/โปรโมชั่น</h3>
-        <h3 class="t"> เกี่ยวกับเรา</h3>
+      <!-- <div class="text"> 
+        <h3 style="cursor: pointer;" class="t">หน้าแรก</h3>
+        <h3 style="cursor: pointer;" class="t">แพ็กเกจ/โปรโมชั่น</h3>
+        <h3 style="cursor: pointer;" class="t"> เกี่ยวกับเรา</h3>
       </div>
       <div id="tt" class="t"> 
-        <h3>เข้าสู่ระบบ</h3>
+        <h3 style="cursor: pointer;">เข้าสู่ระบบ</h3>
+      </div> -->
+      <div style="margin-top: 0.5%;">
+        <a id="navchoice" href="../views/HomeView.vue" >หน้าแรก</a>
+        <a id="navchoice" href="#" >แพ็กเกจ/โปรโมชั่น</a>
+        <a id="navchoice" href="#" >เกี่ยวกับเรา</a>
+        <a id="navchoice" href="#" >เข้าสู่ระบบ</a>
       </div>
    </div>
 </template>
@@ -22,11 +28,29 @@ export default {
 *{
   margin: 0px;
 }
+
+/* Kasaje */
+
+#navchoice{
+  padding-left: 1vw;
+  text-decoration: none; 
+  font-size: large; 
+  font-weight:600;
+  color: black;
+}
+
+#navchoice:hover {
+  color: #C07E00;
+}
+
+/* Kasaje */
+
+
 .t:hover{
   color: #C07E00;
 }
  .Nav{
-  width: 1495px;
+  width: auto;
   height: 40px;
   background: linear-gradient(180deg, #fdde91 0%, #f9f2d4 100%);
   display: flex;

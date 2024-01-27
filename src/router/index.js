@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import about from '../views/about.vue'
-import Rejister from '../views/Rejister.vue'
-import packageView from '../views/package.vue'
+import RegisterView from '@/views/Register.vue'
 import login from '../views/login.vue'
 import mainpage from '../views/mainpage.vue'
-import caretaker from '../views/caretaker.vue'
+import packageView from '@/views/package.vue'
+import caretakerView from '@/views/caretaker.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,9 +21,10 @@ const router = createRouter({
       component:about
     },
     {
-      path:'/Rejister',
-      name:'Rejister',
-      component:Rejister
+
+      path:'/Register',
+      name:'Register',
+      component:RegisterView
     },
     {
       path:'/package',
@@ -43,7 +44,7 @@ const router = createRouter({
     {
       path:'/caretaker',
       name:'caretaker',
-      component:caretaker
+      component:caretakerView
     }
 
 

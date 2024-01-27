@@ -1,6 +1,14 @@
 <template>
-    <div>
-       <div class="bigbox">
+    <div style="background-color: #D9D9D9; height: 20%; margin-top: 05dvh; display: flex; justify-content: center;">
+
+        <div style="width: 70%; margin: 3%; font-size: larger;">
+            <p>Cats & Dogs Hotel</p>
+            <p>Address : 999/99 หน้ามหาวิทยาลัยพะเยา ตำบลแม่กา อำเภอเมือง จังหวัดพะเยา 56000</p>
+            <p>Tel : 099-999-9999</p>
+            <p>E-mail : cats&dogshotel999@gmail.com</p>
+        </div>
+
+       <!-- <div class="bigbox">
         <div class="textfooter">
             <h2>โรงแรมรับฝาก CAT & DOG HOTEL</h2>
             <h2 class="text1">999/9 หน้ามหาวิทยาลัยพะเยา ตำบลแม่กา อำเภอเมือง จังหวัดพะเยา 56000</h2>
@@ -14,7 +22,7 @@
             <img class="imgyoutobe" src="../img/ยูทูป.png" alt=""  width="130px" height="80px">
         </div>
 
-       </div>
+       </div> -->
     </div>
   </template>
     
@@ -46,7 +54,7 @@
         margin-left: -8px;
     }
     .bigbox{
-        width: 1536px;
+        width: auto;
         height: 390px;
         background: #D9D9D9;
         margin-top: 100px;
