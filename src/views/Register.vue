@@ -4,36 +4,42 @@
 
         <form @submit.prevent="register_Form">
             <div style="width: 30vw; background-color: rgba(255, 249, 232, 1); border-radius: 10px; padding-bottom: 2%;">
-            <p style="text-align: center; font-size: xx-large; margin-top: 3%;">สมัครสมาชิก</p>
-            <div style="width: 80%; margin: auto; margin-top: 2%; padding-bottom: 3%;">
+            <p style="text-align: center; font-size: xx-large; margin-top: 4%;">สมัครสมาชิก</p>
+            <div style="width: 80%; margin: auto; margin-top: 1%; padding-bottom: 3%;">
                 <p style="font-size: larger;">Username</p>
-                <input v-model="username"   type="text" placeholder="Username" style="width: 90%; height: 4vh; margin-top: 2%; padding-left: 10px; border-radius: 4px;" required>
+                <input v-model="username"   type="text" placeholder="Username" style="width: 90%; height: 4vh; margin-top: 1%; padding-left: 10px; border-radius: 4px;" required>
             </div>
             <div style="width: 80%; display: flex; margin: auto; justify-content:start;  padding-bottom: 3%;"> 
                 <div style="text-align: left;">
                     <p style="font-size: larger;">ชื่อ</p>
-                    <input v-model="firstname"  type="text" placeholder="กรอกชื่อ" style="width: 80%; height: 4vh; margin-top: 2%; padding-left: 10px;  border-radius: 4px;" required>
+                    <input v-model="firstname"  type="text" placeholder="กรอกชื่อ" style="width: 80%; height: 4vh; margin-top: 1%; padding-left: 10px;  border-radius: 4px;" required>
                 </div>
                 <div style="margin-left: auto;">
                     <p style="font-size: larger;">นามสกุล</p>
-                    <input v-model="lastname" type="text" placeholder="กรอกนามสกุล" style="width: 80%; height: 4vh; margin-top: 2%; padding-left: 10px;  border-radius: 4px;" required>
+                    <input v-model="lastname" type="text" placeholder="กรอกนามสกุล" style="width: 80%; height: 4vh; margin-top: 1%; padding-left: 10px;  border-radius: 4px;" required>
                 </div>
             </div>
             <div style="width: 80%; margin: auto; padding-bottom: 3%;">
                 <p style="font-size: larger;">Email</p>
-                <input  v-model="email" type="text" placeholder="กรอกอีเมล์" style="width: 90%; height: 4vh; margin-top: 2%; padding-left: 10px; border-radius: 4px;" required>
+                <input  v-model="email" type="text" placeholder="กรอกอีเมล์" style="width: 90%; height: 4vh; margin-top: 1%; padding-left: 10px; border-radius: 4px;" required>
             </div>
             <div style="width: 80%; margin: auto; padding-bottom: 3%;">
                 <p style="font-size: larger;">เบอร์โทรศัพท์</p>
-                <input v-model="phone" type="text" placeholder="กรอกเบอร์โทรศัพท์" style="width: 90%; height: 4vh; margin-top: 2%; padding-left: 10px; border-radius: 4px;" required>
+                <input v-model="phone" type="text" placeholder="กรอกเบอร์โทรศัพท์" style="width: 90%; height: 4vh; margin-top: 1%; padding-left: 10px; border-radius: 4px;" required>
             </div>
             <div style="width: 80%; margin: auto; padding-bottom: 3%;">
                 <p style="font-size: larger;">รหัสผ่าน</p>
-                <input v-model="password1"  type="password" placeholder="ใส่รหัสผ่าน(6-16ตัวอักษร)" style="width: 90%; height: 4vh; margin-top: 2%; padding-left: 10px;  border-radius: 4px;" required>
+                <input v-model="password1"  type="password" placeholder="ใส่รหัสผ่าน(6-16ตัวอักษร)" style="width: 90%; height: 4vh; margin-top: 1%; padding-left: 10px;  border-radius: 4px;" required>
             </div>
             <div style="width: 80%; margin: auto; padding-bottom: 3%;">
                 <p style="font-size: larger;">รหัสผ่านอีกครั้ง</p>
-                <input v-model="password2" type="password" placeholder="ใส่รหัสผ่าน(6-16ตัวอักษร)" style="width: 90%; height: 4vh; margin-top: 2%; padding-left: 10px;  border-radius: 4px;" required>
+                <input v-model="password2" type="password" placeholder="ใส่รหัสผ่าน(6-16ตัวอักษร)" style="width: 90%; height: 4vh; margin-top: 1%; padding-left: 10px;  border-radius: 4px;" required>
+            </div>
+            <div style="display: flex; justify-content: center; margin-bottom: 2%; margin-top: 2%;">
+                <div style="width: 60%; display: flex; justify-content: space-around;">
+                    <input style="height: 2vh; width: 2vw; margin-top: 1%;" type="checkbox" required>
+                    <p style="font-size: small;">รับทราบและยอมรับ นโยบายความเป็นส่วนตัว</p>
+                </div>
             </div>
             
             <div style="text-align: center;">
@@ -97,7 +103,8 @@
                 });
 
                 const response_data = await response.json();
-                console.log(response_data);
+                alert('Register Successfully.');
+                this.$router.push('/login');
             }
         }
 
