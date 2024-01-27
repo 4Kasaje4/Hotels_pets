@@ -34,11 +34,9 @@
           <h3 class="textgender3">เพศ : ชาย</h3>
           <button class="button4"> <p class="textbut3">ดู</p> </button>
         </div>
-
       </div>
- 
-   
-
+      {{ show_pet_sitter() }}
+      {{ array_pet_sitter }}
     </div>
   </template>
   
@@ -46,8 +44,19 @@
 import newnav from '@/components/newnav.vue'
   export default {
   components: { newnav },
-    name:'caretakerView'
-   
+    name:'caretakerView',
+    data(){
+      return {
+        array_pet_sitter: []
+      }
+    },
+    methods: {
+    async show_pet_sitter(){
+      const response = await fetch('http://localhost:3000/all_pet_sitter');
+      const response_data = await response.json();
+      this.array_pet_sitter = response_data
+    }
+  }
   }
   </script>
   
