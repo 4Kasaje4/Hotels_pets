@@ -15,5 +15,5 @@ app.component('NavView',NavView)
 app.component('FooterView',FooterView)
 app.component('newnavView',newnavView)
 
-
+ 
 app.mount('#app')

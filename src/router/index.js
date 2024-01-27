@@ -16,12 +16,12 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path:'/about',
+      path:'/about', 
       name:'about',
       component:about
     },
     {
-
+ 
       path:'/Register',
       name:'Register',
       component:RegisterView
