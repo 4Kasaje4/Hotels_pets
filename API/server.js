@@ -19,7 +19,6 @@ app.use(session({
  
 // variable
 const port = 3000;
-const timeExpire = 3600000 // 1 hour;
 
 // Connect to database
 const dbconfig = mysql.createConnection({
@@ -32,7 +31,7 @@ dbconfig.connect();
 
 
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173'); // แทนที่ด้วย URL ของ Vue.js ของคุณ
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173'); // แทนที่ด้วย URL ของ Vue.js 
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
     res.setHeader('Access-Control-Allow-Credentials', true);
@@ -143,12 +142,13 @@ app.post('/register_user',(req,res) => {
 });
 
 // Login User
-app.get('/login_user',async(req,res) => {
+app.post('/login_user',async(req,res) => {
     let username = req.body.username;
     let password = req.body.password;
+    const timeExpire = 360 //3600000 // 1 hour;
     dbconfig.query('SELECT * FROM user WHERE username = ?',[username], async ( err, result) => {
         if(result.length === 0){
-            res.json({message: "No account"})
+            res.json({user:0,message: "No account"});
         }
         else{
             let password_in_db = result[0].password;
@@ -159,10 +159,10 @@ app.get('/login_user',async(req,res) => {
                 req.session.login = true;
                 req.session.role = "User";
                 req.session.cookie.maxAge = timeExpire;
-                res.json({message: "Login success"});
+                res.json({user:1,message: "login success"});
             }
             else{
-                res.json({message: "Password is not match"});
+                res.json({message: "password_is_not_match"});
             }    
         }     
     });

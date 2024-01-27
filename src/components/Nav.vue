@@ -10,10 +10,10 @@
         <h3 style="cursor: pointer;">เข้าสู่ระบบ</h3>
       </div> -->
       <div style="margin-top: 0.5%;">
-        <a id="navchoice" href="../views/HomeView.vue" >หน้าแรก</a>
+        <a id="navchoice" href="HomeView" >หน้าแรก</a>
         <a id="navchoice" href="#" >แพ็กเกจ/โปรโมชั่น</a>
         <a id="navchoice" href="#" >เกี่ยวกับเรา</a>
-        <a id="navchoice" href="#" >เข้าสู่ระบบ</a>
+        <a id="navchoice" href="login" >เข้าสู่ระบบ</a>
       </div>
    </div>
 </template>
