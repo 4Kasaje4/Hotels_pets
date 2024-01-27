@@ -138,7 +138,7 @@
     .button2{
       width: 169px;
       height: 43px;
-      background-color: #04AA6D;
+      background-color: #000000;
       border: none;
       color: white;
       padding: 16px 32px;

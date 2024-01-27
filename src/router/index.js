@@ -5,6 +5,7 @@ import Rejister from '../views/Rejister.vue'
 import packageView from '../views/package.vue'
 import login from '../views/login.vue'
 import mainpage from '../views/mainpage.vue'
+import caretaker from '../views/caretaker.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,7 +39,13 @@ const router = createRouter({
       path:'/mainpage',
       name:'mainpage',
       component:mainpage
+    },
+    {
+      path:'/caretaker',
+      name:'caretaker',
+      component:caretaker
     }
+
 
   
  
