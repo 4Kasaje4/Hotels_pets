@@ -2,54 +2,65 @@
     <NavView />
     <div style="display: flex; justify-content: center; margin-top: 0%;">
 
-        <form @submit.prevent="register_Form">
-            <div style="width: 30vw; background-color: rgba(255, 249, 232, 1); border-radius: 10px; padding-bottom: 2%;">
+            <div style="width: 30vw; background-color: rgba(255, 249, 232, 1); border-radius: 10px; margin-top: 1%; padding-bottom: 2%;">
             <p style="text-align: center; font-size: xx-large; margin-top: 4%;">สมัครสมาชิก</p>
             <div style="width: 80%; margin: auto; margin-top: 1%; padding-bottom: 3%;">
-                <p style="font-size: larger;">Username</p>
-                <input v-model="username"   type="text" placeholder="Username" style="width: 90%; height: 4vh; margin-top: 1%; padding-left: 10px; border-radius: 4px;" required>
+                <p style="font-size: larger;">ชื่อผู้ใช้</p>
+                <input v-model="username"   type="text" placeholder="กรอกชื่อผู้ใช้" style="width: 90%; height: 4vh; margin-top: 1%; padding-left: 10px; border-radius: 4px;" required>
+                <div ref="alert_username"></div>
             </div>
             <div style="width: 80%; display: flex; margin: auto; justify-content:start;  padding-bottom: 3%;"> 
                 <div style="text-align: left;">
                     <p style="font-size: larger;">ชื่อ</p>
                     <input v-model="firstname"  type="text" placeholder="กรอกชื่อ" style="width: 80%; height: 4vh; margin-top: 1%; padding-left: 10px;  border-radius: 4px;" required>
+                    <div ref="alert_firstname"></div>
                 </div>
                 <div style="margin-left: auto;">
                     <p style="font-size: larger;">นามสกุล</p>
                     <input v-model="lastname" type="text" placeholder="กรอกนามสกุล" style="width: 80%; height: 4vh; margin-top: 1%; padding-left: 10px;  border-radius: 4px;" required>
+                    <div ref="alert_lastname"></div>
                 </div>
             </div>
             <div style="width: 80%; margin: auto; padding-bottom: 3%;">
-                <p style="font-size: larger;">Email</p>
-                <input  v-model="email" type="text" placeholder="กรอกอีเมล์" style="width: 90%; height: 4vh; margin-top: 1%; padding-left: 10px; border-radius: 4px;" required>
+                <p style="font-size: larger;">อีเมล</p>
+                <input  v-model="email" type="text" placeholder="กรอกอีเมล" style="width: 90%; height: 4vh; margin-top: 1%; padding-left: 10px; border-radius: 4px;" required>
+                <div ref="alert_email"></div>
             </div>
             <div style="width: 80%; margin: auto; padding-bottom: 3%;">
                 <p style="font-size: larger;">เบอร์โทรศัพท์</p>
                 <input v-model="phone" type="text" placeholder="กรอกเบอร์โทรศัพท์" style="width: 90%; height: 4vh; margin-top: 1%; padding-left: 10px; border-radius: 4px;" required>
+                <div ref="alert_phone"></div>
             </div>
             <div style="width: 80%; margin: auto; padding-bottom: 3%;">
                 <p style="font-size: larger;">รหัสผ่าน</p>
                 <input v-model="password1"  type="password" placeholder="ใส่รหัสผ่าน(6-16ตัวอักษร)" style="width: 90%; height: 4vh; margin-top: 1%; padding-left: 10px;  border-radius: 4px;" required>
+                <div ref="alert_password1"></div>
             </div>
             <div style="width: 80%; margin: auto; padding-bottom: 3%;">
                 <p style="font-size: larger;">รหัสผ่านอีกครั้ง</p>
-                <input v-model="password2" type="password" placeholder="ใส่รหัสผ่าน(6-16ตัวอักษร)" style="width: 90%; height: 4vh; margin-top: 1%; padding-left: 10px;  border-radius: 4px;" required>
+                <input  v-model="password2" type="password" placeholder="ใส่รหัสผ่าน(6-16ตัวอักษร)" style="width: 90%; height: 4vh; margin-top: 1%; padding-left: 10px;  border-radius: 4px;" required>
+                <div ref="alert_password2"></div>
             </div>
             <div style="display: flex; justify-content: center; margin-bottom: 2%; margin-top: 2%;">
                 <div style="width: 60%; display: flex; justify-content: space-around;">
-                    <input style="height: 2vh; width: 2vw; margin-top: 1%;" type="checkbox" required>
+                    <input v-model="checkbox" style="height: 2vh; width: 2vw; margin-top: 1%;" type="checkbox" required>
                     <p style="font-size: small;">รับทราบและยอมรับ นโยบายความเป็นส่วนตัว</p>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: center;">
+                <div style="width: 45%; margin-top: -2%; margin-bottom: 2%;">
+                    <div style="font-size: small;" ref="alert_checkbox"></div>
                 </div>
             </div>
             
             <div style="text-align: center;">
-                <button class="accept button" type="submit" >ยืนยัน</button>
+                <button class="accept button" type="submit" @click="register_Form" >ยืนยัน</button>
             </div>
 
             <div style="display: flex; justify-content: space-evenly; margin-top: 4%;margin-bottom: 5%;">
-                <div style="width: 30%; "><div style="border: 1px solid black;"></div></div>
+                <div style="width: 30%; margin-top: 2%;"><div style="border: 1px solid #00000047;"></div></div>
                 <p>หรือ</p>
-                <div style=" width: 30%; "><div style="border: 1px solid black;"></div></div>
+                <div style=" width: 30%; margin-top: 2%; "><div style="border: 1px solid #00000047;"></div></div>
             </div>
            
                 <div class="img" style="display: flex; justify-content: space-evenly;">
@@ -60,7 +71,6 @@
                 </div>
             </div>
 
-        </form>
         
     </div>
     
@@ -77,34 +87,86 @@
             email: "",
             phone: "",
             password1: "",
-            password2: ""
+            password2: "",
+            checkbox: ""
         }
     },
     methods:{
         async register_Form(){
-            if(this.password1 != this.password2){
-                this.$router.go(0);
-                alert("Password is not match, Please try again.");
-            }else{
-                const data_for_register = {
-                    username : this.username,
-                    firstname : this.firstname,
-                    lastname : this.lastname,
-                    email : this.email,
-                    phone : this.phone,
-                    password1 : this.password1
-                }
-                const response = await fetch('http://127.0.0.1:3000/register_user', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data_for_register)
-                });
+            if(this.username == ""){
+                this.$refs.alert_username.innerHTML = '<p style="color:red;">กรุณากรอกชื่อผู้ใช้</p>'
+            }
+            if(this.username != ""){
+                this.$refs.alert_username.innerHTML = ''
+            }
+            if(this.firstname == ""){
+                this.$refs.alert_firstname.innerHTML = '<p style="color:red;">กรุณากรอกชื่อ</p>'
+            }
+            if(this.firstname != ""){
+                this.$refs.alert_firstname.innerHTML = ''
+            }
+            if(this.lastname == ""){
+                this.$refs.alert_lastname.innerHTML = '<p style="color:red;">กรุณากรอกนามสกุล</p>'
+            }
+            if(this.lastname != ""){
+                this.$refs.alert_lastname.innerHTML = ''
+            }
+            if(this.email == ""){
+                this.$refs.alert_email.innerHTML = '<p style="color:red;">กรุณากรอกอีเมล</p>'
+            }
+            if(this.email != ""){
+                this.$refs.alert_email.innerHTML = ''
+            }
+            if(this.phone == ""){
+                this.$refs.alert_phone.innerHTML = '<p style="color:red;">กรุณากรอกเบอร์โทรศัพท์</p>'
+            }
+            if(this.phone != ""){
+                this.$refs.alert_phone.innerHTML = ''
+            }
+            if(this.password1 == ""){
+                this.$refs.alert_password1.innerHTML = '<p style="color:red;">กรุณากรอกรหัสผ่าน</p>'
+            }
+            if(this.password1 != ""){
+                this.$refs.alert_password1.innerHTML = ''
+            }
+            if(this.password2 == ""){
+                this.$refs.alert_password2.innerHTML = '<p style="color:red;">กรุณากรอกรหัสผ่าน</p>'
+            }
+            if(this.password2 != ""){
+                this.$refs.alert_password2.innerHTML = ''
+            }
+            if(this.checkbox == ""){
+                this.$refs.alert_checkbox.innerHTML = '<p style="color:red;">จำเป็นจะต้องยินยอม</p>'
+            }
+            if(this.checkbox != ""){
+                this.$refs.alert_checkbox.innerHTML = ''
+            }
+            
+            if(this.username != "" && this.firstname != "" && this.lastname != "" && this.email != "" && this.phone !== "" && this.password1 !== "" && this.password2 != "" && this.checkbox !== "") {
+                if(this.password1 != this.password2){
+                    this.$router.go(0);
+                    alert("Password is not match, Please try again.");
+                }else{
+                    const data_for_register = {
+                        username : this.username,
+                        firstname : this.firstname,
+                        lastname : this.lastname,
+                        email : this.email,
+                        phone : this.phone,
+                        password1 : this.password1
+                    }
+                    const response = await fetch('http://127.0.0.1:3000/register_user', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data_for_register)
+                    });
 
-                const response_data = await response.json();
-                alert('Register Successfully.');
-                this.$router.push('/login');
+                    const response_data = await response.json();
+                    alert('Register Successfully.');
+                    this.$router.push('/login');
+                }
             }
         }
 
