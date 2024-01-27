@@ -62,7 +62,7 @@ components: { newnav },
       border-radius: 10px;
       margin-left: 680px;
       margin-top: 50px;
-    }
+    } 
     .button1 {
       background-color: #C07E00; 
       color: rgb(255, 255, 255); 
