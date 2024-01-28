@@ -1,7 +1,7 @@
 <template>
   <NavView /> 
     <div>
-      <div class="bigbox">
+      <!-- <div class="bigbox">
         <div class="box">
           <h1 class="textlogin">เข้าสู่ระบบ</h1>
 
@@ -31,18 +31,105 @@
 
         </div>
 
-      </div>
+      </div> -->
+        <div style="display: flex; justify-content: center;">
+          <div style="border-radius: 10px; width: 35%;  margin-top: 3%; background-color:rgba(255, 249, 232, 1); padding-top: 3%; padding-bottom: 1%;">
+        <p style="text-align: center;   font-size: xx-large;">เข้าสู่ระบบ</p>
+        <div style="width: 80%; margin: auto; padding-left: 5%;  margin-top: 5%; padding-bottom: 3%;">
+            <p style="font-size: larger;">ชื่อผู้ใช้</p>
+            <input v-model="username"   type="text" placeholder="กรอกชื่อผู้ใช้..." style="width: 90%; height: 4vh; margin-top: 1%; padding-left: 10px; border-radius: 4px;" >
+            <div ref="alert_username"></div>
+        </div>
+        <div style="width: 80%; margin: auto; padding-left: 5%;  margin-top: 1%; padding-bottom: 3%;">
+            <p style="font-size: larger;">รหัสผ่าน</p>
+            <input v-model="password"   type="password" placeholder="กรอกรหัสผ่าน..." style="width: 90%; height: 4vh; margin-top: 1%; padding-left: 10px; border-radius: 4px;" >
+            <div ref="alert_password"></div>
+        </div>
+        <div style="display:  flex; flex-wrap: nowrap; justify-content: right; margin-top: 2%; margin-bottom: 3%; width: 87%;">
+          <p id="forgetpassword">ลืมรหัสผ่าน</p>
+        </div>
+        <div style="margin-top: 2%;">
+          <a href="register" class="button2"> <p class="textbut">สมัครสมาชิก</p></a>
+          <button @click="login()" class="button3"><p class="textbut1">เข้าสู่ระบบ</p></button>
+        </div>
+        <div style="display: flex; justify-content: space-evenly; margin-top: 10%;margin-bottom: 5%;">
+                <div style="width: 30%; margin-top: 2%;"><div style=" border: 1px solid #00000047;"></div></div>
+                <p>หรือ</p>
+                <div style=" width: 30%; margin-top: 2%; "><div style="border: 1px solid #00000047;"></div></div>
+            </div>
+           
+                <div class="img" style="display: flex; margin-bottom: 5%; justify-content: space-evenly;">
+                    <img src="../img/line.png" alt="" width="50px" height="50px" >
+                    <img src="../img/facebook.png" alt="" width="50px" height="50px"  >
+                    <img src="../img/twitter.png" alt="" width="50px" height="50px" >
+                    <img src="../img/search.png" alt="" width="50px" height="50px" >
+                </div>
+      </div>  
+        </div>
     </div>
   </template>
   
   <script>
+
   export default {
-    name:'loginView'
-   
+    name:'loginView',
+    data(){
+      return {
+        username: "",
+        password: ""
+      }
+    },
+    methods: {
+      async login(){
+        const login_data = {
+          username: this.username,
+          password: this.password
+        }
+        const response = await fetch('http://127.0.0.1:3000/login_user',{
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(login_data)
+        });
+        const response_data = await response.json();
+        if(this.username == ""){
+          this.$refs.alert_username.innerHTML = '<p style="color:red;">กรุณากรอกชื่อผู้ใช้</p>'
+        }
+        if (this.password == ""){
+          this.$refs.alert_password.innerHTML = '<p style="color:red;">กรุณากรอกรหัสผ่าน</p>'
+        }
+        if (this.username != ""){
+          this.$refs.alert_username.innerHTML = ''
+        }
+        if (this.password != ""){
+          this.$refs.alert_password.innerHTML = ''
+        }
+        if(this.username != "" && this.password != ""){
+          if(response_data['user'] == 0){
+          alert('No account, Please try again.');
+          this.$router.go(0);
+        }
+        else if (response_data['message'] == "password_is_not_match"){
+          alert('Password is not correct, Please try again.');
+          this.$router.go(0);
+        }
+        else if (response_data['user'] == 1){
+          this.$router.push('/mainpage');
+        }
+        }
+      }
+    },
   }
   </script>
   
   <style scoped>
+
+    #forgetpassword:hover{
+      cursor: pointer; 
+      transition-duration: 0.2s;
+      color: #D8AB53;
+    }
     .textline{
       margin-top: -15px;
       margin-left: 265px;
@@ -72,7 +159,7 @@
       height: 608px;
       border-radius: 5px;
       background: linear-gradient(0deg, #FFF9E8 0%, #FFF9E8 100%), #FFF;
-      margin-top: 90px;
+      margin-top: 50px;
     }
     .textlogin{
       text-align: center;
@@ -136,9 +223,9 @@
       font-size: 19px;
     }
     .button2{
-      width: 169px;
-      height: 43px;
-      background-color: #000000;
+      width: 110px;
+      height: 9px;
+      background-color: #04AA6D;
       border: none;
       color: white;
       padding: 16px 32px;
@@ -150,7 +237,7 @@
       transition-duration: 0.4s;
       cursor: pointer;
       border-radius: 10px;
-      margin-left: 100px;
+      margin-left: 80px;
     }
     .button2 {
       background-color: #464141; 
