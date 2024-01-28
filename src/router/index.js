@@ -8,6 +8,7 @@ import packageView from '@/views/package.vue'
 import caretakerView from '@/views/caretaker.vue'
 import ResetpasswordView from '@/views/Resetpassword.vue'
 import searchproView from '@/views/searchpro.vue'
+import profileView from '@/views/profile.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -57,6 +58,11 @@ const router = createRouter({
       path:'/searchpro',
       name:'searchpro',
       component:searchproView
+    },
+    {
+      path:'/profile',
+      name:'profile',
+      component:profileView
     }
 
 
