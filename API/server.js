@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const bodyparser = require('body-parser');
+const { toValue } = require('vue');
 
 // use
 const app = express();
@@ -19,6 +20,7 @@ app.use(session({
  
 // variable
 const port = 3000;
+const timeExpire = 360 //3600000 // 1 hour;
 
 // Connect to database
 const dbconfig = mysql.createConnection({
@@ -42,6 +44,77 @@ app.use((req, res, next) => {
 app.get('/',(req,res) => {
     res.send("Hello, This is First message in my project");
 });
+
+// Search Profile
+app.post('/searchprofile',(req,res) => {
+    const username = req.body.username;
+    const email = req.body.email;
+    dbconfig.query('SELECT * FROM user WHERE username = ? AND email = ?', [username, email], (err,result)=> {
+        if(result.length == 1){
+            req.session.user_id = result[0]['user_id'] 
+            req.session.cookie.maxAge = timeExpire
+            res.json({role: "user", result: result});
+        }
+        else {
+            dbconfig.query('SELECT * FROM pet_sitter WHERE username = ? AND email = ? ', [username, email], (err,result) => {
+                if(result.length == 1){
+                    req.session.user_id = result[0]['user_id'] 
+                    req.session.cookie.maxAge = timeExpire
+                    res.json({role: "pet_sitter", result: result});
+                }
+                else {
+                    dbconfig.query('SELECT * FROM admin WHERE username = ? AND email = ? ', [username, email], (err,result) => {
+                        if(result.length == 1){
+                            req.session.user_id = result[0]['user_id'] 
+                            req.session.cookie.maxAge = timeExpire
+                            res.json({role: "admin", result: result});
+                        }
+                        else {
+                            res.json({user:0})
+                        }
+                    });
+                }
+            });
+        }
+    });
+
+});
+
+// Profile_data
+app.post('/profile',(req,res) => {
+    const role = req.body.role;
+    const id = req.body.id;
+    let table = ""
+    if(role == "ps"){
+        table = "pet_sitter"
+    }
+    else{
+        table = role
+    }
+    dbconfig.query(`SELECT firstname, lastname FROM ${table} WHERE ${role}_id = ${id}`, (err,result) => {
+        res.json(result);
+    })
+});
+
+// Reset password
+app.post('/resetpassword',(req,res) => {
+    const role = req.body.role;
+    const id = req.body.id;
+    const new_password = req.body.new_password;
+    let table = ""
+    if(role == "ps"){
+        table = "pet_sitter"
+    }
+    else{
+        table = role
+    }
+    bcrypt.hash(new_password,10,(err,hash)=> {
+        dbconfig.query(`UPDATE ${table} SET password = ${hash} WHERE ${role}_id = ${id}`,(err,result) => {
+            res.json({status: 1});
+        })
+    })
+});
+
 
 // Forgot password Pet_sitter
 app.get('/forgotpassword_pet_sitter',(req,res) => {
@@ -145,7 +218,6 @@ app.post('/register_user',(req,res) => {
 app.post('/login_user',async(req,res) => {
     let username = req.body.username;
     let password = req.body.password;
-    const timeExpire = 360 //3600000 // 1 hour;
     dbconfig.query('SELECT * FROM user WHERE username = ?',[username], async ( err, result) => {
         if(result.length === 0){
             res.json({user:0,message: "No account"});

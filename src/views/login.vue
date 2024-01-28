@@ -46,7 +46,7 @@
             <div ref="alert_password"></div>
         </div>
         <div style="display:  flex; flex-wrap: nowrap; justify-content: right; margin-top: 2%; margin-bottom: 3%; width: 87%;">
-          <p id="forgetpassword">ลืมรหัสผ่าน</p>
+          <p @click="goto_resetpassword()" id="forgetpassword">ลืมรหัสผ่าน</p>
         </div>
         <div style="margin-top: 2%;">
           <a href="register" class="button2"> <p class="textbut">สมัครสมาชิก</p></a>
@@ -115,11 +115,16 @@
           this.$router.go(0);
         }
         else if (response_data['user'] == 1){
-          this.$router.push('/resetpassword');
+          this.$router.push('/mainpage');
         }
         }
+      },
+      async goto_resetpassword(){
+        this.$router.push('/searchpro');
       }
     },
+    
+
   }
   </script>
   

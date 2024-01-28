@@ -49,8 +49,8 @@ const router = createRouter({
       component:caretakerView
     },
     {
-      path:'/Resetpassword',
-      name:'Resetpassword',
+      path:'/Resetpassword/:role/:id',
+      name:'resetpassword',
       component:ResetpasswordView
     },
     {

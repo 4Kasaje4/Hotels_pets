@@ -1,13 +1,13 @@
 <template>
    <NavView />
-    <div style="display: flex; justify-content: center;">
+    <div style="display: flex; justify-content: center; margin-top: 2%;">
       <div style="width: 60%;">
-        <div id="backward">
+        <div @click="backward()" id="backward">
           <img src="../img/arrow-left.png" style="margin: 8% 0 0 8%;"  width="50dvw"  alt="">
         </div>
       </div>
     </div>
-    <div style="display: flex; justify-content: center;">
+    <div style="display: flex; justify-content: center; margin-bottom: 7%;">
       <div style="width: 25%; padding: 3%; background-color: rgba(255, 249, 232, 1); border-radius: 10px;">
         <div style="text-align: center; display: flex; justify-content: center;">
           <div ref="profile_pic" style="background-color: #D9D9D9; width: 110px; height: 104px; padding-top: 1%; border-radius: 50%; ">
@@ -16,7 +16,7 @@
         </div>
         <div style="margin-top: 3%;">
           <div style="text-align: center; margin-bottom: 5%;">
-            <p>Name</p>
+            <div ref="name"></div>
           </div>
           <div>
             <p style="margin-bottom: 1%;">รหัสผ่านใหม่</p>
@@ -29,10 +29,10 @@
               <button @click="resetpassword()" class="button2"> <p class="textbut">เปลี่ยนรหัสผ่าน</p> </button>
             </div>
           </div>
-          
         </div>
       </div>
     </div>
+
     <!-- <div>
         <img class="arrowleft" src="../img/arrow-left.png" alt="" width="40px;">
        <div class="bigbox"> 
@@ -88,15 +88,64 @@
             this.$router.go(0)
           }
           if(this.password1 == this.password2){
-            
+            const role = this.$route.params.role;
+            const id = this.$route.params.id;
+            const data = {
+              role : role,
+              id : id,
+              new_password : this.password1
+            }
+            const response = await fetch(`http://localhost:3000/resetpassword`,{
+              method: 'POST',
+              headers: {
+                'Content-Type' : 'application/json'
+              },
+              body: JSON.stringify(data)
+            });
+            const response_data = await response.json();
+            if(response_data['status'] == 1){
+              alert("Reset password successfully.");
+              this.$router.push('/login');
+            }else{}
           }
+        },
+
+        async backward(){
+          this.$router.go(-1)
+        },
+
+        async loaddata(){
+          const role = this.$route.params.role;
+          const id = this.$route.params.id;
+          const data = {
+            role : role,
+            id : id
+          }
+          const response = await fetch(`http://localhost:3000/profile`,{
+            method: 'POST',
+            headers: {
+              'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify(data)
+          });
+          const response_data = await response.json();
+          const firstname =  response_data[0]['firstname'];
+          const lastname =  response_data[0]['lastname']
+          this.$refs.name.innerHTML = `<p>${firstname} ${lastname}</p>`
         }
+      },
+      
+      mounted(){
+        this.loaddata();
       }
-   
+
+
+  
    
   }
+
   </script>
-  
+
   <style scoped>
 
 #backward{
