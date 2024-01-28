@@ -7,7 +7,7 @@
     <h1 class="textser">เลือกบริการของคุณกันเลย !</h1>
     <h1 class="textchoose">เลือกใช้บริการที่คุณต้องการสำหรับสัตว์เลี้ยงของคุณ</h1>
     <button class="button1"> <p class="textbut">บริการ</p> </button>
-
+    
  
 
   </div>
@@ -17,7 +17,7 @@
 import newnav from '@/components/newnav.vue'
 export default {
 components: { newnav },
-  name:'HomepageView'
+  name:'HomepageView',
  
 }
 </script>
