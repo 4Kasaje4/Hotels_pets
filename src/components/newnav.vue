@@ -102,30 +102,11 @@ export default {
       position: absolute;
     }
 </style>
-=======
-    <div>
-      <div class="nav">
-       <div class="bigline">
-          <div class="line"> </div>
-          <div class="line2"> </div>
-          <div class="line3"> </div>
-       </div>
-       <div class="smallbox"><img src="../img/image 3.png" alt=""> </div>
-       <div class="smallbox1"> <img class="img2" src="../img/image 2.png" alt=""> </div>
-       <img class="arrow" src="../img/arrow-down.png" alt="" width="25px">
-       <img class="imgcicle" src="../img/ลุงพล.jpg" alt=""  width="75" height="70">
-       <h3 class="textser">บริการ</h3>
-      </div>
+
   
-      
-    </div>
-  </template>
   
   <script>
-  export default {
-    name:'mainView'
-   
-  }
+ 
   </script>
   
   <style scoped>
