@@ -115,7 +115,7 @@
           this.$router.go(0);
         }
         else if (response_data['user'] == 1){
-          this.$router.push('/mainpage');
+          this.$router.push('/resetpassword');
         }
         }
       }
