@@ -26,6 +26,7 @@
        </div>
    
     </div>
+    <FooterView />
   </template>
   
   <script>
@@ -163,7 +164,6 @@
         color: #727171a9;
     }
   
-    
     
         
   </style>

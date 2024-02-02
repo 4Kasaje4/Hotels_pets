@@ -73,7 +73,7 @@
 
         
     </div>
-    
+    <FooterView />
   </template>
   
   <script>
@@ -175,7 +175,7 @@
    
   }
 
-
+ 
   </script>
   
   <style scoped>

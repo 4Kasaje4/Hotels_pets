@@ -38,6 +38,7 @@
       {{ show_pet_sitter() }}
       {{ array_pet_sitter }}
     </div>
+    <FooterView />
   </template>
   
   <script>
