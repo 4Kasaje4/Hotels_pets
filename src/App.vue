@@ -1,24 +1,22 @@
+@ -1,4 +1,116 @@
 <template>
   <RouterView />
-  <div>
-     
-ฃฃ
-   
-  </div>
+
 </template>
 
 <script>
-export default {
-
-}
+// export default {
+//   methods:{
+//     async start(){
+//       this.$router.push('/login')
+//     }
+//   }
+// }
 </script>
 
-<style scoped>
+<!-- <style scoped>
   @import url('https://fonts.googleapis.com/css2?family=Prompt&display=swap');
   body{
     font-family: 'Prompt', sans-serif;
   }
 
-
-
-</style>

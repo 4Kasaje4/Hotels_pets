@@ -11,7 +11,7 @@ import searchproView from '../views/searchpro.vue'
 import profileView from '@/views/profile.vue'
 import editprofileView from '../views/editprofile.vue'
 import servicepageView from '../views/servicepage.vue'
-
+import startpage from '@/views/start.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -76,7 +76,11 @@ const router = createRouter({
       path:'/servicepage',
       name:'servicepage',
       component:servicepageView
+      path:'/',
+      name:'start',
+      component: startpage
     }
+
 
 
   
