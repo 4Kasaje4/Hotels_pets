@@ -5,12 +5,25 @@ const mysql = require('mysql');
 const dotenv = require('dotenv');
 const bcrypt = require('bcrypt');
 const bodyparser = require('body-parser');
+const multer = require('multer');
+const path = require('path');
 
 // use
 const app = express();
 dotenv.config();
 app.use(bodyparser.urlencoded({extended:true}));
 app.use(bodyparser.json());
+
+// upload image
+const storage = multer.diskStorage({
+    destination: (req,file,cb) => {
+        cb(null,'profile_pic')
+    },
+    filename: (req,file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname))
+    }
+});
+const upload = multer({storage: storage});
 
 // variable
 const port = 3000;
@@ -89,13 +102,13 @@ app.post('/profile',(req,res) => {
         const id = req.body.id;
         let table = ""
         if(role == "ps"){
-            table = "pet_sitter"
+            table = "pet_sitter";
         }
         else{
             table = role
         }
         dbconfig.query(`SELECT * FROM ${table} WHERE ${role}_id = ${id}`, (err,result) => {
-            res.status(200).json(result[0]);
+            res.status(200).json(result[0]); 
         });
     }
     catch(err) {
@@ -216,7 +229,7 @@ app.get('/check_login',(req,res) => {
 // Login
  app.post('/login', async(req,res) => {
     try {
-        let username = req.body.username;
+        let username = req.body.username; 
         let password = req.body.password;
 
         dbconfig.query('SELECT * FROM user WHERE username = ?',[username], async ( err, result) => {
@@ -231,13 +244,13 @@ app.get('/check_login',(req,res) => {
                 else{
                     res.json({message: "password_is_not_match"});
                 }    
-            }
+            }  
             else{
                 dbconfig.query('SELECT * FROM pet_sitter WHERE username = ? ',[username],async (err,result) => {
                     if(result.length === 1){
                         let password_in_db = result[0].password;
-                        let status = await bcrypt.compare(password, password_in_db);
-                        if(status == true){
+                         let status = await bcrypt.compare(password, password_in_db);
+                        if(status == true){ 
                             isLogin = true;
                             setTimeout(()=> {isLogin = false},timeExpire);
                             res.status(200).json({user:1,role: "pet_sitter",ps_id : result[0]['ps_id']});
@@ -274,6 +287,58 @@ app.get('/check_login',(req,res) => {
         res.status(500).json({error : err});
     }
 
+});
+
+// update profile
+app.post('/updateprofile', upload.single('profile_pic'), async (req,res) => {
+    try {
+        const role = req.body.role;
+        const id = req.body.id;
+
+        const firstname = req.body.firstname;
+        const lastname = req.body.lastname;
+        const phone = req.body.phone;
+        const email = req.body.email;
+        const address = req.body.address;
+        let profile_pic = null
+        let table_db = "";
+        let role_id = "";
+        if(req.file != undefined){
+            profile_pic = req.file.filename;
+        }
+        if(role == "ps"){
+            table_db = "pet_sitter"
+            role_id = role + "_id";
+        }
+        if(role == "user"){
+            table_db = role;
+            role_id = role + "_id";
+        }
+        if(role == "admin"){
+            table_db = role;
+            role_id = role + "_id";
+        }
+
+        dbconfig.query(`SELECT ${table_db}_pic FROM ${table_db} WHERE ${role}_id = ${id}`,(err,result)=>{
+            if(result[0][`${table_db}_pic`] != null && req.file == null){
+                dbconfig.query(`UPDATE ${table_db} SET firstname = ?, lastname = ?, phone = ?, email = ?, address = ? WHERE ${role_id} = ${id}`,[firstname, lastname, phone, email, address],(err,result) => {
+                    res.json({status : true, message : "Success"});
+                    
+                });
+            }
+            else{
+                dbconfig.query(`UPDATE ${table_db} SET firstname = ?, lastname = ?, phone = ?, email = ?, address = ?, ${table_db}_pic = ?  WHERE ${role_id} = ${id}`,[firstname, lastname, phone, email, address, profile_pic],(err,result) => {
+                    res.json({status : true, message : "Success"});
+                    
+                });
+            }
+        });
+        
+    }
+    catch(err) {
+        console.log("Error : ", err);
+        res.status(500).json({error : err});
+    }
 });
 
 // Show pet sitter by id

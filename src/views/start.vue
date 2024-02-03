@@ -1,7 +1,6 @@
 @ -1,4 +1,116 @@
 <template>
-  <RouterView />
-  <!-- <div>
+  <div>
     <div class="box">
       <div class="card">
     <div class="card-details">
@@ -14,20 +13,21 @@
     <button @click="start()" class="card-button">start</button>
   </div>
     </div>
-  </div> -->
+  </div>
 </template>
 
 <script>
-// export default {
-//   methods:{
-//     async start(){
-//       this.$router.push('/login')
-//     }
-//   }
-// }
+export default {
+  name: 'startpage',
+  methods:{
+    async start(){
+      this.$router.push('/login')
+    }
+  }
+}
 </script>
 
-<!-- <style scoped>
+<style scoped>
   @import url('https://fonts.googleapis.com/css2?family=Prompt&display=swap');
   body{
     font-family: 'Prompt', sans-serif;
@@ -110,4 +110,4 @@
 </style>
 
 
- -->
+

@@ -70,7 +70,7 @@
       </div>
       <FooterView />
     </template>
-
+<script>
     export default {
       name:'loginView',
       data(){
@@ -112,12 +112,18 @@
             }
             else if (response_data['message'] == "password_is_not_match"){
               alert('Password is not correct, Please try again.');
-              this.$router.go(0);
-            }
+              this.$router.go(0); 
+            } 
             else if (response_data['user'] == 1){
               
               if(response_data['role'] == "user"){
-                this.$router.push({name: 'Homepage', params: {role: response_data['role'], id : response_data['user_id'] }});
+                this.$router.push({name: 'Homepage', params: {role: "user", id : response_data['user_id'] }});
+              }
+              if(response_data['role'] == "pet_sitter"){
+                this.$router.push({name: 'Homepage', params: {role: "ps", id : response_data['ps_id'] }});
+              }
+              if(response_data['role'] == "admin"){
+                this.$router.push({name: 'Homepage', params: {role: "admin", id : response_data['admin_id'] }});
               }
               
             }
