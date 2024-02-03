@@ -43,7 +43,7 @@ const router = createRouter({
       component:login
     },
     {
-      path:'/Homepage',
+      path:'/Homepage/:role/:id',
       name:'Homepage',
       component:Homepage
     },
@@ -53,8 +53,8 @@ const router = createRouter({
       component:caretakerView
     },
     {
-      path:'/Resetpassword',
-      name:'Resetpassword',
+      path:'/Resetpassword/:role/:id',
+      name:'resetpassword',
       component:ResetpasswordView
     },
     {
@@ -63,7 +63,7 @@ const router = createRouter({
       component:searchproView
     },
     {
-      path:'/profile',
+      path:'/profile/:role/:id',
       name:'profile',
       component:profileView
     },

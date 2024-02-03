@@ -1,43 +1,152 @@
 <template>
    <NavView />
-    <div>
-        <img class="arrowleft" src="../img/arrow-left.png" alt="" width="40px;">
-       <div class="bigbox"> 
-        <div class="box">
-            <img class="imgpro" src="../img/a1_7.jpg" alt="" >
-            <h2 class="textname">ลุงพลหล่อสุดใจ</h2>
-            <p class="textreset">รีเซ็ตรหัสผ่าน</p>
-
-            <p class="textpassword">รหัสผ่าน</p>
-          <div class="boxpassword">
-            <p class="textplspassword">ใส่รหัสผ่านใหม่(6-16ตัวอักษร) </p>
-          </div>
-
-          <p class="textagainpassword">รหัสผ่านอีกครั้ง</p>
-          <div class="boxagainpassword">
-            <p class="textplsagainpassword">ใส่รหัสผ่านใหม่อีกครั้ง(6-16ตัวอักษร) </p>
-          </div>
-
-          <button class="button2"> <p class="textbut">สมัครสมาชิก</p> </button>
-
-          <p class="textlogin">กลับเข้าสู่หน้าล็อกอิน</p>
-
+    <div style="display: flex; justify-content: center; margin-top: 2%;">
+      <div style="width: 60%;">
+        <div @click="backward()" id="backward">
+          <img src="../img/arrow-left.png" style="margin: 8% 0 0 8%;"  width="50dvw"  alt="">
         </div>
-       </div>
-   
+      </div>
     </div>
+    <div style="display: flex; justify-content: center; margin-bottom: 7%;">
+      <div style="width: 25%; padding: 3%; background-color: rgba(255, 249, 232, 1); border-radius: 10px;">
+        <div style="text-align: center; display: flex; justify-content: center;">
+          <div ref="profile_pic" style="background-color: #D9D9D9; width: 110px; height: 104px; padding-top: 1%; border-radius: 50%; ">
+            <img src="../img/Profile_Unknow.png" width="100px" alt="">
+          </div>
+        </div>
+        <div style="margin-top: 3%;">
+          <div style="text-align: center; margin-bottom: 5%;">
+            <div ref="name"></div>
+          </div>
+          <div>
+            <p style="margin-bottom: 1%;">รหัสผ่านใหม่</p>
+            <input v-model="password1" type="password" style="width: 100%; height: 30px; border-radius: 4px; padding-left: 10px;"  placeholder="ใส่รหัสผ่านใหม่ (6-16 ตัวอักษร)">
+            <div ref="alert_password1"></div>
+            <p style="margin-bottom: 1%; margin-top: 2%;">รหัสผ่านอีกครั้ง</p>
+            <input v-model="password2" type="password" style="width: 100%; height: 30px; border-radius: 4px; padding-left: 10px;"  placeholder="ใส่รหัสผ่านใหม่อีกครั้ง (6-16 ตัวอักษร)">
+            <div ref="alert_password2"></div>
+            <div style="display: flex; justify-content: center;">
+              <button @click="resetpassword()" class="button2"> <p class="textbut">เปลี่ยนรหัสผ่าน</p> </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <FooterView />
+
   </template>
   
   <script>
     export default {
-   
+      data(){
+        return {
+          password1: "",
+          password2: ""
+        }
+      },
+      methods: {
+        async check_login(){
+          const response = await fetch('http://localhost:3000/check_login');
+          const response_data = await response.json();
+          if(response_data['isLogin'] == 0){
+            this.$router.push('/login'); 
+          }
+        }
+        ,
+        async resetpassword(){
+          if(this.password1 == ""){
+            this.$refs.alert_password1.innerHTML = '<p style="color:red;">จำเป็นต้องกรอก</p>'
+          }
+          if(this.password1 != ""){
+            this.$refs.alert_password1.innerHTML = ''
+          }
+          if(this.password2 == ""){
+            this.$refs.alert_password2.innerHTML = '<p style="color:red;">จำเป็นต้องกรอก</p>'
+          }
+          if(this.password2 != ""){
+            this.$refs.alert_password2.innerHTML = ''
+          }
+          if(this.password1 != this.password2){
+            alert("Password in not match, Please try again.");
+            this.$router.go(0)
+          }
+          if(this.password1 == this.password2){
+            const role = this.$route.params.role;
+            const id = this.$route.params.id;
+            const data = {
+              role : role,
+              id : id,
+              new_password : this.password1
+            }
+            const response = await fetch(`http://localhost:3000/resetpassword`,{
+              method: 'POST',
+              headers: {
+                'Content-Type' : 'application/json'
+              },
+              body: JSON.stringify(data)
+            });
+            const response_data = await response.json();
+            if(response_data['status'] == 1){
+              alert("Reset password successfully.");
+              this.$router.push('/login');
+            }
+          }
+        },
+
+        async backward(){
+          this.$router.go(-1)
+        },
+
+        async loaddata(){
+          const role = this.$route.params.role;
+          const id = this.$route.params.id;
+          const data = {
+            role : role,
+            id : id
+          }
+          const response = await fetch(`http://localhost:3000/profile`,{
+            method: 'POST',
+            headers: {
+              'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify(data)
+          });
+          const response_data = await response.json();
+          const firstname =  response_data['firstname'];
+          const lastname =  response_data['lastname']
+          this.$refs.name.innerHTML = `<p>${firstname} ${lastname}</p>`
+        }
+      },
+      
+      mounted(){
+        this.check_login();
+        this.loaddata();
+      }
+
+
+  
    
   }
+
   </script>
-  
+
   <style scoped>
-    .arrowleft{
+
+#backward{
+  cursor: pointer;
+  background-color: #D9D9D9; 
+  height: 60px;  
+  margin-top: 1%; 
+  width: 60px; 
+  border-radius: 50%;
+}
+
+#backward:hover{
+  transition-duration: 0.4s;
+  background-color: #D8AB53;
+}
+.arrowleft{
         margin-left: 260px;
         margin-top: 50px;
     }
@@ -130,7 +239,7 @@
       font-size: 19px;
     }
     .button2{
-      width: 169px;
+      width: 190px;
       height: 43px;
       background-color: #000000;
       border: none;
@@ -145,8 +254,7 @@
       cursor: pointer;
       border-radius: 10px;
       margin-left: 10px;
-      position: absolute;
-      margin-top: 460px;
+      margin-top: 12%;
     }
     .button2 {
       background-color: #D8AB53; 
