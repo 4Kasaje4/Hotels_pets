@@ -12,6 +12,7 @@
  
 
   </div>
+  <FooterView />
 </template>
 
 <script>

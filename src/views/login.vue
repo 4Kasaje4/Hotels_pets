@@ -31,6 +31,7 @@
 
           </div>
 
+
         </div> -->
           <div style="display: flex; justify-content: center;">
             <div style="border-radius: 10px; width: 35%;  margin-top: 3%; background-color:rgba(255, 249, 232, 1); padding-top: 3%; padding-bottom: 1%;">
@@ -67,9 +68,8 @@
         </div>  
           </div>
       </div>
+      <FooterView />
     </template>
-    
-    <script>
 
     export default {
       name:'loginView',

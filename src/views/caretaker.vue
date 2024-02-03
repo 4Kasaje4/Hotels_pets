@@ -63,6 +63,7 @@
       </div>
 
     </div>
+    <FooterView />
   </template>
   
   <script>

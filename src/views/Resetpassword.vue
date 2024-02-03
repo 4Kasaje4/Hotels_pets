@@ -33,6 +33,7 @@
       </div>
     </div>
 
+    <FooterView />
 
   </template>
   
@@ -271,7 +272,6 @@
         color: #727171a9;
     }
   
-    
     
         
   </style>
