@@ -1,14 +1,15 @@
+@ -1,4 +1,116 @@
 <template>
   <RouterView />
-  <div>
-    
-   
-  </div>
 </template>
 
 <script>
 export default {
-
+  methods:{
+    async start(){
+      this.$router.push('/login')
+    }
+  }
 }
 </script>
 
@@ -17,7 +18,5 @@ export default {
   body{
     font-family: 'Prompt', sans-serif;
   }
-
-
-
 </style>
+

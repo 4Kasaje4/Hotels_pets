@@ -11,7 +11,6 @@ import searchproView from '../views/searchpro.vue'
 import profileView from '@/views/profile.vue'
 import editprofileView from '../views/editprofile.vue'
 import servicepageView from '../views/servicepage.vue'
-import confirmationpageView from '@/views/confirmationpage.vue'
 
 
 
@@ -78,12 +77,8 @@ const router = createRouter({
       path:'/servicepage',
       name:'servicepage',
       component:servicepageView
-    },
-    {
-      path:'/confirmationpage',
-      name:'confirmationpage',
-      component:confirmationpageView
     }
+
 
 
   

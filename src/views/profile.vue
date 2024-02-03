@@ -9,8 +9,8 @@
     </div>
     <div style="display: flex; justify-content: center;">
       <div style="width: 35%; background-color: rgba(255, 249, 232, 1); border-radius: 10px; margin: 0 0 5%;">
-        <div style="display: flex; justify-content: center; margin: 2%;">
-          <img src="../img/Profile_Unknow.png" width="100dvw" alt="">
+        <div ref="show_pic" style=" display: flex; justify-content: center; margin: 2%;">
+         <img :src="path_pic" width="100dvw" style="border-radius: 50%;" height="100vh" alt="">
         </div>
         <div style="display: flex; justify-content: center;">
           <div style=" width: 60%; display: flex; justify-content: end;">
@@ -29,28 +29,34 @@
             </div>
           </div>
           <div style="width: 60%; display: flex; justify-content: space-between;">
-            <input type="text" disabled  style="border-radius: 10px; width: 42%; height: 4vh; margin-top: 1%; padding-left: 10px;" :placeholder="profile_data['firstname']" v-model="firstname">
-            <input type="text" disabled  style="border-radius: 10px; width: 42%; height: 4vh; margin-top: 1%; padding-left: 10px;" :placeholder="profile_data['lastname']" v-model="firstname">
+            <input type="text"   style="border-radius: 10px; width: 42%; height: 4vh; margin-top: 1%; padding-left: 10px;" :placeholder="profile_data['firstname']" v-model="firstname">
+            <input type="text"   style="border-radius: 10px; width: 42%; height: 4vh; margin-top: 1%; padding-left: 10px;" :placeholder="profile_data['lastname']" v-model="lastname">
           </div>
           <div style="font-size: large;  width: 60%; margin-top: 1%;">
             <p>เบอร์โทรศัพท์</p>
             <div style="width: 100%; ">
-            <input disabled type="text" style="border-radius: 10px; width: 97%; height: 4vh; margin-top: 1%; padding-left: 10px;" :placeholder="profile_data['phone']" v-model="phone">
+            <input  type="text" style="border-radius: 10px; width: 97%; height: 4vh; margin-top: 1%; padding-left: 10px;" :placeholder="profile_data['phone']" v-model="phone">
           </div>
           </div>
           <div style="font-size: large;  width: 60%; margin-top: 1%;">
             <p>อีเมล</p>
             <div style="width: 100%; ">
-            <input disabled type="text" style="border-radius: 10px; width: 97%; height: 4vh; margin-top: 1%; padding-left: 10px;" :placeholder="profile_data['email']">
+            <input  type="text" style="border-radius: 10px; width: 97%; height: 4vh; margin-top: 1%; padding-left: 10px;" :placeholder="profile_data['email']" v-model="email" >
           </div>
           </div>
           <div style="font-size: large;  width: 60%; margin-top: 1%;">
             <p>ที่อยู่</p>
             <div style="width: 100%; ">
-            <input disabled type="text" style="border-radius: 10px; width: 97%; height: 4vh; margin-top: 1%; padding-left: 10px;" :placeholder="profile_data['address']" v-model="address">
+            <input  type="text" style="border-radius: 10px; width: 97%; height: 4vh; margin-top: 1%; padding-left: 10px;" :placeholder="profile_data['address']" v-model="address">
           </div>
           </div>
-          <button @click="edit_profile()" class="button2"> <h4 class="textbut">ประวัติการจอง</h4> </button>
+          <div style="font-size: large;  width: 60%; margin-top: 1%;">
+            <p>รูปโปรไฟล์</p>
+            <div style="width: 100%; ">
+            <input  type="file" style="width: 97%; height: 4vh; margin-top: 1%;" @change="fileChange">
+          </div>
+          </div>
+          <button @click="edit_profile()" class="button2"> <h4 class="textbut">ประวัติการจอง</h4></button>
         </div>
       </div>
     </div>
@@ -106,22 +112,31 @@
         lastname : "",
         phone : "",
         email : "",
-        address : ""
-
+        address : "",
+        profile_pic : null,
+        path_pic : "",
+        column : ""
       }
     },
     methods:{
       async check_login(){
           const response = await fetch('http://localhost:3000/check_login');
           const response_data = await response.json();
-          if(response_data['isLogin'] == 0){
+          if(response_data['isLogin'] == false){
             this.$router.push('/login'); 
           }
         },
+      async fileChange(event){
+        this.profile_pic = event.target.files[0];
+      }  
+        ,
       async backward(){
           this.$router.go(-1)
         },
+
       async profile(){
+        const role = this.$route.params.role;
+        const id = this.$route.params.id
         const data = {
           role : this.$route.params.role,
           id : this.$route.params.id
@@ -135,9 +150,73 @@
         });
         const response_data = await response.json();
         this.profile_data = await response_data;
+        if(role == 'ps'){
+          this.column = "pet_sitter_pic"
+          if(this.profile_data[this.column] == null){
+            this.path_pic = '/src/img/Profile_Unknow.png'
+          }
+          else {
+            this.profile_pic = this.profile_data[this.column]
+            this.path_pic = `/API/profile_pic/${this.profile_pic}`
+          }
+        }
+        else if(role == 'user'){
+          this.column = "user_pic"
+          if(this.profile_data[this.column] == null){
+            this.path_pic = '/src/img/Profile_Unknow.png'
+          }
+          else {
+            this.profile_pic = this.profile_data[this.column]
+            this.path_pic = `/API/profile_pic/${this.profile_pic}`
+          }
+        }
+        else if(role == 'admin'){
+          this.column = "admin_pic"
+          if(this.profile_data[this.column] == null){
+            this.path_pic = '/src/img/Profile_Unknow.png'
+          }
+          else {
+            this.profile_pic = this.profile_data[this.column]
+            this.path_pic = `/API/profile_pic/${this.profile_pic}`
+          }
+        }
+
         },
       async edit_profile(){
-        console.log(this.name);
+        const from_data = new FormData();
+        if(this.firstname == ""){
+          this.firstname = await this.profile_data['firstname'];
+        }
+        if(this.lastname == ""){
+          this.lastname = await this.profile_data['lastname'];
+        }
+        if(this.phone == ""){
+          this.phone = await this.profile_data['phone'];
+        }
+        if(this.email == ""){
+          this.email = await this.profile_data['email'];
+        }
+        if(this.address == ""){
+          this.address = await this.profile_data['address'];
+        }
+
+        from_data.append('role', this.$route.params.role);
+        from_data.append('id', this.$route.params.id);
+        from_data.append('firstname', this.firstname);
+        from_data.append('lastname', this.lastname);
+        from_data.append('phone', this.phone);
+        from_data.append('email', this.email);
+        from_data.append('address', this.address);
+        from_data.append('profile_pic', this.profile_pic);
+        const response = await fetch('http://localhost:3000/updateprofile',{
+          method: 'POST',
+          body: from_data,
+        });
+        const response_data = await response.json();
+        if(response_data['status'] == true){
+          alert('Update profile successfully')
+          this.$router.go(0);
+        }
       }
     },
     mounted(){
