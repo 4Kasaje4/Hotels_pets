@@ -33,32 +33,7 @@
       </div>
     </div>
 
-    <!-- <div>
-        <img class="arrowleft" src="../img/arrow-left.png" alt="" width="40px;">
-       <div class="bigbox"> 
-        <div class="box">
-            <img class="imgpro" src="../img/a1_7.jpg" alt="" >
-            <h2 class="textname">ลุงพลหล่อสุดใจ</h2>
-            <p class="textreset">รีเซ็ตรหัสผ่าน</p>
 
-            <p class="textpassword">รหัสผ่าน</p>
-          <div class="boxpassword">
-            <p class="textplspassword">ใส่รหัสผ่านใหม่(6-16ตัวอักษร) </p>
-          </div>
-
-          <p class="textagainpassword">รหัสผ่านอีกครั้ง</p>
-          <div class="boxagainpassword">
-            <p class="textplsagainpassword">ใส่รหัสผ่านใหม่อีกครั้ง(6-16ตัวอักษร) </p>
-          </div>
-
-          <button class="button2"> <p class="textbut">สมัครสมาชิก</p> </button>
-
-          <p class="textlogin">กลับเข้าสู่หน้าล็อกอิน</p>
-
-        </div>
-       </div>
-   
-    </div> -->
   </template>
   
   <script>
@@ -70,6 +45,14 @@
         }
       },
       methods: {
+        async check_login(){
+          const response = await fetch('http://localhost:3000/check_login');
+          const response_data = await response.json();
+          if(response_data['isLogin'] == 0){
+            this.$router.push('/login'); 
+          }
+        }
+        ,
         async resetpassword(){
           if(this.password1 == ""){
             this.$refs.alert_password1.innerHTML = '<p style="color:red;">จำเป็นต้องกรอก</p>'
@@ -106,7 +89,7 @@
             if(response_data['status'] == 1){
               alert("Reset password successfully.");
               this.$router.push('/login');
-            }else{}
+            }
           }
         },
 
@@ -129,13 +112,14 @@
             body: JSON.stringify(data)
           });
           const response_data = await response.json();
-          const firstname =  response_data[0]['firstname'];
-          const lastname =  response_data[0]['lastname']
+          const firstname =  response_data['firstname'];
+          const lastname =  response_data['lastname']
           this.$refs.name.innerHTML = `<p>${firstname} ${lastname}</p>`
         }
       },
       
       mounted(){
+        this.check_login();
         this.loaddata();
       }
 

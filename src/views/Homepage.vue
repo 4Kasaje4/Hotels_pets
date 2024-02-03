@@ -1,5 +1,6 @@
 <template>
   <newnav/>
+  <button @click="go_profile()">go to profile</button>
   <div>
     <div class="img">
       <img class="imgcat" src="../img/catty.jpg" alt="" width="1100px" height="500px">
@@ -18,7 +19,23 @@ import newnav from '@/components/newnav.vue'
 export default {
 components: { newnav },
   name:'HomepageView',
- 
+ methods:{
+  async check_login(){
+          const response = await fetch('http://localhost:3000/check_login');
+          const response_data = await response.json();
+          if(response_data['isLogin'] == 0){
+            this.$router.push('/login'); 
+          }
+        },
+  async go_profile(){
+    const role = this.$route.params.role;
+    const id = this.$route.params.id;
+    this.$router.push({name: 'profile', params: {role : role, id : id}});
+  }
+ },
+ mounted(){
+  this.check_login();
+ }
 }
 </script>
 
