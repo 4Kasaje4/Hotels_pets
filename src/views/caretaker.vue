@@ -67,9 +67,9 @@
   </template>
   
   <script>
-import newnav from '@/components/newnav.vue'
-  export default {
-  components: { newnav },
+    import newnav from '@/components/newnav.vue'
+    export default {
+    components: { newnav },
     name:'caretakerView',
     data(){
       return {

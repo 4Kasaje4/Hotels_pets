@@ -7,8 +7,10 @@ import Homepage from '../views/Homepage.vue'
 import packageView from '@/views/package.vue'
 import caretakerView from '@/views/caretaker.vue'
 import ResetpasswordView from '@/views/Resetpassword.vue'
-import searchproView from '@/views/searchpro.vue'
+import searchproView from '../views/searchpro.vue'
 import profileView from '@/views/profile.vue'
+import editprofileView from '../views/editprofile.vue'
+import servicepageView from '../views/servicepage.vue'
 import startpage from '@/views/start.vue';
 
 const router = createRouter({
@@ -66,6 +68,14 @@ const router = createRouter({
       component:profileView
     },
     {
+      path:'/editprofile',
+      name:'editprofile',
+      component:editprofileView
+    },
+    {
+      path:'/servicepage',
+      name:'servicepage',
+      component:servicepageView
       path:'/',
       name:'start',
       component: startpage
