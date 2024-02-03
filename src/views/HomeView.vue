@@ -55,7 +55,7 @@
 
   
   
-  
+    <FooterView />
 </template>
 
 <script>
