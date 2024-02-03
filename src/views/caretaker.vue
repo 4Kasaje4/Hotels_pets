@@ -23,9 +23,7 @@
               </div>
             </div>
           </div>
-          <div v-else>
-            <p>Helloooo</p>
-          </div>
+
         </div>  
       
       
@@ -77,6 +75,13 @@
       }
     },
     methods: {
+      async check_login(){
+          const response = await fetch('http://localhost:3000/check_login');
+          const response_data = await response.json();
+          if(response_data['isLogin'] == false){
+            this.$router.push('/login'); 
+          }
+        },
       async show_pet_sitter(){
         const response = await fetch('http://localhost:3000/all_pet_sitter');
         const response_data = await response.json();
@@ -114,6 +119,7 @@
       }
     },
     mounted(){
+      this.check_login();
       this.show_pet_sitter()
     }
   }

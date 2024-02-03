@@ -22,9 +22,14 @@ components: { newnav },
   name:'HomepageView',
  methods:{
   async check_login(){
-          const response = await fetch('http://localhost:3000/check_login');
+          const response = await fetch('http://localhost:3000/check_login', {
+            method : 'GET',
+            headers : {
+              'Content-Type' : 'aplication/json'
+            },
+          });
           const response_data = await response.json();
-          if(response_data['isLogin'] == 0){
+          if(response_data['isLogin'] == false){
             this.$router.push('/login'); 
           }
         },

@@ -11,7 +11,7 @@
       <div style="width: 25%; padding: 3%; background-color: rgba(255, 249, 232, 1); border-radius: 10px;">
         <div style="text-align: center; display: flex; justify-content: center;">
           <div ref="profile_pic" style="background-color: #D9D9D9; width: 110px; height: 104px; padding-top: 1%; border-radius: 50%; ">
-            <img src="../img/Profile_Unknow.png" width="100px" alt="">
+            <img :src="path" width="100dvw" height="100dvh" style="border-radius: 50%;" alt="">
           </div>
         </div>
         <div style="margin-top: 3%;">
@@ -38,18 +38,22 @@
   </template>
   
   <script>
+
     export default {
       data(){
         return {
           password1: "",
-          password2: ""
+          password2: "",
+          profile_pic : null,
+          column : "",
+          path : ""
         }
       },
       methods: {
         async check_login(){
           const response = await fetch('http://localhost:3000/check_login');
           const response_data = await response.json();
-          if(response_data['isLogin'] == 0){
+          if(response_data['isLogin'] == false){
             this.$router.push('/login'); 
           }
         }
@@ -116,6 +120,19 @@
           const firstname =  response_data['firstname'];
           const lastname =  response_data['lastname']
           this.$refs.name.innerHTML = `<p>${firstname} ${lastname}</p>`
+          if(this.$route.params.role == "ps"){
+            this.column = "pet_sitter";
+          }else{
+            this.column = this.$route.params.role;
+          }
+
+          this.profile_pic = response_data[`${this.column}_pic`]
+          console.log(this.column, this.profile_pic)
+          if(this.profile_pic == null){
+            this.path = '/src/img/Profile_Unknow.png'
+          }else{
+            this.path = `/API/profile_pic/${this.profile_pic}`
+          }
         }
       },
       

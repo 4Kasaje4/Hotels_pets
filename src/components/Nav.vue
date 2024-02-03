@@ -10,7 +10,7 @@
         <h3 style="cursor: pointer;">เข้าสู่ระบบ</h3>
       </div> -->
       <div style="margin-top: 0.5%;">
-        <a id="navchoice" href="HomeView" >หน้าแรก</a>
+        <a id="navchoice" href="/" >หน้าแรก</a>
         <a id="navchoice" href="package" >แพ็กเกจ/โปรโมชั่น</a>
         <a id="navchoice" href="about" >เกี่ยวกับเรา</a>
         <a id="navchoice" href="login" >เข้าสู่ระบบ</a>
