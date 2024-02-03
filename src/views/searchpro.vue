@@ -1,7 +1,29 @@
 <template>
     <NavView /> 
-    <div>
-      <div class="bigbox">
+    <div style="display: flex; justify-content: center;">
+
+      <div style="width: 40%; border-radius: 10px; background-color: rgba(255, 249, 232, 1) ; margin: 3%; margin-bottom: 1%;">
+        <p style="font-size: xx-large; text-align: center; margin: 5% 0 3% 0;">ค้นหาบัญชีผู้ใช้งาน</p>
+  
+        <div style="display: flex; justify-content: center;">
+          <div style="width: 70%; margin-top: 10%;">
+            <p>ชื่อผู้ใช้งาน</p>
+            <input v-model="username" type="text" placeholder="ค้นหาชื่อผู้ใช้งาน" style=" padding-left: 10px; width: 100%;  height:30px; border-radius: 4px; margin-top: 2%; ">
+            <div ref="alert_username"></div>
+            <p style="margin-top: 3%;">อีเมล</p>
+            <input v-model="email" type="text" placeholder="ใส่อีเมลที่ผูกบัญชี" style="  padding-left: 10px; width: 100%;  height:30px; border-radius: 4px; margin-top: 2%; ">
+            <div ref="alert_email"></div>
+            <div style="display: flex; justify-content: center; margin-bottom: 10%; margin-top: 10%; ">
+              <button @click="searchprofile()" class="button2"> <p class="textbut">ค้นหา</p> </button>
+            </div>
+            <div style="display: flex; justify-content: center; margin-bottom: 10%; margin-top: 20%;">
+              <a id="buttonbackward" href="/login">กลับเข้าสู่หน้าล็อกอิน</a>
+            </div>
+          </div>
+        </div>           
+      </div>
+
+      <!-- <div class="bigbox">
         <div class="box">
             <h2 class="textsearch">ค้นหาบัญชีผู้ใช้งาน</h2>
 
@@ -20,20 +42,79 @@
             <p class="textlogin">กลับเข้าสู่หน้าล็อกอิน</p>
 
         </div>
-      </div>
+      </div> -->
     </div>
     <FooterView />
   </template>
   
   <script>
+
   export default {
-    name:'searchproView'
-   
+    name:'searchproView',
+    data(){
+      return {
+        username: "",
+        email: ""
+      }
+    },
+    methods: {
+      async searchprofile(){
+        if(this.username == ""){
+          this.$refs.alert_username.innerHTML = '<p style="color:red;">จำเป็นต้องกรอก</p>'
+        }
+        if(this.username != ""){
+          this.$refs.alert_username.innerHTML = ""
+        }
+        if(this.email == ""){
+          this.$refs.alert_email.innerHTML = '<p style="color:red;">จำเป็นต้องกรอก</p>'
+        }
+        if(this.email != ""){
+          this.$refs.alert_email.innerHTML = ""
+        }
+        if(this.username != "" && this.email != ""){
+          const data = {
+            username : this.username,
+            email : this.email
+          }
+          const response = await fetch('http://localhost:3000/searchprofile',{
+            method: "POST",
+            headers: {
+              'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify(data)
+          });
+          const response_data = await response.json();
+          if(response_data['role'] == "user"){
+            this.$router.push({ name: 'resetpassword', params: { role: 'user', id: response_data['result']['user_id'] } });
+          }
+          if(response_data['role'] == "pet_sitter"){
+            this.$router.push({ name: 'resetpassword', params: { role: 'ps', id: response_data['result']['ps_id'] } });
+          }
+          if(response_data['role'] == "admin"){
+            this.$router.push({ name: 'resetpassword', params: { role: 'admin', id: response_data['result']['admin_id'] } });
+          }
+          if(response_data['user'] == 0){
+            alert("No account, Please try again.");
+            this.$router.go(0);
+          }
+        }
+      }
+    } 
   }
   </script>
   
   <style scoped>
-    .bigbox{
+
+#buttonbackward{
+  text-decoration: none;
+  color: #000000;
+}
+
+#buttonbackward:hover{
+  transition-duration: 0.4s;
+  color: #D8AB53;
+}
+.bigbox{
         display: flex;
         justify-content: center;
     }
@@ -121,9 +202,6 @@
       transition-duration: 0.4s;
       cursor: pointer;
       border-radius: 10px;
-      margin-left: 195px;
-      position: absolute;
-      margin-top: 260px;
 
     }
     .button2 {
