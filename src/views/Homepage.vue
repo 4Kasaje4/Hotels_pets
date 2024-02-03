@@ -7,7 +7,7 @@
     </div>
     <h1 class="textser">เลือกบริการของคุณกันเลย !</h1>
     <h1 class="textchoose">เลือกใช้บริการที่คุณต้องการสำหรับสัตว์เลี้ยงของคุณ</h1>
-    <button class="button1"> <p class="textbut">บริการ</p> </button>
+    <button @click="go_to_service" class="button1"> <p class="textbut">บริการ</p> </button>
     
  
 
@@ -32,6 +32,11 @@ components: { newnav },
     const role = this.$route.params.role;
     const id = this.$route.params.id;
     this.$router.push({name: 'profile', params: {role : role, id : id}});
+  },
+  async go_to_service(){
+    const role = this.$route.params.role;
+    const id = this.$route.params.id;
+    this.$router.push({name: 'servicepage', params: {role : role, id : id}});
   }
  },
  mounted(){

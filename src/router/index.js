@@ -67,7 +67,7 @@ const router = createRouter({
       component:profileView
     },
     {
-      path:'/servicepage',
+      path:'/servicepage/:role/:id',
       name:'servicepage',
       component:servicepageView
     },
