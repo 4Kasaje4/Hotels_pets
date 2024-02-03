@@ -56,7 +56,7 @@
     </div>
 
 
-    <!-- <div>
+    <div>
       <div class="bigbox">
         <div class="box">
             <img class="profile" src="../img/ลุงพล.jpg" alt="">

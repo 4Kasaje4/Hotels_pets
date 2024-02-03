@@ -57,7 +57,7 @@
   import newnav from '@/components/newnav.vue'
   export default {
   components: { newnav },
-  name:'caretakerView'
+  name:'servicepageView'
 }
 
 </script>
