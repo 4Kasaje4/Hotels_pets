@@ -9,7 +9,7 @@
             <div class="bigboxtype">
                 <p class="texttype">เป็นสัตว์เลี้ยงประเภทอะไร ?</p>
                 <p class="texttype1">สายพันธ์ุอะไร ?</p>
-                <div class="boxtype"></div>
+                <div class="boxtype"></div>   
                 <div class="boxtype1"></div>
                 <p class="texttype">สัตว์เลี้ยงของคุณขนาดเท่าไหร่ ?</p>
                 <p class="texttype1">ชื่อเล่นสัตว์เลี้ยง</p>
@@ -42,7 +42,7 @@
   import newnav from '@/components/newnav.vue'
   export default {
   components: { newnav },
-  name:'servicepageView'
+  name:'newconpageView'
    
   }
   </script>
