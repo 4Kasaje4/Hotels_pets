@@ -10,7 +10,7 @@
            <p class="textservice1">ทุกช่วงเวลา นานเท่าที่ต้องการ </p>
            <p class="textservice1"> มีบ้านสำหรับน้องหมาน้องเเมว </p>
            <p class="textservice1">พร้อมของใช้สำหรับสัตว์เลี้ยง</p>
-           <button class="button2"> <h4 class="textbut">จอง</h4> </button>
+           <button @click="confirmationpage()" class="button2"> <h4 class="textbut">จอง</h4> </button>
       </div>
     </div>
 
@@ -21,7 +21,7 @@
         <p class="textservice1">เป็นบริการเกี่ยวกับให้สัตว์เลี้ยง </p>
            <p class="textservice1">ได้ออกกำลังกาย ทำให้น้องหมา </p>
            <p class="textservice1"> น้องเเมวของคุณผ่อนคลาย </p>
-           <button class="button2"> <h4 class="textbut">จอง</h4> </button>
+           <button @click="newconpage()" class="button2"> <h4 class="textbut">จอง</h4> </button>
       </div>
     </div>
 
@@ -33,7 +33,7 @@
            <p class="textservice1">ทุกช่วงเวลา นานเท่าที่ต้องการ </p>
            <p class="textservice1"> มีบ้านสำหรับน้องหมาน้องเเมว </p>
            <p class="textservice1">พร้อมของใช้สำหรับสัตว์เลี้ยง</p>
-           <button class="button2"> <h4 class="textbut">จอง</h4> </button>
+           <button @click="cutcon()" class="button2"> <h4 class="textbut">จอง</h4> </button>
       </div>
     </div>
 
@@ -45,7 +45,7 @@
            <p class="textservice1">พร้อมบริการเเบบเบามือต่อ</p>
            <p class="textservice1"> สัตว์เลี้ยง ทำให้น้องหมาน้อง </p>
            <p class="textservice1">เเมวสะอาดเเละหอมสดชื่น</p>
-           <button class="button2"> <h4 class="textbut">จอง</h4> </button>
+           <button @click="takeacon()" class="button2"> <h4 class="textbut">จอง</h4> </button>
       </div>
     </div>
 
@@ -60,12 +60,34 @@
   name:'caretakerView',
   methods:{
     async check_login(){
-          const response = await fetch('http://localhost:3000/check_login');
+          let login_id = this.$route.params.login_id
+          const data = {
+            login_id : login_id
+          }
+          const response = await fetch('http://localhost:3000/check_login', {
+            method : 'POST',
+            headers : {
+              'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify(data)
+          });
           const response_data = await response.json();
           if(response_data['isLogin'] == false){
             this.$router.push('/login'); 
           }
         },
+    async confirmationpage(){
+      this.$router.push({name : 'confirmationpage', params : {role : this.$route.params.role, id : this.$route.params.id, login_id : this.$route.params.login_id}})
+    },
+    async newconpage(){
+      this.$router.push('/newconpage')
+    },
+    async cutcon(){
+      this.$router.push({name : 'cutcon', params : {role : this.$route.params.role, id : this.$route.params.id, login_id : this.$route.params.login_id}})
+    },
+    async takeacon(){
+      this.$router.push({name : 'takeacon', params : {role : this.$route.params.role, id : this.$route.params.id, login_id : this.$route.params.login_id}})
+    },
   },
   mounted(){
     this.check_login();

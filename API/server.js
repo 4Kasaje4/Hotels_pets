@@ -7,6 +7,7 @@ const bcrypt = require('bcrypt');
 const bodyparser = require('body-parser');
 const multer = require('multer');
 const path = require('path');
+const { serialize } = require('v8');
 
 // use
 const app = express();
@@ -432,6 +433,57 @@ app.post('/updateprofile', upload.single('profile_pic'), async (req,res) => {
         res.status(500).json({error : err});
     }
 });
+
+// Add pet to hotel
+app.post('/add_pet_to_hotel', async (req,res) => {
+    try {
+        const user_id = req.body.user_id;
+        const type = req.body.type;
+        const breed = req.body.breed;
+        const weight = req.body.weight.toString();
+        const name = req.body.nickname;
+        const start_date = req.body.start_date;
+        const time = req.body.time;
+        const pickup = req.body.pickup;
+        const allergies = req.body.allergies;
+        const other = req.body.other;
+
+        console.log(user_id, type, breed, weight, name, start_date, time, pickup, allergies, other);
+
+        dbconfig.query('SELECT ps_id FROM pet_sitter WHERE status IS NULL LIMIT 1',(err,result)=> {
+            console.log(result.length);
+            if(result.length != 0){
+                const ps_id = result[0]['ps_id']
+                dbconfig.query('INSERT INTO pet (name, type, breed, weight, description, foodallergies, checkin, time_in, pickup, user_id, ps_id)   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);',[name, type, breed, weight, other, allergies, start_date, time, pickup, user_id, ps_id],   (err,result) => {
+                    if(err){
+                        console.log(err);
+                    }else{
+                        dbconfig.query('UPDATE pet_sitter SET status = ? WHERE ps_id = ?',[true,ps_id],(err,result) => {
+                            if(err){
+                                console.log(err);
+                            }
+                        })
+                        res.json({status : true});
+                    }
+                });
+            }else{
+                res.json({status : false});
+            }
+        });
+        
+
+    }catch(err){
+        console.log("Err : ", err);
+        res.json("Error : ",err);
+    }
+
+
+
+});
+
+
+
+
 
 // Show pet sitter by id
 app.get('/pet_sitter/:id',(req,res) => {

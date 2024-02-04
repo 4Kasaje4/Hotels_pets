@@ -10,7 +10,11 @@ import ResetpasswordView from '@/views/Resetpassword.vue'
 import searchproView from '../views/searchpro.vue'
 import profileView from '@/views/profile.vue'
 import servicepageView from '../views/servicepage.vue'
-import startpage from '@/views/start.vue';
+import startpage from '@/views/start.vue'
+import confirmationpage from '@/views/confirmationpage.vue'
+import newconpage from '@/views/newconpage.vue'
+import haircutconView from '@/views/cutcon.vue'
+import takeaconView from '@/views/takeacon.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -75,6 +79,26 @@ const router = createRouter({
       path:'/',
       name:'start',
       component: startpage
+    },
+    {
+      path:'/confirmationpage/:role/:id/:login_id',
+      name:'confirmationpage',
+      component: confirmationpage
+    },
+    {
+      path:'/newconpage',
+      name:'newconpage',
+      component: newconpage
+    },
+    {
+      path:'/cutcon',
+      name: 'cutcon',
+      component : haircutconView
+    },
+    {
+      path:'/takacon',
+      name: 'takeacon',
+      component : takeaconView
     }
 
 
