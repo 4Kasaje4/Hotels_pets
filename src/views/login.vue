@@ -76,10 +76,29 @@
       data(){
         return {
           username: "",
-          password: ""
+          password: "",
+          role : "",
+          id : ""
         }
       },
       methods: {
+        async check_login(){
+          let login_id = this.$route.params.login_id
+          const data = {
+            login_id : login_id
+          }
+          const response = await fetch('http://localhost:3000/check_login', {
+            method : 'POST',
+            headers : {
+              'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify(data)
+          });
+          const response_data = await response.json();
+          if(response_data['isLogin'] == true){
+            this.$router.push('/homepage'); 
+          }
+        },
         async login(){
           if(this.username == ""){
             this.$refs.alert_username.innerHTML = '<p style="color:red;">กรุณากรอกชื่อผู้ใช้</p>'
@@ -88,7 +107,7 @@
             this.$refs.alert_password.innerHTML = '<p style="color:red;">กรุณากรอกรหัสผ่าน</p>'
           }
           if (this.username != ""){
-            this.$refs.alert_username.innerHTML = ''
+            this.$refs.alert_username.innerHTML = '' 
           }
           if (this.password != ""){
             this.$refs.alert_password.innerHTML = ''

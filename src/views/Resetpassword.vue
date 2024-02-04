@@ -137,7 +137,6 @@
           }
 
           this.profile_pic = response_data[`${this.column}_pic`]
-          console.log(this.column, this.profile_pic)
           if(this.profile_pic == null){
             this.path = '/src/img/Profile_Unknow.png'
           }else{
