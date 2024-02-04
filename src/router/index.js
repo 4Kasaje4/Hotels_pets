@@ -8,6 +8,8 @@ import searchproView from '../views/searchpro.vue'
 import startpageView from '../views/start.vue'
 import newconpageView from '@/views/newconpage.vue'
 import cutconView from '@/views/cutcon.vue'
+import takeaconView from '@/views/takeacon.vue'
+
 
 
 
@@ -58,6 +60,11 @@ const router = createRouter({
       path:'/cutcon',
       name:'cutcon',
       component: cutconView
+    },
+    {
+      path:'/takeacon',
+      name:'takeacon',
+      component: takeaconView
     }
    
 
