@@ -63,7 +63,7 @@ const router = createRouter({
     },
     { 
       path:'/profile/:role/:id/:login_id',
-      name:'profile',
+      name:'profile', 
       component:profileView
     },
     {
