@@ -85,25 +85,27 @@
             alert("Password in not match, Please try again.");
             this.$router.go(0)
           }
-          if(this.password1 == this.password2){
-            const role = this.$route.params.role;
-            const id = this.$route.params.id;
-            const data = {
-              role : role,
-              id : id,
-              new_password : this.password1
-            }
-            const response = await fetch(`http://localhost:3000/resetpassword`,{
-              method: 'POST',
-              headers: {
-                'Content-Type' : 'application/json'
-              },
-              body: JSON.stringify(data)
-            });
-            const response_data = await response.json();
-            if(response_data['status'] == 1){
-              alert("Reset password successfully.");
-              this.$router.push('/login');
+          if(this.password1 != "" &&  this.password2 != ""){
+            if(this.password1 == this.password2){
+              const role = this.$route.params.role;
+              const id = this.$route.params.id;
+              const data = {
+                role : role,
+                id : id,
+                new_password : this.password1
+              }
+              const response = await fetch(`http://localhost:3000/resetpassword`,{
+                method: 'POST',
+                headers: {
+                  'Content-Type' : 'application/json'
+                },
+                body: JSON.stringify(data)
+              });
+              const response_data = await response.json();
+              if(response_data['status'] == 1){
+                alert("Reset password successfully.");
+                this.$router.push('/login');
+              }
             }
           }
         },

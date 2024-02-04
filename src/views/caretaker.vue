@@ -8,7 +8,7 @@
         <div v-for="(pet_sitter, index) in array_pet_sitter" :key="index" >
           <div v-if="pet_sitter['pet_sitter_pic'] == null">
             <div style="display: flex; justify-content: center; margin: 3%;">
-              <div style="width: 50%; background-color: #D9D9D9; border-radius: 15px; display: flex;">
+              <div style="width: 50%; background-color: rgba(255, 249, 232, 1); border-radius: 15px; display: flex;">
                   <div style="margin: 5% 0 4% 10%;">
                       <img src="../img/Profile_Unknow.png" width="150dvw" alt="">
                 </div>
@@ -25,7 +25,7 @@
           </div>
           <div v-if="pet_sitter['pet_sitter_pic'] != null">
             <div style="display: flex; justify-content: center; margin: 3%;">
-              <div style="width: 50%; background-color: #D9D9D9; border-radius: 15px; display: flex;">
+              <div style="width: 50%; background-color: rgba(255, 249, 232, 1); border-radius: 15px; display: flex;">
                   <div style="margin: 5% 0 4% 10%;">
                       <img :src="path + pet_sitter['pet_sitter_pic']" style="border-radius: 50%;" height="145vh" width="150dvw" alt="">
                 </div>
