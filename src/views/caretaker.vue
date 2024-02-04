@@ -23,6 +23,23 @@
               </div>
             </div>
           </div>
+          <div v-if="pet_sitter['pet_sitter_pic'] != null">
+            <div style="display: flex; justify-content: center; margin: 3%;">
+              <div style="width: 50%; background-color: #D9D9D9; border-radius: 15px; display: flex;">
+                  <div style="margin: 5% 0 4% 10%;">
+                      <img :src="path + pet_sitter['pet_sitter_pic']" style="border-radius: 50%;" height="145vh" width="150dvw" alt="">
+                </div>
+                <div style="width: 100%; justify-content: center;  align-items: center; display: flex;">
+                  <div style="font-size: x-large; width: 60%;">
+                    <p>สมากชิกคนที่ {{ index + 1 }}</p>
+                    <p>ชื่อ : {{ pet_sitter['firstname'] }}</p>
+                    <p>นามสกุล : {{ pet_sitter['lastname'] }}</p>
+                    <p>เบอร์โทร : {{ pet_sitter['phone'] }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
         </div>  
       
@@ -71,17 +88,11 @@
     name:'caretakerView',
     data(){
       return {
-        array_pet_sitter: []
+        array_pet_sitter: [],
+        path : '/API/profile_pic/'
       }
     },
     methods: {
-      async check_login(){
-          const response = await fetch('http://localhost:3000/check_login');
-          const response_data = await response.json();
-          if(response_data['isLogin'] == false){
-            this.$router.push('/login'); 
-          }
-        },
       async show_pet_sitter(){
         const response = await fetch('http://localhost:3000/all_pet_sitter');
         const response_data = await response.json();
@@ -119,7 +130,6 @@
       }
     },
     mounted(){
-      this.check_login();
       this.show_pet_sitter()
     }
   }

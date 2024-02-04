@@ -42,7 +42,7 @@ const router = createRouter({
       component:login
     },
     {
-      path:'/Homepage/:role/:id',
+      path:'/Homepage/:role/:id/:login_id',
       name:'Homepage',
       component:Homepage
     },
@@ -52,7 +52,7 @@ const router = createRouter({
       component:caretakerView
     },
     {
-      path:'/Resetpassword/:role/:id',
+      path:'/Resetpassword/:role/:id/:login_id',
       name:'resetpassword',
       component:ResetpasswordView
     },
@@ -62,12 +62,12 @@ const router = createRouter({
       component:searchproView
     },
     {
-      path:'/profile/:role/:id',
+      path:'/profile/:role/:id/:login_id',
       name:'profile',
       component:profileView
     },
     {
-      path:'/servicepage/:role/:id',
+      path:'/servicepage/:role/:id/:login_id',
       name:'servicepage',
       component:servicepageView
     },

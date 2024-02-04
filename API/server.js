@@ -33,11 +33,12 @@ const storage = multer.diskStorage({
     }
 });
 const upload = multer({storage: storage});
-
+ 
 // variable
 const port = 3000;
-const timeExpire = 20000 //3600000 // 1 hour;
+const timeExpire = 3600000 // 1 hour;
 let isLogin = false;
+let array_login = [];
 
 // Connect to database
 const dbconfig = mysql.createConnection({
@@ -75,22 +76,48 @@ app.post('/searchprofile',async (req,res) => {
         result = await getUser('user', username, email);
         if(result['user'] === 1){
             isLogin = true
-            setTimeout(() => { isLogin = false}, timeExpire);
-            res.json({role : 'user', result : result['result']});
+            let id = Math.random() *(10**20);
+            array_login.push({id : id, isLogin : isLogin});
+            setTimeout(() => { 
+                isLogin = false
+                for(let i = 0; i < array_login.length; i++){
+                    if(array_login[i]['id'] == id){
+                        array_login.splice(i,1);
+                    }
+                }
+            }, timeExpire);
+            res.json({role : 'user', login_id : id, result : result['result']});
         }else{
             result = await getUser('pet_sitter', username, email);
             if(result['user'] === 1){
                 isLogin = true
-                setTimeout(() => { isLogin = false}, timeExpire);
-                
-                res.json({role : 'pet_sitter', result : result['result']});
+                let id = Math.random() *(10**20);
+                array_login.push({id : id, isLogin : isLogin});
+                setTimeout(() => { 
+                    isLogin = false
+                    for(let i = 0; i < array_login.length; i++){
+                        if(array_login[i]['id'] == id){
+                            array_login.splice(i,1);
+                        }
+                    }
+                }, timeExpire);
+                res.json({role : 'pet_sitter', login_id : id, result : result['result']});
             }else{
                 result = await getUser('admin', username, email);
                 if(result['user'] === 1){
                     isLogin = true
-                    setTimeout(() => { isLogin = false}, timeExpire);
+                    let id = Math.random() *(10**20);
+                    array_login.push({id : id, isLogin : isLogin});
+                    setTimeout(() => { 
+                        isLogin = false
+                        for(let i = 0; i < array_login.length; i++){
+                            if(array_login[i]['id'] == id){
+                                array_login.splice(i,1);
+                            }
+                        }
+                    }, timeExpire);
                     
-                    res.json({role : 'admin', result : result['result']});
+                    res.json({role : 'admin', login_id : id, result : result['result']});
                 }else{
                     res.json({user : 0});
                 }
@@ -229,8 +256,21 @@ app.post('/register_user',(req,res) => {
 });
 
 // check login
-app.get('/check_login',(req,res) => {
-    res.json({isLogin : isLogin});
+app.post('/check_login',async (req,res) => {
+    let login_id = req.body.login_id;
+    if(array_login.length != 0){
+        for(let i = 0; i < array_login.length; i++){
+            console.log("user : ",array_login[i]);
+            console.log("login_id : ", login_id);
+            if(await array_login[i]['id'] == login_id){
+                res.json({isLogin : true});
+            }else{
+                res.json({isLogin : false});
+            }
+        }
+    }else{
+        res.json({isLogin : false, message : "No user login"});
+    }
 });
 
 // Login
@@ -264,24 +304,51 @@ app.get('/check_login',(req,res) => {
         result = await login('user', username, password);
         if(result['user'] === 1){
             isLogin = true
-            setTimeout(() => { isLogin = false}, timeExpire);
-            res.json({user : 1, role : 'user', user_id : result['result']['user_id']});
+            let id = Math.random() *(10**20);
+            array_login.push({id : id, isLogin : isLogin});
+            setTimeout(() => { 
+                isLogin = false
+                for(let i = 0; i < array_login.length; i++){
+                    if(array_login[i]['id'] == id){
+                        array_login.splice(i,1);
+                    }
+                }
+            }, timeExpire);
+            res.json({user : 1, role : 'user', login_id : id, user_id : result['result']['user_id']});
         }else if(result['user'] === -1 ){
             res.json({message : "password_is_not_match"})
-        }else{ 
+        }else{  
             result = await login('pet_sitter', username, password);
             if(result['user'] === 1){
                 isLogin = true
-                setTimeout(() => { isLogin = false}, timeExpire);
-                res.json({user : 1, role : 'pet_sitter', ps_id : result['result']['ps_id']});
+                let id = Math.random() *(10**20);
+                array_login.push({id : id, isLogin : isLogin});
+                setTimeout(() => { 
+                    isLogin = false
+                    for(let i = 0; i < array_login.length; i++){
+                        if(array_login[i]['id'] == id){
+                            array_login.splice(i,1);
+                        }
+                    }
+                }, timeExpire);
+                res.json({user : 1,login_id : id, role : 'pet_sitter', ps_id : result['result']['ps_id']});
             }else if(result['user'] === -1 ){
                 res.json({message : "password_is_not_match"})
             }else{
                 result = await login('admin', username, password);
                 if(result['user'] === 1){
                     isLogin = true
-                    setTimeout(() => { isLogin = false}, timeExpire);
-                    res.json({user : 1, role : 'admin', admin_id : result['result']['admin_id']});
+                    let id = Math.random() *(10**20);
+                    array_login.push({id : id, isLogin : isLogin});
+                    setTimeout(() => { 
+                        isLogin = false
+                        for(let i = 0; i < array_login.length; i++){
+                            if(array_login[i]['id'] == id){
+                                array_login.splice(i,1);
+                            }
+                        }
+                    }, timeExpire);
+                    res.json({user : 1,login_id : id, role : 'admin', admin_id : result['result']['admin_id']});
                 }else if(result['user'] === -1 ){
                     res.json({message : "password_is_not_match"})
                 }else{
