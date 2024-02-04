@@ -11,27 +11,16 @@
       </div> -->
       <div style="margin-top: 0.5%;">
         <a id="navchoice" href="/" >หน้าแรก</a>
-        <a id="navchoice" @click="package()" >แพ็กเกจ/โปรโมชั่น</a>
-        <a id="navchoice" @click="about()" >เกี่ยวกับเรา</a>
-        <a id="navchoice" @click="login()" >เข้าสู่ระบบ</a>
+        <a id="navchoice" href="package" >แพ็กเกจ/โปรโมชั่น</a>
+        <a id="navchoice" href="about" >เกี่ยวกับเรา</a>
+        <a id="navchoice" href="login" >เข้าสู่ระบบ</a>
       </div>
    </div>
 </template>
 
 <script>
 export default {
-    name:'NavView',
-    methods: {
-      login(){
-        this.$router.push('/login');
-      },
-      about(){
-        this.$router.push('/about');
-      },
-      package(){
-        this.$router.push('/package');
-      }
-    }
+    name:'NavView'
 }
 </script>
 
@@ -43,7 +32,6 @@ export default {
 /* Kasaje */
 
 #navchoice{
-  cursor: pointer;
   padding-left: 1vw;
   text-decoration: none; 
   font-size: large; 

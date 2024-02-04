@@ -46,28 +46,18 @@
           password2: "",
           profile_pic : null,
           column : "",
-          path : "",
-          login_id : ""
+          path : ""
         }
       },
       methods: {
         async check_login(){
-          let login_id = this.$route.params.login_id
-          const data = {
-            login_id : login_id
-          }
-          const response = await fetch('http://localhost:3000/check_login', {
-            method : 'POST',
-            headers : {
-              'Content-Type' : 'application/json'
-            },
-            body : JSON.stringify(data)
-          });
+          const response = await fetch('http://localhost:3000/check_login');
           const response_data = await response.json();
           if(response_data['isLogin'] == false){
             this.$router.push('/login'); 
           }
-        },
+        }
+        ,
         async resetpassword(){
           if(this.password1 == ""){
             this.$refs.alert_password1.innerHTML = '<p style="color:red;">จำเป็นต้องกรอก</p>'

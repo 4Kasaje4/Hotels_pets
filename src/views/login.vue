@@ -119,13 +119,13 @@
             else if (response_data['user'] == 1){
               
               if(response_data['role'] == "user"){
-                this.$router.push({name: 'Homepage', params: {role: "user", id : response_data['user_id'], login_id : response_data['login_id'] }});
+                this.$router.push({name: 'Homepage', params: {role: "user", id : response_data['user_id'] }});
               }
               if(response_data['role'] == "pet_sitter"){
-                this.$router.push({name: 'Homepage', params: {role: "ps", id : response_data['ps_id'], login_id : response_data['login_id'] }});
+                this.$router.push({name: 'Homepage', params: {role: "ps", id : response_data['ps_id'] }});
               }
               if(response_data['role'] == "admin"){
-                this.$router.push({name: 'Homepage', params: {role: "admin", id : response_data['admin_id'], login_id : response_data['login_id'] }});
+                this.$router.push({name: 'Homepage', params: {role: "admin", id : response_data['admin_id'] }});
               }
               
             }
