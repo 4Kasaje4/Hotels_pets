@@ -9,7 +9,8 @@ import caretakerView from '@/views/caretaker.vue'
 import ResetpasswordView from '@/views/Resetpassword.vue'
 import searchproView from '../views/searchpro.vue'
 import profileView from '@/views/profile.vue'
-import servicepageView from '../views/servicepage.vue'
+import startpageView from '../views/start.vue'
+import newconpageView from '@/views/newconpage.vue'
 
 
 
@@ -68,15 +69,16 @@ const router = createRouter({
       component:profileView
     },
     {
-      path:'/servicepage/:role/:id/:login_id',
-      name:'servicepage',
-      component:servicepageView
+      path:'/start',
+      name:'start',
+      component: startpageView
     },
     {
-      path:'/',
-      name:'start',
-      component: startpage
+      path:'/newconpage',
+      name:'newconpage',
+      component: newconpageView
     }
+   
 
 
 
