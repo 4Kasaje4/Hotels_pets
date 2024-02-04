@@ -43,17 +43,9 @@
   export default {
     name:'packageView',
     methods: {
-      async check_login(){
-          const response = await fetch('http://localhost:3000/check_login');
-          const response_data = await response.json();
-          if(response_data['isLogin'] == 0){
-            this.$router.push('/login'); 
-          }
-        }
-        ,
+      
     },
     mounted(){
-      this.check_login();
     }
   }
   </script>

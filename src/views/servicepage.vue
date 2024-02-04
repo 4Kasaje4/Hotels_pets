@@ -57,7 +57,20 @@
   import newnav from '@/components/newnav.vue'
   export default {
   components: { newnav },
-  name:'servicepageView'
+  name:'servicepageView',
+  name:'caretakerView',
+  methods:{
+    async check_login(){
+          const response = await fetch('http://localhost:3000/check_login');
+          const response_data = await response.json();
+          if(response_data['isLogin'] == false){
+            this.$router.push('/login'); 
+          }
+        },
+  },
+  mounted(){
+    this.check_login();
+  }
 }
 
 </script>
