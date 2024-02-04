@@ -61,7 +61,7 @@ const router = createRouter({
       name:'searchpro',
       component:searchproView
     },
-    {
+    { 
       path:'/profile/:role/:id/:login_id',
       name:'profile',
       component:profileView
