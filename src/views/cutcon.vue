@@ -15,7 +15,7 @@
                 <p class="texttype1">ชื่อเล่นสัตว์เลี้ยง</p>
                 <div class="boxtype"></div>
                 <div class="boxtype1"></div>
-            </div>
+            </div>  
             <h2 class="textreserve">รายละเอียดเพิ่มเติม</h2>      
             <div class="bigboxtype">
                 <p class="texttype">โปรดเลือกวันที่จะเริ่มให้บริการ</p>
