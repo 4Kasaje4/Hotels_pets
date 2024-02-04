@@ -28,10 +28,10 @@
                 <div class="boxtype1"></div>
                 <p class="texttype2">ข้อมูลเพิ่มเติมที่พี่เลี้ยงควรรู้เกี่ยวกับสัตว์เลี้ยงของคุณ </p> <p class="colortext">(ไม่จำเป็น)</p>
                 <div class="boxtype2"></div>
-            </div>
+            </div>   
             <button class="button2"> <h4 class="textbut">ยกเลิก</h4> </button>
             <button class="button3"> <h4 class="textbut1">ยืนยัน</h4> </button>
-            
+                  
         </div>
       </div>
     </div>
