@@ -62,40 +62,6 @@
     </div>
 
 
-    <div>
-      <div class="bigbox">
-        <div class="box">
-            <img class="profile" src="../img/ลุงพล.jpg" alt="">
-
-            <div class="reset"><p class="textre" >แก้ไข</p></div>
-
-            <p class="textpassword">ชื่อ</p>
-            <div class="boxpassword">
-            <p class="textplspassword">ลุงพลหล่อสุดใจ </p>
-          </div>
-
-          <p class="textaddress">ที่อยู่</p>
-            <div class="boxaddress">
-            <p class="textplsaddress">999/9 หน้ามหาวิทยาลัยพะเยา ต.เเม่กา อ.เมือง จ.พะเยา 56000/9 </p>
-          </div>
-
-          <p class="textnumber">เบอร์โทรศัพท์</p>
-            <div class="boxnumber">
-            <p class="textplsnumber">099-999-9999</p>
-          </div>
-
-          <p class="textemail">อีเมล</p>
-            <div class="boxemail">
-            <p class="textplsemail">CATDOGHOTEL999@GMAIL.COM</p>
-          </div>
-
-          <button class="button2"> <h4 class="textbut">ประวัติการจอง</h4> </button>
-
-          <p class="textlogin">ลบบัญชีผู้ใช้</p>
-
-        </div>
-      </div>
-    </div>
     <FooterView />
 
   </template>

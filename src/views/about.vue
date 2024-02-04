@@ -2,7 +2,7 @@
   <div>
     
   </div>
-</template>a
+</template>
 
 <script>
 export default {

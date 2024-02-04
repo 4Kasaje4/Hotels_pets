@@ -1,7 +1,7 @@
   <template>
     <NavView /> 
       <div>
-       <div class="bigbox">
+        <!-- <div class="bigbox">
           <div class="box">
             <h1 class="textlogin">เข้าสู่ระบบ</h1>
 
@@ -32,7 +32,7 @@
           </div>
 
 
-        </div>
+        </div> -->
           <div style="display: flex; justify-content: center;">
             <div style="border-radius: 10px; width: 35%;  margin-top: 3%; background-color:rgba(255, 249, 232, 1); padding-top: 3%; padding-bottom: 1%;">
           <p style="text-align: center;   font-size: xx-large;">เข้าสู่ระบบ</p>
