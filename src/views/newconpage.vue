@@ -42,7 +42,7 @@
   import newnav from '@/components/newnav.vue'
   export default {
   components: { newnav },
-  name:'newconpageView'
+  name:'newconpageView'  
    
   }
   </script>
