@@ -31,7 +31,7 @@
             </div>   
             <button class="button2"> <h4 class="textbut">ยกเลิก</h4> </button>
             <button class="button3"> <h4 class="textbut1">ยืนยัน</h4> </button>
-                  
+                     
         </div>
       </div>
     </div>
