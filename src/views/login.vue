@@ -98,14 +98,16 @@
               username: this.username,
               password: this.password
             }
-            const response = await fetch('http://127.0.0.1:3000/login',{
+            const response = await fetch('http://localhost:3000/login',{
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
               },
-              body: JSON.stringify(login_data)
+              body: JSON.stringify(login_data),
+              
             });
             const response_data = await response.json();
+
             if(response_data['user'] == 0){
               alert('No account, Please try again.');
               this.$router.go(0);  
@@ -117,13 +119,13 @@
             else if (response_data['user'] == 1){
               
               if(response_data['role'] == "user"){
-                this.$router.push({name: 'Homepage', params: {role: "user", id : response_data['user_id'] }});
+                this.$router.push({name: 'Homepage', params: {role: "user", id : response_data['user_id'], login_id : response_data['login_id'] }});
               }
               if(response_data['role'] == "pet_sitter"){
-                this.$router.push({name: 'Homepage', params: {role: "ps", id : response_data['ps_id'] }});
+                this.$router.push({name: 'Homepage', params: {role: "ps", id : response_data['ps_id'], login_id : response_data['login_id'] }});
               }
               if(response_data['role'] == "admin"){
-                this.$router.push({name: 'Homepage', params: {role: "admin", id : response_data['admin_id'] }});
+                this.$router.push({name: 'Homepage', params: {role: "admin", id : response_data['admin_id'], login_id : response_data['login_id'] }});
               }
               
             }

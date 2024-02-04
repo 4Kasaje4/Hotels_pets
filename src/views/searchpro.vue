@@ -85,13 +85,13 @@
           });
           const response_data = await response.json();
           if(response_data['role'] == "user"){
-            this.$router.push({ name: 'resetpassword', params: { role: 'user', id: response_data['result']['user_id'] } });
+            this.$router.push({ name: 'resetpassword', params: { role: 'user', id: response_data['result']['user_id'], login_id : this.$route.params.login_id } });
           }
           if(response_data['role'] == "pet_sitter"){
-            this.$router.push({ name: 'resetpassword', params: { role: 'ps', id: response_data['result']['ps_id'] } });
+            this.$router.push({ name: 'resetpassword', params: { role: 'ps', id: response_data['result']['ps_id'], login_id : this.$route.params.login_id } });
           }
           if(response_data['role'] == "admin"){
-            this.$router.push({ name: 'resetpassword', params: { role: 'admin', id: response_data['result']['admin_id'] } });
+            this.$router.push({ name: 'resetpassword', params: { role: 'admin', id: response_data['result']['admin_id'], login_id : this.$route.params.login_id } });
           }
           if(response_data['user'] == 0){
             alert("No account, Please try again.");

@@ -14,6 +14,15 @@ dotenv.config();
 app.use(bodyparser.urlencoded({extended:true}));
 app.use(bodyparser.json());
 
+
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173'); // แทนที่ด้วย URL ของ Vue.js 
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+  });
+
 // upload image
 const storage = multer.diskStorage({
     destination: (req,file,cb) => {
@@ -24,11 +33,12 @@ const storage = multer.diskStorage({
     }
 });
 const upload = multer({storage: storage});
-
+ 
 // variable
 const port = 3000;
-const timeExpire = 60000 //3600000 // 1 hour;
+const timeExpire = 3600000 // 1 hour;
 let isLogin = false;
+let array_login = [];
 
 // Connect to database
 const dbconfig = mysql.createConnection({
@@ -39,56 +49,80 @@ const dbconfig = mysql.createConnection({
 });
 dbconfig.connect();
 
-// Seting Cors
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173'); // แทนที่ด้วย URL ของ Vue.js 
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    next();
-  });
 
 //starter page
 app.get('/',(req,res) => {
-    res.send("Hello, This is First message in my project");
+    res.send('This is homepage')
 });
 
 // Search Profile
-app.post('/searchprofile',(req,res) => {
+app.post('/searchprofile',async (req,res) => {
+    async function getUser(table, username, email){
+        return new Promise((resolve, reject) => {
+            dbconfig.query(`SELECT * FROM ${table} WHERE username = ? AND email = ?`,[username, email], (err,result) => {
+                if(err){
+                    reject(err);
+                }else{
+                    resolve(result.length === 1 ? {user : 1, result : result[0]} : {user : 0});
+                }
+            })
+        });
+    }
     try {
         const username = req.body.username;
         const email = req.body.email;
-        // Check user in user table
-        dbconfig.query('SELECT * FROM user WHERE username = ? AND email = ?', [username, email], (err,result)=> {
-            if(result.length == 1){
-                isLogin = true;
-                setTimeout(()=> {isLogin = false},timeExpire);
-                res.status(200).json({role: "user", result: result[0]});
-            }
-            else {
-                // Check user in pet_sitter table
-                dbconfig.query('SELECT * FROM pet_sitter WHERE username = ? AND email = ? ', [username, email], (err,result) => {
-                    if(result.length == 1){
-                        isLogin = true;
-                        setTimeout(()=> {isLogin = false},timeExpire);
-                        res.status(200).json({role: "pet_sitter", result: result[0]});
+        let result = "";
+
+        result = await getUser('user', username, email);
+        if(result['user'] === 1){
+            isLogin = true
+            let id = Math.random() *(10**20);
+            array_login.push({id : id, isLogin : isLogin});
+            setTimeout(() => { 
+                isLogin = false
+                for(let i = 0; i < array_login.length; i++){
+                    if(array_login[i]['id'] == id){
+                        array_login.splice(i,1);
                     }
-                    else {
-                        // Check user in admin table
-                        dbconfig.query('SELECT * FROM admin WHERE username = ? AND email = ? ', [username, email], (err,result) => {
-                            if(result.length == 1){
-                                isLogin = true;
-                                setTimeout(()=> {isLogin = false},timeExpire);
-                                res.status(200).json({role: "admin", result: result[0]});
-                            }
-                            else {
-                                res.status(404).json({user:0})
-                            }
-                        });
+                }
+            }, timeExpire);
+            res.json({role : 'user', login_id : id, result : result['result']});
+        }else{
+            result = await getUser('pet_sitter', username, email);
+            if(result['user'] === 1){
+                isLogin = true
+                let id = Math.random() *(10**20);
+                array_login.push({id : id, isLogin : isLogin});
+                setTimeout(() => { 
+                    isLogin = false
+                    for(let i = 0; i < array_login.length; i++){
+                        if(array_login[i]['id'] == id){
+                            array_login.splice(i,1);
+                        }
                     }
-                });
+                }, timeExpire);
+                res.json({role : 'pet_sitter', login_id : id, result : result['result']});
+            }else{
+                result = await getUser('admin', username, email);
+                if(result['user'] === 1){
+                    isLogin = true
+                    let id = Math.random() *(10**20);
+                    array_login.push({id : id, isLogin : isLogin});
+                    setTimeout(() => { 
+                        isLogin = false
+                        for(let i = 0; i < array_login.length; i++){
+                            if(array_login[i]['id'] == id){
+                                array_login.splice(i,1);
+                            }
+                        }
+                    }, timeExpire);
+                    
+                    res.json({role : 'admin', login_id : id, result : result['result']});
+                }else{
+                    res.json({user : 0});
+                }
             }
-        });
+        }  
     }catch(err){
         console.log("Error : " , err);
         res.status(500).json({error: err});
@@ -222,65 +256,109 @@ app.post('/register_user',(req,res) => {
 });
 
 // check login
-app.get('/check_login',(req,res) => {
-    res.status(200).json({isLogin:isLogin});
+app.post('/check_login',async (req,res) => {
+    let login_id = req.body.login_id;
+    if(array_login.length != 0){
+        for(let i = 0; i < array_login.length; i++){
+            console.log("user : ",array_login[i]);
+            console.log("login_id : ", login_id);
+            if(await array_login[i]['id'] == login_id){
+                res.json({isLogin : true});
+            }else{
+                res.json({isLogin : false});
+            }
+        }
+    }else{
+        res.json({isLogin : false, message : "No user login"});
+    }
 });
 
 // Login
  app.post('/login', async(req,res) => {
-    try {
-        let username = req.body.username; 
-        let password = req.body.password;
-
-        dbconfig.query('SELECT * FROM user WHERE username = ?',[username], async ( err, result) => {
-            if(result.length === 1){
-                let password_in_db = result[0].password;
-                let status = await bcrypt.compare(password, password_in_db);
-                if(status == true){
-                    isLogin = true;
-                    setTimeout(()=> {isLogin = false},timeExpire);
-                    res.status(200).json({user:1,role: "user", user_id : result[0]['user_id']});
-                }
-                else{
-                    res.json({message: "password_is_not_match"});
-                }    
-            }  
-            else{
-                dbconfig.query('SELECT * FROM pet_sitter WHERE username = ? ',[username],async (err,result) => {
+    async function login(table, username, password){
+        return new Promise((resolve, reject) => {
+            dbconfig.query(`SELECT * FROM ${table} WHERE username = ? `,[username], async(err,result) => {
+                if(err){
+                    reject(err);
+                }else{
                     if(result.length === 1){
-                        let password_in_db = result[0].password;
-                         let status = await bcrypt.compare(password, password_in_db);
-                        if(status == true){ 
-                            isLogin = true;
-                            setTimeout(()=> {isLogin = false},timeExpire);
-                            res.status(200).json({user:1,role: "pet_sitter",ps_id : result[0]['ps_id']});
+                        const password_in_db = result[0]['password'];
+                        const password_correct = await bcrypt.compare(password, password_in_db);
+                        if(password_correct == true){
+                            resolve({user : 1, result : result[0]});
+                        }else{
+                            resolve({user : -1,message : "password_is_not_match"});
                         }
-                        else{
-                            res.json({message: "password_is_not_match"});
-                        }    
+                    }else{
+                        resolve({user : 0});
                     }
-                    else{
-                        dbconfig.query('SELECT * FROM admin WHERE username = ?',[username], async (err,result) => {
-                            if(result.length === 1){
-                                let password_in_db = result[0].password;
-                                let status = await bcrypt.compare(password, password_in_db);
-                                if(status == true){
-                                    isLogin = true;
-                                    setTimeout(()=> {isLogin = false},timeExpire);
-                                    res.status(200).json({user:1,role: "admin",admin_id : result[0]['admin_id']});
-                                }
-                                else{
-                                    res.json({message: "password_is_not_match"});
-                                }    
-                            }
-                            else{
-                                res.status(404).json({user:0});
-                            }
-                        });
+                }
+            });
+        })
+        
+    }
+    try {
+        const username = req.body.username; 
+        const password = req.body.password;
+        let result = "";
+        result = await login('user', username, password);
+        if(result['user'] === 1){
+            isLogin = true
+            let id = Math.random() *(10**20);
+            array_login.push({id : id, isLogin : isLogin});
+            setTimeout(() => { 
+                isLogin = false
+                for(let i = 0; i < array_login.length; i++){
+                    if(array_login[i]['id'] == id){
+                        array_login.splice(i,1);
                     }
-                });
-            }     
-        });
+                }
+            }, timeExpire);
+            res.json({user : 1, role : 'user', login_id : id, user_id : result['result']['user_id']});
+        }else if(result['user'] === -1 ){
+            res.json({message : "password_is_not_match"})
+        }else{  
+            result = await login('pet_sitter', username, password);
+            if(result['user'] === 1){
+                isLogin = true
+                let id = Math.random() *(10**20);
+                array_login.push({id : id, isLogin : isLogin});
+                setTimeout(() => { 
+                    isLogin = false
+                    for(let i = 0; i < array_login.length; i++){
+                        if(array_login[i]['id'] == id){
+                            array_login.splice(i,1);
+                        }
+                    }
+                }, timeExpire);
+                res.json({user : 1,login_id : id, role : 'pet_sitter', ps_id : result['result']['ps_id']});
+            }else if(result['user'] === -1 ){
+                res.json({message : "password_is_not_match"})
+            }else{
+                result = await login('admin', username, password);
+                if(result['user'] === 1){
+                    isLogin = true
+                    let id = Math.random() *(10**20);
+                    array_login.push({id : id, isLogin : isLogin});
+                    setTimeout(() => { 
+                        isLogin = false
+                        for(let i = 0; i < array_login.length; i++){
+                            if(array_login[i]['id'] == id){
+                                array_login.splice(i,1);
+                            }
+                        }
+                    }, timeExpire);
+                    res.json({user : 1,login_id : id, role : 'admin', admin_id : result['result']['admin_id']});
+                }else if(result['user'] === -1 ){
+                    res.json({message : "password_is_not_match"})
+                }else{
+                    res.json({user : 0});
+                }
+            }
+        }
+
+
+        
     }
     catch(err) {
         console.log("Error : ", err);
@@ -392,7 +470,6 @@ app.delete('/delete_pet_sitter/:id',(req,res) => {
         return res.json({message : "Delete Pet Sitter success"});
     });
 });
-
 
 
 

@@ -9,7 +9,6 @@ import caretakerView from '@/views/caretaker.vue'
 import ResetpasswordView from '@/views/Resetpassword.vue'
 import searchproView from '../views/searchpro.vue'
 import profileView from '@/views/profile.vue'
-import editprofileView from '../views/editprofile.vue'
 import servicepageView from '../views/servicepage.vue'
 
 
@@ -44,7 +43,7 @@ const router = createRouter({
       component:login
     },
     {
-      path:'/Homepage/:role/:id',
+      path:'/Homepage/:role/:id/:login_id',
       name:'Homepage',
       component:Homepage
     },
@@ -54,7 +53,7 @@ const router = createRouter({
       component:caretakerView
     },
     {
-      path:'/Resetpassword/:role/:id',
+      path:'/Resetpassword/:role/:id/:login_id',
       name:'resetpassword',
       component:ResetpasswordView
     },
@@ -64,19 +63,19 @@ const router = createRouter({
       component:searchproView
     },
     {
-      path:'/profile/:role/:id',
+      path:'/profile/:role/:id/:login_id',
       name:'profile',
       component:profileView
     },
     {
-      path:'/editprofile',
-      name:'editprofile',
-      component:editprofileView
-    },
-    {
-      path:'/servicepage',
+      path:'/servicepage/:role/:id/:login_id',
       name:'servicepage',
       component:servicepageView
+    },
+    {
+      path:'/',
+      name:'start',
+      component: startpage
     }
 
 

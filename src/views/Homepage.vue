@@ -7,7 +7,7 @@
     </div>
     <h1 class="textser">เลือกบริการของคุณกันเลย !</h1>
     <h1 class="textchoose">เลือกใช้บริการที่คุณต้องการสำหรับสัตว์เลี้ยงของคุณ</h1>
-    <button class="button1"> <p class="textbut">บริการ</p> </button>
+    <button @click="go_to_service" class="button1"> <p class="textbut">บริการ</p> </button>
     
  
 
@@ -22,16 +22,31 @@ components: { newnav },
   name:'HomepageView',
  methods:{
   async check_login(){
-          const response = await fetch('http://localhost:3000/check_login');
+          let login_id = this.$route.params.login_id
+          const data = {
+            login_id : login_id
+          }
+          const response = await fetch('http://localhost:3000/check_login', {
+            method : 'POST',
+            headers : {
+              'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify(data)
+          });
           const response_data = await response.json();
-          if(response_data['isLogin'] == 0){
+          if(response_data['isLogin'] == false){
             this.$router.push('/login'); 
           }
         },
   async go_profile(){
     const role = this.$route.params.role;
     const id = this.$route.params.id;
-    this.$router.push({name: 'profile', params: {role : role, id : id}});
+    this.$router.push({name: 'profile', params: {role : role, id : id, login_id : this.$route.params.login_id}});
+  },
+  async go_to_service(){
+    const role = this.$route.params.role;
+    const id = this.$route.params.id;
+    this.$router.push({name: 'servicepage', params: {role : role, id : id, login_id : this.$route.params.login_id}});
   }
  },
  mounted(){
