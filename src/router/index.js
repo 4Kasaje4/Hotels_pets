@@ -10,7 +10,8 @@ import ResetpasswordView from '@/views/Resetpassword.vue'
 import searchproView from '../views/searchpro.vue'
 import profileView from '@/views/profile.vue'
 import servicepageView from '../views/servicepage.vue'
-import startpage from '@/views/start.vue';
+
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

@@ -57,6 +57,7 @@
   import newnav from '@/components/newnav.vue'
   export default {
   components: { newnav },
+  name:'servicepageView',
   name:'caretakerView',
   methods:{
     async check_login(){
