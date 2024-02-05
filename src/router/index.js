@@ -10,7 +10,7 @@ import newconpageView from '@/views/newconpage.vue'
 import cutconView from '@/views/cutcon.vue'
 import takeaconView from '@/views/takeacon.vue'
 import cancelView from '@/views/cancel.vue'
-
+import bookingView from '@/views/booking.vue'
 
 
 
@@ -71,6 +71,11 @@ const router = createRouter({
       path:'/cancel',
       name:'cancel',
       component: cancelView
+    },
+    {
+      path:'/booking',
+      name:'booking',
+      component: bookingView
     }
    
 

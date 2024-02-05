@@ -2,7 +2,8 @@
   <div>
     
   </div>
-</template>a
+  <FooterView />
+</template>
 
 <script>
 export default {
