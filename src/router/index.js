@@ -9,6 +9,7 @@ import startpageView from '../views/start.vue'
 import newconpageView from '@/views/newconpage.vue'
 import cutconView from '@/views/cutcon.vue'
 import takeaconView from '@/views/takeacon.vue'
+import cancelView from '@/views/cancel.vue'
 
 
 
@@ -65,6 +66,11 @@ const router = createRouter({
       path:'/takeacon',
       name:'takeacon',
       component: takeaconView
+    },
+    {
+      path:'/cancel',
+      name:'cancel',
+      component: cancelView
     }
    
 
