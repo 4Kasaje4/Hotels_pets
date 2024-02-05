@@ -62,7 +62,7 @@
         border-radius: 20px;
         margin-top: -10px;
       }
-
+  
       .textser{
         margin-left: 100px;
         margin-top: 60px;
