@@ -482,22 +482,6 @@ app.post('/add_pet_to_hotel', async (req,res) => {
 });
 
 
-
-
-
-// Show pet sitter by id
-app.get('/pet_sitter/:id',(req,res) => {
-    const ps_id = req.params.id;
-    dbconfig.query(`SELECT * FROM pet_sitter WHERE ps_id = ?`,[ps_id],(err,result) => {
-
-        if(result.length != 0){
-            return res.json(result);
-        }else{
-            res.json({message : "No Account"});
-        }
-    });
-});
-
 // Show all pet sitter
 app.get('/all_pet_sitter',(req,res)=> {
     try {
@@ -511,33 +495,26 @@ app.get('/all_pet_sitter',(req,res)=> {
     }
 });
 
-// Delete user
-app.delete('/delete_user/:id',(req,res) => {
-    const user_id = req.params.id;
-    dbconfig.query('DELETE FROM user WHERE user_id = ? ', [user_id], (err) => {
-        return res.json({message: "Delete user success"});
-    });
+// show pet in hotel of user_id
+app.post('/pets_of_user', async (req,res) => {
+    try {
+        const user_id = req.body.user_id;
+        dbconfig.query('SELECT * FROM pet WHERE user_id = ?',[user_id], (err,result) => {
+            if(err){
+                console.log(err);
+            }else{
+                if(result.length == 0){
+                    res.json({user : 0});
+                }else{
+                    res.json({user : 1, result : result});
+                }
+            }
+        });
+    }catch(err){
+        console.log('Error : ', err);
+        res.json({error : err});
+    }
 });
-
-// Delete Admin
-// Done
-app.delete('/delete_admin/:id',(req,res) => {
-    const admin_id = req.params.id;
-    dbconfig.query('DELETE FROM admin WHERE admin_id = ?',[admin_id], (err) => {
-        return res.json({message : "Delete admin success"});
-    })
-});
-
-// Delete Pet_sitter
-// Done
-app.delete('/delete_pet_sitter/:id',(req,res) => {
-    const admin_id = req.params.id;
-    dbconfig.query('DELETE FROM pet_sitter WHERE ps_id = ?',[admin_id], (err) => {
-        return res.json({message : "Delete Pet Sitter success"});
-    });
-});
-
-
 
 app
 .listen(port,()=>{

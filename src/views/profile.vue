@@ -56,7 +56,7 @@
             <input  type="file" style="width: 97%; height: 4vh; margin-top: 1%;" @change="fileChange">
           </div>
           </div>
-          <button @click="edit_profile()" class="button2"> <h4 class="textbut">ประวัติการจอง</h4></button>
+          <button @click="cancel()" class="button2"> <h4 class="textbut">ประวัติการจอง</h4></button>
         </div>
       </div>
     </div>
@@ -109,7 +109,6 @@
       async backward(){
           this.$router.go(-1)
         },
-
       async profile(){
         const role = this.$route.params.role;
         const id = this.$route.params.id
@@ -193,6 +192,9 @@
           alert('Update profile successfully')
           this.$router.go(0);
         }
+      },
+      async cancel(){
+        this.$router.push({name: 'cancel', params : {role : this.$route.params.role, id : this.$route.params.id, login_id : this.$route.params.login_id}});
       }
     },
     mounted(){
