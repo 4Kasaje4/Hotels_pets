@@ -8,6 +8,7 @@ const bodyparser = require('body-parser');
 const multer = require('multer');
 const path = require('path');
 const { serialize } = require('v8');
+const { Duplex } = require('stream');
 
 // use
 const app = express();
@@ -515,35 +516,107 @@ app.post('/pets_of_user', async (req,res) => {
 
 // Show detail pet by user_id
 app.post('/details_pet',async (req,res) => {
-    const user_id = req.body.user_id;
-    const pet_id = req.body.pet_id;
-    dbconfig.query('SELECT * FROM pet WHERE pet_id = ? AND user_id = ?',[pet_id, user_id], (err,result) => {
-        if(err){
-            console.log(err);
-        }else{
-            res.json(result[0]);
-        }
-    });
-});
+    try {
+        const user_id = req.body.user_id;
+        const pet_id = req.body.pet_id;
+        dbconfig.query('SELECT * FROM pet WHERE pet_id = ? AND user_id = ?',[pet_id, user_id], (err,result) => {
+            if(err){
+                console.log(err);
+            }else{
+                res.json(result[0]);
+            }
+        });
+    }catch(err){
+        console.log("Error : ", err); 
+        res.json({error : err});
+    }
+}); 
 
 app.post('/cancle_pet_in_hotel',async (req,res) => {
-    const ps_id = req.body.ps_id;
-    const pet_id = req.body.pet_id; 
-    dbconfig.query('DELETE FROM pet WHERE pet_id = ?',[pet_id],(err,result) => {
-        if(err){
-            console.log(err);
-        }else{
-            dbconfig.query('UPDATE pet_sitter SET status = NULL WHERE ps_id = ?',[ps_id],(err,result) => {
-                if(err){
-                    console.log(err);
+    try {
+        const ps_id = req.body.ps_id;
+        const pet_id = req.body.pet_id; 
+        dbconfig.query('DELETE FROM pet WHERE pet_id = ?',[pet_id],(err,result) => {
+            if(err){
+                console.log(err);
+            }else{
+                dbconfig.query('UPDATE pet_sitter SET status = NULL WHERE ps_id = ?',[ps_id],(err,result) => {
+                    if(err){
+                        console.log(err);
+                    }else{
+                        res.json({status : true});
+                    }
+                });
+            }
+        });
+    }catch(err){
+        console.log("Error : ",err);
+        res.json({error : err});
+    }
+});
+
+// Delete account
+app.delete('/delete_account',async (req,res) => {
+    try {
+        const id = req.body.id;
+        const role = req.body.role;
+        if(role == 'user'){
+            // check user have pet ?
+            dbconfig.query('SELECT * FROM pet WHERE user_id = ?',[id],(err,result) => {
+                if(result.length == 0){
+                    dbconfig.query('DELETE FROM user WHERE user_id = ?',[id],(err,result) => {
+                        if(err){
+                            console.log(err);
+                        }else{
+                            res.json({status : true});
+                        }
+                    });
                 }else{
-                    res.json({status : true});
+                    // update status in pet_sitter
+                    for(let i=0; i<result.length; i++){
+                        dbconfig.query('UPDATE pet_sitter SET status = NULL WHERE ps_id = ?',[result[i]['ps_id'],(err,result) =>{
+                            if(err){
+                                console.log(err);
+                            }   
+                        }]);
+                    }
+                    dbconfig.query('DELETE FROM pet WHERE user_id = ?',[id],(err,result) => {
+                        if(err){
+                            console.log(err);
+                        }else{
+                            dbconfig.query('DELETE FROM user WHERE user_id = ?',[id],(err,result) => {
+                                if(err){
+                                    console.log(err);
+                                }else{
+                                    res.json({status : true});
+                                }
+                            });
+                        }
+                    });
                 }
             });
         }
-    });
+        if(role == 'admin'){
+            if(id == 1){
+                res.json({message : "not delete"});
+            }else{
+                dbconfig.query('DELETE FROM admin WHERE admin_id = ?',[id],(err,result) => {
+                    if(err){
+                        console.log(err);
+                    }else{
+                        res.json({status : true});
+                    }
+                });
+            }
+        }
+    }catch(err){
+        console.log("Error : ",err);
+        res.json({error : err});
+    }
 });
 
+
+// Listening on port
 app
 .listen(port,()=>{
     console.log(chalk.yellow(`Ready on port ${port}`));

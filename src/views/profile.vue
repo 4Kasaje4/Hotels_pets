@@ -58,6 +58,9 @@
           </div>
           <button @click="cancel()" class="button2"> <h4 class="textbut">ประวัติการจอง</h4></button>
         </div>
+        <div v-if="role == 'user' || role == 'admin'" style="display: flex; justify-content: center; margin: 3%;"> 
+          <p id="delete" @click="Delete()">ลบบัญชีผู้ใช้</p>
+        </div>
       </div>
     </div>
 
@@ -82,6 +85,7 @@
         profile_pic : null,
         path_pic : "",
         column : "",
+        role : ""
       }
     },
     methods:{
@@ -111,7 +115,8 @@
         },
       async profile(){
         const role = this.$route.params.role;
-        const id = this.$route.params.id
+        const id = this.$route.params.id;
+        this.role = this.$route.params.role;
         const data = {
           role : this.$route.params.role,
           id : this.$route.params.id
@@ -195,6 +200,34 @@
       },
       async cancel(){
         this.$router.push({name: 'cancel', params : {role : this.$route.params.role, id : this.$route.params.id, login_id : this.$route.params.login_id}});
+      },
+      async Delete(){
+        if(confirm('ยืนยันที่จะลบบัญชีหรือไม่') == true){
+          this.delete_account();
+        }
+      },  
+      async delete_account(){
+        const data = {
+          role : this.$route.params.role,
+          id : this.$route.params.id
+        }
+        const response = await fetch('http://localhost:3000/delete_account',{
+          method : 'DELETE',
+          headers : {'Content-Type' : 'application/json'},
+          body : JSON.stringify(data)
+        });
+        const response_data = await response.json();
+        console.log(response_data);
+        if(response_data['status'] == true){
+          alert('ลบบัญชีเรียบร้อย');
+          this.$router.push('/login');
+        }
+        if(response_data['message'] == "not delete"){
+          alert('ไม่สามารถลบบัญชีได้ เนื่องจากคุณเป็นหัวหน้าแอดมิน');
+          this.$router.go(0);
+        }else{
+          console.log(response_data);
+        }
       }
     },
     mounted(){
@@ -207,6 +240,12 @@
   </script>
   
   <style scoped>
+#delete:hover{
+  color: #ff450d;
+  cursor: pointer;
+  transition-duration: 0.1s;
+}
+
 #edit{
   background-color:rgba(217, 181, 113, 1);
    width: fit-content; 
