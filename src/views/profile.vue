@@ -81,7 +81,7 @@
         address : "",
         profile_pic : null,
         path_pic : "",
-        column : ""
+        column : "",
       }
     },
     methods:{

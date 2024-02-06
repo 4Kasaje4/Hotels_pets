@@ -17,6 +17,7 @@ import haircutconView from '@/views/cutcon.vue'
 import takeaconView from '@/views/takeacon.vue'
 import cancelView from '@/views/cancel.vue'
 import hide_cancle_pet from '@/views/hide_cancle_pet.vue'
+import bookingView from '@/views/booking.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -108,9 +109,14 @@ const router = createRouter({
       component : cancelView
     },
     {
-      path:'/hide_cancle_pet/:role/:id/:login_id/:pet_id',
+      path:'/hide_cancle_pet/:role/:id/:login_id/:pet_id/:ps_id',
       name: 'hide_cancle_pet',
       component : hide_cancle_pet
+    },
+    {
+      path:'/booking/:role/:id/:login_id/:pet_id',
+      name: 'booking',
+      component : bookingView
     }
 
 

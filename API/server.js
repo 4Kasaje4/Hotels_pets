@@ -421,7 +421,7 @@ app.post('/updateprofile', upload.single('profile_pic'), async (req,res) => {
             }
             else{
                 dbconfig.query(`UPDATE ${table_db} SET firstname = ?, lastname = ?, phone = ?, email = ?, address = ?, ${table_db}_pic = ?  WHERE ${role_id} = ${id}`,[firstname, lastname, phone, email, address, profile_pic],(err,result) => {
-                    res.json({status : true, message : "Success"});
+                   res.json({status : true, message : "Success"});
                     
                 });
             }
@@ -448,10 +448,7 @@ app.post('/add_pet_to_hotel', async (req,res) => {
         const allergies = req.body.allergies;
         const other = req.body.other;
 
-        console.log(user_id, type, breed, weight, name, start_date, time, pickup, allergies, other);
-
         dbconfig.query('SELECT ps_id FROM pet_sitter WHERE status IS NULL LIMIT 1',(err,result)=> {
-            console.log(result.length);
             if(result.length != 0){
                 const ps_id = result[0]['ps_id']
                 dbconfig.query('INSERT INTO pet (name, type, breed, weight, description, foodallergies, checkin, time_in, pickup, user_id, ps_id)   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);',[name, type, breed, weight, other, allergies, start_date, time, pickup, user_id, ps_id],   (err,result) => {
@@ -495,7 +492,7 @@ app.get('/all_pet_sitter',(req,res)=> {
     }
 });
 
-// show pet in hotel of user_id
+// show all pet in hotel of user_id
 app.post('/pets_of_user', async (req,res) => {
     try {
         const user_id = req.body.user_id;
@@ -506,7 +503,7 @@ app.post('/pets_of_user', async (req,res) => {
                 if(result.length == 0){
                     res.json({user : 0});
                 }else{
-                    res.json({user : 1, result : result});
+                    res.json({user : 1, result : result}); 
                 }
             }
         });
@@ -514,6 +511,37 @@ app.post('/pets_of_user', async (req,res) => {
         console.log('Error : ', err);
         res.json({error : err});
     }
+});
+
+// Show detail pet by user_id
+app.post('/details_pet',async (req,res) => {
+    const user_id = req.body.user_id;
+    const pet_id = req.body.pet_id;
+    dbconfig.query('SELECT * FROM pet WHERE pet_id = ? AND user_id = ?',[pet_id, user_id], (err,result) => {
+        if(err){
+            console.log(err);
+        }else{
+            res.json(result[0]);
+        }
+    });
+});
+
+app.post('/cancle_pet_in_hotel',async (req,res) => {
+    const ps_id = req.body.ps_id;
+    const pet_id = req.body.pet_id; 
+    dbconfig.query('DELETE FROM pet WHERE pet_id = ?',[pet_id],(err,result) => {
+        if(err){
+            console.log(err);
+        }else{
+            dbconfig.query('UPDATE pet_sitter SET status = NULL WHERE ps_id = ?',[ps_id],(err,result) => {
+                if(err){
+                    console.log(err);
+                }else{
+                    res.json({status : true});
+                }
+            });
+        }
+    });
 });
 
 app

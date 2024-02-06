@@ -65,8 +65,8 @@
               >
                 น้อง {{ pet_data["name"] }}
               </p>
-              <p style="font-size: x-large; margin-top: 5%">
-                บริการฝากเลี้ยงสัตว์เลี้ยง
+              <p style="font-size: x-large; margin-top: 5%"> 
+                บริการฝากเลี้ยงสัตว์เลี้ยง 
               </p>
               <div style="font-size: large; margin-top: 3%">
                 <p>เป็นบริการรับฝากเลี้ยงสัตว์</p>
@@ -74,8 +74,8 @@
                 <p>มีบ้านสำหรับน้องหมาน้องเเมว</p>
                 <p>พร้อมของใช้สำหรับสัตว์เลี้ยง</p>
               </div>
-              <button class="button2"><p class="textbut">รายละเอียด</p></button>
-              <button @click="cancle(pet_data['pet_id'])" class="button3">
+              <button @click="details_pet(pet_data['pet_id'])" class="button2"><p class="textbut">รายละเอียด</p></button>
+              <button @click="cancle(pet_data['pet_id'], pet_data['ps_id'])" class="button3">
                 <p class="textbut3">ยกเลิก</p>
               </button>
             </div>
@@ -137,7 +137,7 @@ export default {
         this.pet_data = response_data["result"];
       }
     },
-    async cancle(input_pet_id) {
+    async cancle(input_pet_id, input_ps_id) {
       this.$refs.alert_cancle.innerHTML = `      <div class="centered-container" style="  text-align: center;
   position: fixed;
   top: 50%;
@@ -202,13 +202,16 @@ export default {
                 margin-left: 20px;
                 height: 50px;
               "
-              onclick="window.location.href = 'http://localhost:5173/hide_cancle_pet/${this.$route.params.role}/${this.$route.params.id}/${this.$route.params.login_id}/${input_pet_id}'">
+              onclick="window.location.href = 'http://localhost:5173/hide_cancle_pet/${this.$route.params.role}/${this.$route.params.id}/${this.$route.params.login_id}/${input_pet_id}/${input_ps_id}'">
               ยืนยัน
             </button>
           </div>
         </div>
       </div>`;
     },
+    async details_pet(input_pet_id){
+      this.$router.push({name: 'booking', params: {role: this.$route.params.role, id: this.$route.params.id, login_id: this.$route.params.login_id, pet_id : input_pet_id}})
+    }
   },
   mounted() {
     this.check_login();
