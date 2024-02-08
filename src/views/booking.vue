@@ -34,8 +34,9 @@
                 <input type="text" class="boxtype" style="font-size: medium; padding-left: 10px; margin-left: 3.5%;" :value="details['foodallergies']" disabled>
                 <p class="texttype2">ข้อมูลเพิ่มเติมที่พี่เลี้ยงควรรู้เกี่ยวกับสัตว์เลี้ยงของคุณ </p> <p class="colortext">(ไม่จำเป็น)</p>
                 <input  type="text" class="boxtype2" style="font-size: medium; padding-left: 10px; " :value="details['description']" disabled >
-                
             </div>   
+            <p class="texttype">พี่เลี้ยงที่ดูแล</p>
+                <input  type="text"  style=" width: 750px ;height: 30px; background-color: #ffffff; border: 2px solid #000000; border-radius: 4px; margin-left: 100px; margin-top: 10px; font-size: medium; padding-left: 10px; " :value="details['firstname'] + ' ' + details['lastname']" disabled >
 
         </div>
       </div>
@@ -114,7 +115,7 @@
     }
       .box{
         width: 1000px;
-        height: 750px;
+        height: 820px;
         background-color: #FFF9E8;
         border-radius: 20px;
         margin-top: -10px;

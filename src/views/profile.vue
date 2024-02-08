@@ -220,7 +220,7 @@
         console.log(response_data);
         if(response_data['status'] == true){
           alert('ลบบัญชีเรียบร้อย');
-          this.$router.push('/login');
+          this.$router.push({name : 'logout', params : {login_id : this.$route.params.login_id}});
         }
         if(response_data['message'] == "not delete"){
           alert('ไม่สามารถลบบัญชีได้ เนื่องจากคุณเป็นหัวหน้าแอดมิน');

@@ -18,6 +18,7 @@ import takeaconView from '@/views/takeacon.vue'
 import cancelView from '@/views/cancel.vue'
 import hide_cancle_pet from '@/views/hide_cancle_pet.vue'
 import bookingView from '@/views/booking.vue'
+import hide_logout from '@/views/hide_logout.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -117,7 +118,13 @@ const router = createRouter({
       path:'/booking/:role/:id/:login_id/:pet_id',
       name: 'booking',
       component : bookingView
+    },
+    {
+      path:'/logout/:login_id',
+      name: 'logout',
+      component : hide_logout
     }
+
 
 
 

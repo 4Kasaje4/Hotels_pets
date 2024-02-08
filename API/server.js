@@ -7,8 +7,7 @@ const bcrypt = require('bcrypt');
 const bodyparser = require('body-parser');
 const multer = require('multer');
 const path = require('path');
-const { serialize } = require('v8');
-const { Duplex } = require('stream');
+
 
 // use
 const app = express();
@@ -39,7 +38,7 @@ const upload = multer({storage: storage});
 // variable
 const port = 3000;
 const timeExpire = 3600000 // 1 hour;
-let isLogin = false;
+// let isLogin = false;
 let array_login = [];
 
 // Connect to database
@@ -130,6 +129,34 @@ app.post('/searchprofile',async (req,res) => {
         res.status(500).json({error: err});
     }
 });
+
+// showpic in nav
+app.post('/show_pic', async(req,res) => {
+    try{
+        const role = req.body.role;
+        const id = req.body.id;
+        let table = "";
+        if(role == 'ps'){
+            table = "pet_sitter"
+        }else{
+            table = role
+        }
+        dbconfig.query(`SELECT ${table}_pic FROM ${table} WHERE ${role}_id = ?`,[id],(err,result) =>{
+            if(err){
+                console.log(err);
+            }else{
+                if(result.length == 0){
+                    res.json({result : null});
+                }else{
+                    res.json({result : result[0]});
+                }
+            }
+        })
+    }catch(err){
+        console.log(err);
+        res.json({error : err});
+    }
+})
 
 // Profile_data
 app.post('/profile',(req,res) => {
@@ -261,20 +288,21 @@ app.post('/register_user',(req,res) => {
 app.post('/check_login',async (req,res) => {
     try{
         let login_id = req.body.login_id;
-
-        if (array_login.length !== 0) {
+        if(array_login.length == 0){
+            res.json({isLogin : false, message : "No user login"});
+        }
+        if(array_login.length !== 0) {
+            // console.log("Array : ",array_login);
+            // console.log("login_id : ",login_id)
             for (let i = 0; i < array_login.length; i++) {
-                if (await array_login[i]['id'] === login_id) {
-                    isLogin = true;
+                // console.log("in array : ",array_login[i]['id']);
+                if (array_login[i]['id'] == login_id) {
+                    res.json({isLogin : true});
                     break;
                 }
             }
-        }
-
-        if (isLogin) {
-            res.json({ isLogin: true });
-        } else {
-            res.json({ isLogin: false, message: "No user login" });
+            res.json({isLogin : false});
+            
         }
 
     }catch(err){
@@ -519,7 +547,7 @@ app.post('/details_pet',async (req,res) => {
     try {
         const user_id = req.body.user_id;
         const pet_id = req.body.pet_id;
-        dbconfig.query('SELECT * FROM pet WHERE pet_id = ? AND user_id = ?',[pet_id, user_id], (err,result) => {
+        dbconfig.query('SELECT * FROM pet JOIN pet_sitter ON pet.ps_id = pet_sitter.ps_id WHERE pet_id = ? AND user_id = ?',[pet_id, user_id], (err,result) => {
             if(err){
                 console.log(err);
             }else{
@@ -527,7 +555,7 @@ app.post('/details_pet',async (req,res) => {
             }
         });
     }catch(err){
-        console.log("Error : ", err); 
+        console.log("Error : ", err); ``
         res.json({error : err});
     }
 }); 
@@ -553,6 +581,25 @@ app.post('/cancle_pet_in_hotel',async (req,res) => {
         console.log("Error : ",err);
         res.json({error : err});
     }
+});
+
+// Logout
+app.post('/logout',async (req,res) => {
+    try{
+        const login_id = req.body.login_id;
+        for(let i=0; i < array_login.length; i++){
+            if(array_login[i]['id'] == login_id){
+                array_login.splice(i,1);
+                res.json({status : true});
+                break;
+                
+            }
+        }
+    }catch(err){
+        console.log(err);
+        res.json("Error : ", err);
+    }
+    
 });
 
 // Delete account
