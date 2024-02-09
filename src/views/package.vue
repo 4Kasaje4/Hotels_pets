@@ -1,5 +1,12 @@
 <template>
-  <NavView /> 
+  <div class="Nav" >
+        <img class="logo" src="../img/logo.png" alt="" width="300px" height="100px" style="margin-top:-30px" >
+      <div style="margin-top: 0.5%;">
+        <a id="navchoice" @click="about()" >เกี่ยวกับเรา</a>
+      </div>
+   </div>
+
+
     <div>
       <div>
         <h1 class="texthead">เเพ็กเกจ/โปรโมชั่น</h1>
@@ -43,7 +50,9 @@
   export default {
     name:'packageView',
     methods: {
-      
+      about(){
+        this.$router.push('/about');
+      },
     },
     mounted(){
     }
@@ -144,5 +153,58 @@
 
   }
 
+
+
+  /************************************** */
+
+  *{
+  margin: 0px;
+}
+
+/* Kasaje */
+
+#navchoice{
+  cursor: pointer;
+  padding-left: 1vw;
+  text-decoration: none; 
+  font-size: large; 
+  font-weight:600;
+  color: black;
+}
+
+#navchoice:hover {
+  color: #C07E00;
+}
+
+/* Kasaje */
+
+
+.t:hover{
+  color: #C07E00;
+}
+ .Nav{
+  width: auto;
+  height: 40px;
+  background: linear-gradient(180deg, #fdde91 0%, #f9f2d4 100%);
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+
+ }
+.t{
+  margin-left: 35px;
+  margin-top: 10px; 
+ }
+ .text{
+    margin-left: 650px;
+    display: flex;
+    margin-top: -5px;
+ }
+
+ #tt{
+  margin-top: 5px;
+ }
+
+ 
       
   </style>

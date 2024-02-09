@@ -1,14 +1,23 @@
 <template>
   <div ref="show_menu">
   </div>
-  <div @click="show_menu(this.count)" style="height: 100px; background: linear-gradient(180deg, #fdde91 0%, #f9f2d4 100%); padding: 0 2% 0 2%; display: flex; justify-content: space-between; align-items: center;">
-    <div style="cursor: pointer;">
+  <div style="height: 100px; background: linear-gradient(180deg, #fdde91 0%, #f9f2d4 100%); padding: 0 2% 0 2%; display: flex; justify-content: space-between; align-items: center;">
+    <div @click="show_menu(this.count)" style="cursor: pointer;">
       <div style="border: 3.5px solid black; margin: 6%; border-radius: 20px; width: 2vw;"></div>
       <div style="border: 3.5px solid black; margin: 6%; border-radius: 20px; width: 2vw;"></div>
       <div style="border: 3.5px solid black; margin: 6%; border-radius: 20px; width: 2vw;"></div>
     </div>
-    <div style="display: flex; justify-content: space-around; width: 20%; align-items: center; margin-right: -10px;">
-      <div style="cursor: pointer; border-radius: 50%; width: 55px; height: 60px; background-color:#fdde91; display: flex; align-items: center; padding-left: 7px;">
+    <div style="display: flex; justify-content: space-around; width: 30%; align-items: center; margin-right: -10px;">
+      <div >
+        <select @change="select_value" v-model="select_service" style=" background-color: #f7d275 ; width: 150px; height: 30px;font-size: 15px;padding-left: 5px;border: 1px solid #f7d275;border-radius: 5px;" >
+          <option disabled value="null">เลือกบริการ</option>
+          <option value="deposit">บริการฝากเลี้ยง</option>
+          <option value="activities">บริการกิจกรรมสัตว์</option>
+          <option value="grooming">บริการตัดขน</option>
+          <option value="bathing">บริการอาบน้ำ</option>
+        </select>
+      </div>
+      <div @click="go_chat()" style="cursor: pointer; border-radius: 50%; width: 55px; height: 60px; background-color:#fdde91; display: flex; align-items: center; padding-left: 7px;">
         <img src="../img/image 2.png"  alt="">
       </div>
       <div @click="go_caretaker()" style="cursor: pointer; border-radius: 50%; width: 60px; height: 60px; background-color:#fdde91; display: flex; align-items: center; ">
@@ -25,6 +34,9 @@
       </div>
     </div>
   </div>
+
+
+
   <div>
     <div class="img">
       <img class="imgcat" src="../img/catty.jpg" alt="" width="1100px" height="500px">
@@ -46,7 +58,8 @@ components: { newnav },
     return {
       profile_pic : null,
       path : "/API/profile_pic/",
-      count : false
+      count : false,
+      select_service : null
     }
   },  
    methods:{
@@ -75,12 +88,17 @@ components: { newnav },
     this.$router.push({name: 'profile', params: {role : role, id : id, login_id : this.$route.params.login_id}});
   },
   async go_caretaker(){
-    this.$router.push('/caretaker')
+    this.$router.push({name : 'caretaker', params : {role : this.$route.params.role, id : this.$route.params.id, login_id : this.$route.params.login_id}});
   },  
   async go_to_service(){
     const role = this.$route.params.role;
     const id = this.$route.params.id;
     this.$router.push({name: 'servicepage', params: {role : role, id : id, login_id : this.$route.params.login_id}});
+  },
+  go_chat(){
+    const role = this.$route.params.role;
+    const id = this.$route.params.id;
+    this.$router.push({name: 'chat', params: {role : role, id : id, login_id : this.$route.params.login_id}});
   },
   async show_pic(){
     const data = {
@@ -98,7 +116,7 @@ components: { newnav },
     }if(this.$route.params.role == 'user'){
       this.profile_pic = response_data['result']['user_pic'];
     }else{
-      this.profile_pic == response_data['result']['admin_pic'];
+      this.profile_pic = response_data['result']['admin_pic'];
     }
   },
   async show_menu(count){
@@ -134,6 +152,19 @@ components: { newnav },
     </div>`;
     }
   },
+  async select_value(){
+    console.log(this.select_service);
+    if(this.select_service == null){}
+    else if(this.select_service == "deposit"){
+      this.$router.push({name : 'confirmationpage', params : {role : this.$route.params.role, id : this.$route.params.id, login_id : this.$route.params.login_id}});
+    }else if(this.select_service == "activities"){
+      this.$router.push({name : 'newconpage', params : {role : this.$route.params.role, id : this.$route.params.id, login_id : this.$route.params.login_id}});
+    }else if(this.select_service == "grooming"){
+      this.$router.push({name : 'cutcon', params : {role : this.$route.params.role, id : this.$route.params.id, login_id : this.$route.params.login_id}});
+    }else if(this.select_service == "bathing"){
+      this.$router.push({name : 'takeacon', params : {role : this.$route.params.role, id : this.$route.params.id, login_id : this.$route.params.login_id}});
+    }
+  }
  },
  mounted(){
   this.check_login();
@@ -142,9 +173,8 @@ components: { newnav },
 }
 </script>
 
-<style scoped>
-
-
+<style scoped> 
+    
 
 .img{
   display: flex;

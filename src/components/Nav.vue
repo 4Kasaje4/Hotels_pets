@@ -29,7 +29,7 @@ export default {
         this.$router.push('/about');
       },
       package(){
-        this.$router.push('/package');
+        this.$router.push('/packagenolog');
       }
     }
 }

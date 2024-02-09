@@ -19,6 +19,8 @@ import cancelView from '@/views/cancel.vue'
 import hide_cancle_pet from '@/views/hide_cancle_pet.vue'
 import bookingView from '@/views/booking.vue'
 import hide_logout from '@/views/hide_logout.vue'
+import chatView from '@/views/chat.vue'
+import package_no_login from '@/views/package_no_login.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -55,7 +57,7 @@ const router = createRouter({
       component:Homepage
     },
     {
-      path:'/caretaker',
+      path:'/caretaker/:role/:id/:login_id',
       name:'caretaker',
       component:caretakerView
     },
@@ -100,7 +102,7 @@ const router = createRouter({
       component : haircutconView
     },
     {
-      path:'/takacon',
+      path:'/takacon/:role/:id/:login_id',
       name: 'takeacon',
       component : takeaconView
     },
@@ -123,7 +125,19 @@ const router = createRouter({
       path:'/logout/:login_id',
       name: 'logout',
       component : hide_logout
+    },
+    {
+      path:'/chat/:role/:id/:login_id',
+      name: 'chat',
+      component : chatView
+    },
+    {
+      path:'/packagenolog',
+      name: 'package_no_login',
+      component : package_no_login
     }
+
+
 
 
 
