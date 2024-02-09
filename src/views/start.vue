@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: 'startpage',
+  name: 'startpageView',
   methods:{
     async start(){
       this.$router.push('/login')

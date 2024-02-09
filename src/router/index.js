@@ -11,6 +11,7 @@ import cutconView from '@/views/cutcon.vue'
 import takeaconView from '@/views/takeacon.vue'
 import cancelView from '@/views/cancel.vue'
 import bookingView from '@/views/booking.vue'
+import chatView from '@/views/chat.vue'
 
 
 
@@ -21,6 +22,11 @@ const router = createRouter({
       path: '/home',
       name: 'home',
       component: HomeView
+    },
+    {
+      path: '/chat',
+      name: 'chat ',
+      component: chatView
     },
     {
       path:'/about', 

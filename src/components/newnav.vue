@@ -6,7 +6,11 @@
     <div class="line2"> </div>
     <div class="line3"> </div>
   </div>
-  <div class="smallbox"><img src="../img/image 3.png" alt=""> </div>
+  <div class="smallbox"><img src="../img/image 3.png" alt=""></div>
+
+
+
+
   <div class="smallbox1"> <img class="img2" src="../img/image 2.png" alt=""> </div>
   <select class="dropdown" v-model="selectedService">
     <option disabled value="" class="dropdown1">เลือกบริการ</option>
@@ -18,6 +22,8 @@
   <img class="imgcicle" src="../img/ลุงพล.jpg" alt="" width="75" height="70">
   
 </div>
+
+
   </div>
 </template>
 
@@ -37,7 +43,14 @@ export default {
 </script>
 
 <style scoped>
-    .img2{
+
+
+
+
+
+
+
+.img2{
       margin-left: 8px;
       margin-top: 10px;
     }
@@ -123,5 +136,9 @@ export default {
       border: 1px solid #f7d275;
       position: absolute;
     } 
+
+
+
+ 
     
     </style>
