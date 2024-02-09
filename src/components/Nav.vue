@@ -12,7 +12,7 @@
       <div style="margin-top: 0.5%;">
         <a id="navchoice" href="/" >หน้าแรก</a>
         <a id="navchoice" @click="package()" >แพ็กเกจ/โปรโมชั่น</a>
-        <a id="navchoice" @click="about()" >เกี่ยวกับเรา</a>
+        <a id="navchoice" @click="about()" >พี่เลี้ยงสัตว์</a>
         <a id="navchoice" @click="login()" >เข้าสู่ระบบ</a>
       </div>
    </div>

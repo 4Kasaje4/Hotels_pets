@@ -1,25 +1,39 @@
 <template>
   <div>
     <div class="nav">
-     <div class="bigline">
-        <div class="line"> </div>
-        <div class="line2"> </div>
-        <div class="line3"> </div>
-     </div>
-     <div class="smallbox"><img src="../img/image 3.png" alt=""> </div>
-     <div class="smallbox1"> <img class="img2" src="../img/image 2.png" alt=""> </div>
-     <img class="arrow" src="../img/arrow-down.png" alt="" width="25px">
-     <img class="imgcicle" src="../img/ลุงพล.jpg" alt=""  width="75" height="70">
-     <h3 class="textser">บริการ</h3>
-    </div>
+  <div class="bigline">
+    <div class="line"> </div>
+    <div class="line2"> </div>
+    <div class="line3"> </div>
+  </div>
+  <div class="smallbox"><img src="../img/image 3.png" alt=""> </div>
+  <div class="smallbox1"> <img class="img2" src="../img/image 2.png" alt=""> </div>
+  <select class="dropdown" v-model="selectedService">
+    <option disabled value="" class="dropdown1">เลือกบริการ</option>
+    <option value="deposit">บริการฝากเลี้ยง</option>
+    <option value="activities">บริการกิจกรรมสัตว์</option>
+    <option value="grooming">บริการตัดขน</option>
+    <option value="bathing">บริการอาบน้ำ</option>
+  </select>
+  <img class="imgcicle" src="../img/ลุงพล.jpg" alt="" width="75" height="70">
+  
+</div>
   </div>
 </template>
 
 <script>
 export default {
-  name:'mainView'
- 
+  name: 'mainView',
+  data() {
+    return {
+      selectedService: ''
+    };
+  }
 }
+
+
+
+
 </script>
 
 <style scoped>
@@ -99,4 +113,15 @@ export default {
       margin-top: 34px;
       position: absolute;
     }
-</style>
+    .dropdown{
+      background-color: #f7d275 ;
+      width: 160px;
+      height: 35px;
+      font-size: 20px;
+      margin-top: 33px;
+      margin-left: 1020px;
+      border: 1px solid #f7d275;
+      position: absolute;
+    } 
+    
+    </style>
