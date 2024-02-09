@@ -1,145 +1,147 @@
 <template>
     <div>
-       <div class="container">
-            <div class="leftSide">
-                <!-- headder -->
-                <div class="header">
-    
-                    <div class="userimg">
-                        <img src="../img/user.jpg" alt="" class="cover">
-                    </div>
-                    <ul class="nav_icons">
-                        <li><ion-icon name="scan-circle-outline"></ion-icon></li>
-                        <li><ion-icon name="chatbox"></ion-icon></li>
-                        <li><ion-icon name="ellipsis-vertical"></ion-icon></li>
-                    </ul>
-                </div>
-                <!-- search -->
-                <div class="search_chat">
-                    <div>
-                        <input type="text" placeholder="ค้นหา">
-                        <ion-icon name="search-outline"></ion-icon>
-                    </div>
-                </div>
-                <!-- chat list -->
-                <div class="chatlist">
-                    <p class="texthead">พี่เลี้ยงสัตว์(4)</p>
-                    <div class="block active">
-                        <div class="imgbx">
-                            <img src="../img/user1.jpg" alt="" class="cover">
-                        </div>
-                        <div class="details">
-                            <div class="listHead"> 
-                                <h4>kasaje</h4>
-                            </div>
-                            <div class="message_p">
-                                <p>สวัสดีครับ</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="block">
-                        <div class="imgbx">
-                            <img src="../img/user2.jpg" alt="" class="cover">
-                        </div>
-                        <div class="details">
-                            <div class="listHead"> 
-                                <h4>Kasaje สุดเฟี้ยว</h4>
-                            </div>
-                            <div class="message_p">
-                                <p>เป็นไงบ้างคะวันนี้น้องหมาและแมว</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="block">
-                        <div class="imgbx">
-                            <img src="../img/user3.jpg" alt="" class="cover">
-                        </div>
-                        <div class="details">
-                            <div class="listHead"> 
-                                <h4>Cinnasa</h4>
-                            </div>
-                            <div class="message_p">
-                                <p>วันนี้หมาเดินเล่นยังคะ</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="block">
-                        <div class="imgbx">
-                            <img src="../img/user4.jpg" alt="" class="cover">
-                        </div>
-                        <div class="details">
-                            <div class="listHead"> 
-                                <h4>นายโบวี่สุดหล่อ ครับผม</h4>
-                            </div>
-                            <div class="message_p">
-                                <p>แมวเป็นยังไงบ้างครับ</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-
-            <div class="rightSide">
-                <div class="header">
-                  <div class="imgText">
-                    <div class="userimg">
-                        <img src="../img/user1.jpg" alt="" class="cover">
-                    </div>
-                    <h4>kasaje <br><span>online</span></h4>
+       <div class="BIGBOX">
+         <div class="container">
+              <div class="leftSide">
+                  <!-- headder -->
+                  <div class="header">
+      
+                      <div class="userimg">
+                          <img src="../img/user.jpg" alt="" class="cover">
+                      </div>
+                      <ul class="nav_icons">
+                          <li><ion-icon name="scan-circle-outline"></ion-icon></li>
+                          <li><ion-icon name="chatbox"></ion-icon></li>
+                          <li><ion-icon name="ellipsis-vertical"></ion-icon></li>
+                      </ul>
                   </div>
-                    <ul class="nav_icons">
-                        <li><ion-icon name="search-outline"></ion-icon></li>
-                        <li><ion-icon name="ellipsis-vertical"></ion-icon></li>
-                    </ul>
-                </div>
-
-                <!-- Chat box -->
-                <div class="chatBox">
-                    <div class="message my_message">
-                        <p>สวัสดีครับ </p>
+                  <!-- search -->
+                  <div class="search_chat">
+                      <div>
+                          <input type="text" placeholder="ค้นหา">
+                          <ion-icon name="search-outline"></ion-icon>
+                      </div>
+                  </div>
+                  <!-- chat list -->
+                  <div class="chatlist">
+                      <p class="texthead">พี่เลี้ยงสัตว์(4)</p>
+                      <div class="block active">
+                          <div class="imgbx">
+                              <img src="../img/user1.jpg" alt="" class="cover">
+                          </div>
+                          <div class="details">
+                              <div class="listHead"> 
+                                  <h4>kasaje</h4>
+                              </div>
+                              <div class="message_p">
+                                  <p>สวัสดีครับ</p>
+                              </div>
+                          </div>
+                      </div>
+  
+                      <div class="block">
+                          <div class="imgbx">
+                              <img src="../img/user2.jpg" alt="" class="cover">
+                          </div>
+                          <div class="details">
+                              <div class="listHead"> 
+                                  <h4>Kasaje สุดเฟี้ยว</h4>
+                              </div>
+                              <div class="message_p">
+                                  <p>เป็นไงบ้างคะวันนี้น้องหมาและแมว</p>
+                              </div>
+                          </div>
+                      </div>
+  
+                      <div class="block">
+                          <div class="imgbx">
+                              <img src="../img/user3.jpg" alt="" class="cover">
+                          </div>
+                          <div class="details">
+                              <div class="listHead"> 
+                                  <h4>Cinnasa</h4>
+                              </div>
+                              <div class="message_p">
+                                  <p>วันนี้หมาเดินเล่นยังคะ</p>
+                              </div>
+                          </div>
+                      </div>
+  
+                      <div class="block">
+                          <div class="imgbx">
+                              <img src="../img/user4.jpg" alt="" class="cover">
+                          </div>
+                          <div class="details">
+                              <div class="listHead"> 
+                                  <h4>นายโบวี่สุดหล่อ ครับผม</h4>
+                              </div>
+                              <div class="message_p">
+                                  <p>แมวเป็นยังไงบ้างครับ</p>
+                              </div>
+                          </div>
+                      </div>
+  
+                  </div>
+              </div>
+  
+  
+              <div class="rightSide">
+                  <div class="header">
+                    <div class="imgText">
+                      <div class="userimg">
+                          <img src="../img/user1.jpg" alt="" class="cover">
+                      </div>
+                      <h4>kasaje <br><span>online</span></h4>
                     </div>
-                    
-                    <div class="message frnd_message">
-                        <p>สวัสดีครับ</p>
-                    </div>
-
-                    <div class="message my_message">
-                        <p>ตอนนี้น้องหมาเป็นไงยังไงบ้างครับ</p>
-                    </div>
-
-                    <div class="message frnd_message">
-                        <p>น้องสบายดีครับกำลังพาไปเดินเล่นครับ</p>
-                    </div>
-
-                    <div class="message my_message">
-                        <p>โอเคครับ</p>
-                    </div>
-
-                    <div class="message my_message">
-                        <p>เดินเล่นเสร็จพาอาบน้ำด้วยนะครับ</p>
-                    </div>
-
-                    <div class="message frnd_message">
-                        <p>ได้ครับ</p>
-                    </div>
-
-                    <div class="message frnd_message">
-                        <p>ไม่ต้องเป็นห่วงนะครับทางเราดูแลอย่างดีครับ :)</p>
-                    </div>
-
-                </div>
-                 <!-- chatbox input -->
-            <div class="chatbox_input">
-                <ion-icon name="happy-outline"></ion-icon>
-                <ion-icon name="attach-outline"></ion-icon>
-                <input type="text" placeholder="พิมพ์ข้อความ">
-            </div>
-            </div>
+                      <ul class="nav_icons">
+                          <li><ion-icon name="search-outline"></ion-icon></li>
+                          <li><ion-icon name="ellipsis-vertical"></ion-icon></li>
+                      </ul>
+                  </div>
+  
+                  <!-- Chat box -->
+                  <div class="chatBox">
+                      <div class="message my_message">
+                          <p>สวัสดีครับ </p>
+                      </div>
+                      
+                      <div class="message frnd_message">
+                          <p>สวัสดีครับ</p>
+                      </div>
+  
+                      <div class="message my_message">
+                          <p>ตอนนี้น้องหมาเป็นไงยังไงบ้างครับ</p>
+                      </div>
+  
+                      <div class="message frnd_message">
+                          <p>น้องสบายดีครับกำลังพาไปเดินเล่นครับ</p>
+                      </div>
+  
+                      <div class="message my_message">
+                          <p>โอเคครับ</p>
+                      </div>
+  
+                      <div class="message my_message">
+                          <p>เดินเล่นเสร็จพาอาบน้ำด้วยนะครับ</p>
+                      </div>
+  
+                      <div class="message frnd_message">
+                          <p>ได้ครับ</p>
+                      </div>
+  
+                      <div class="message frnd_message">
+                          <p>ไม่ต้องเป็นห่วงนะครับทางเราดูแลอย่างดีครับ :)</p>
+                      </div>
+  
+                  </div>
+                   <!-- chatbox input -->
+              <div class="chatbox_input">
+                  <ion-icon name="happy-outline"></ion-icon>
+                  <ion-icon name="attach-outline"></ion-icon>
+                  <input type="text" placeholder="พิมพ์ข้อความ">
+              </div>
+              </div>
+         </div>
        </div>
     </div>
     
@@ -153,19 +155,20 @@
   
   </script>
   
-  <style>
+  <style scoped>
+    .BIGBOX{
+      height: 726px;
+      display: flex;
+      justify-content: center;
+    
+      background: #efd29a;
+    }
       *{
         margin: 0;
         padding: 0;
         box-sizing: border-box;
       }
-      body{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        background: linear-gradient(#f1ca7c 0%,#f1ca7c 130px,#fbf0da 130px, #fbf0da 100%);
-      }
+   
       .texthead{
         margin-top: 20px;
         font-size: 16px;
@@ -180,6 +183,7 @@
         background-color: #fde4b6;
         box-shadow: 0 1px 1px 0 rgba(0,0,0,0), 0 2px 5px 0 rgba(0,0,0,0);
         display: flex;
+        padding-top: 20px;
       }
 
       .container .leftSide{
