@@ -406,7 +406,7 @@
         width: 20px;
         height: 20px;
         background: linear-gradient(225deg, #fad58c 0%, #fad58c 50%,transparent 50%,transparent);
-    }
+    } 
     .chatbox_input{
         position: relative;
         width: 100%;
