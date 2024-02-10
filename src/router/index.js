@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import about from '../views/about.vue'
 import Homepage from '../views/Homepage.vue'
 import packageView from '@/views/package.vue'
@@ -12,6 +11,7 @@ import takeaconView from '@/views/takeacon.vue'
 import cancelView from '@/views/cancel.vue'
 import bookingView from '@/views/booking.vue'
 import chatView from '@/views/chat.vue'
+import adminpageView from '@/views/adminpage.vue'
 
 
 
@@ -19,19 +19,20 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/home',
-      name: 'home',
-      component: HomeView
-    },
-    {
-      path: '/chat',
-      name: 'chat ',
-      component: chatView
-    },
-    {
       path:'/about', 
       name:'about',
       component:about
+    }, 
+     
+    {
+      path:'/chat', 
+      name:'chat',
+      component:chatView
+    },
+    {
+      path:'/adminpage', 
+      name:'adminpage',
+      component:adminpageView
     },
     {
       path:'/package',
