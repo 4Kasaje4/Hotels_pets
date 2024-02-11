@@ -10,9 +10,9 @@
         <h3 style="cursor: pointer;">เข้าสู่ระบบ</h3>
       </div> -->
       <div style="margin-top: 0.5%;">
-        <a id="navchoice" href="/" >หน้าแรก</a>
+        <a id="navchoice" href="/homemain" >หน้าแรก</a>
         <a id="navchoice" @click="package()" >แพ็กเกจ/โปรโมชั่น</a>
-        <a id="navchoice" @click="about()" >เกี่ยวกับเรา</a>
+        <a id="navchoice" @click="about()" >พี่เลี้ยง</a>
         <a id="navchoice" @click="login()" >เข้าสู่ระบบ</a>
       </div>
    </div>
@@ -26,7 +26,7 @@ export default {
         this.$router.push('/login');
       },
       about(){
-        this.$router.push('/about');
+        this.$router.push('/caretakernologin');
       },
       package(){
         this.$router.push('/packagenolog');

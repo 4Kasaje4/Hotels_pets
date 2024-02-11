@@ -27,6 +27,9 @@ import register_pet_sitter from '@/views/register_pet_sitter.vue'
 import profile_for_ps from '@/views/profile_for_ps.vue'
 import profile_for_user from '@/views/profile_for_user.vue'
 import profile_for_admin from '@/views/profile_for_admin.vue'
+import homemainView from '@/views/homemain.vue'
+import caretakernologin from '@/views/caretakernologin.vue'
+
 
 
 const router = createRouter({
@@ -173,6 +176,18 @@ const router = createRouter({
       name: 'profile_for_admin',
       component : profile_for_admin
     }
+    ,
+    {
+      path:'/Homemain',
+      name: 'Homemain',
+      component : homemainView
+    },
+    {
+      path:'/caretakernologin',
+      name: 'caretakernologin',
+      component : caretakernologin
+    }
+
 
 
 

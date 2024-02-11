@@ -21,7 +21,7 @@ export default {
   name: 'startpage',
   methods:{
     async start(){
-      this.$router.push('/login')
+      this.$router.push('/homemain')
     }
   }
 }
