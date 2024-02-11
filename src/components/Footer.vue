@@ -1,5 +1,5 @@
 <template>
-    <div style="background-color: #D9D9D9; height: 20%; margin-top: 05dvh; display: flex; justify-content: center;">
+    <div style="background-color: #D9D9D9; height: 20%; margin-top: 05dvh;  display: flex; justify-content: center;">
 
         <div style="width: 70%; margin: 3%; font-size: larger;">
             <p>Cats & Dogs Hotel</p>

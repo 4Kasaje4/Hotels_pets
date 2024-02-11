@@ -52,7 +52,7 @@
                 </div>
                 <div style="width: 100%; justify-content: center;  align-items: center; display: flex;">
                   <div style="font-size: x-large; width: 60%;">
-                    <p>สมากชิกคนที่ {{ index + 1 }}</p>
+                    <p>พี่เลี้ยงคนที่ {{ index + 1 }}</p>
                     <p>ชื่อ : {{ pet_sitter['firstname'] }}</p>
                     <p>นามสกุล : {{ pet_sitter['lastname'] }}</p>
                     <p>เบอร์โทร : {{ pet_sitter['phone'] }}</p>
@@ -134,40 +134,27 @@
       }
     },
     methods: {
+      async check_login(){
+          let login_id = this.$route.params.login_id
+          const data = {
+            login_id : login_id
+          }
+          const response = await fetch('http://localhost:3000/check_login', {
+            method : 'POST',
+            headers : {
+              'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify(data)
+          });
+          const response_data = await response.json();
+          if(response_data['isLogin'] == false){
+            this.$router.push('/login'); 
+          }
+        },
       async show_pet_sitter(){
         const response = await fetch('http://localhost:3000/all_pet_sitter');
         const response_data = await response.json();
         this.array_pet_sitter = response_data
-        // if(this.array_pet_sitter.length == 0){
-        //   this.$refs.alert_no_pet_sitter.innerHTML = '<p>ไม่มีข้อมูล</p>'
-        // }else{
-        //   for(let i = 0; i< this.array_pet_sitter.length; i++){
-        //     console.log(this.array_pet_sitter[i]);
-        //     if(this.array_pet_sitter[i]['pet_sitter_pic'] == null){
-              
-        //     //   const Profile_Unknow = '../img/Profile_Unknow.png'
-        //     //   let profile = `
-            //   <div style="display: flex; justify-content: center;">
-            //   <div style="width: 50%; background-color: #D9D9D9; border-radius: 15px; display: flex;">
-            //       <div style="margin: 5% 0 4% 10%;">
-            //         <div style="background-color: aliceblue; border-radius: 50%; height: 90%;">
-            //           <img src="${Profile_Unknow}" width="150dvw" alt="">
-            //       </div>
-            //     </div>
-            //     <div style="width: 100%; justify-content: center;  align-items: center; display: flex;">
-            //       <div style="font-size: x-large;">
-            //         <p>สมากชิกคนที่ : ${i+1}</p>
-            //         <p>${this.array_pet_sitter[i]['firstname']}  ${this.array_pet_sitter[i]['lastname']}</p>
-            //         <p></p>
-            //       </div>
-            //     </div>
-            //   </div>
-            // </div>
-        //     //   `
-        //     }
-
-        //   }
-        // }
       },
       async go_profile(){
     const role = this.$route.params.role;
@@ -202,7 +189,7 @@
       this.profile_pic = response_data['result']['pet_sitter_pic'];
     }if(this.$route.params.role == 'user'){
       this.profile_pic = response_data['result']['user_pic'];
-    }else{
+    }    if(this.$route.params.role == 'admin'){
       this.profile_pic = response_data['result']['admin_pic'];
     }
   },
@@ -213,8 +200,41 @@
       this.$refs.show_menu.innerHTML = '';
     }else{
       this.count =true;
-      console.log(this.$route.params.role, this.$route.params.id, this.$route.params.login_id);
-      this.$refs.show_menu.innerHTML = `<div style="margin-top: 100px; position: absolute; width: 30%;border-radius: 0 25px 25px 0; background:#f9f2d4 ; height: 90dvh;">
+      if(this.$route.params.role == 'admin'){
+        this.$refs.show_menu.innerHTML = `<div style="margin-top: 100px; position: absolute; width: 30%;border-radius: 0 25px 25px 0; background:#f9f2d4 ; height: 90dvh;">
+      <div style="font-size: x-large; padding-top: 10%;">
+        <div onclick="window.location.href='http://localhost:5173/Homepage/${this.$route.params.role}/${this.$route.params.id}/${this.$route.params.login_id}'"  style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
+          <img src="/src/img/home_nav.png" width="40px" style="margin-right: 5%;" alt="">
+          <p>หน้าแรก</p>
+        </div>
+        <div onclick="window.location.href='http://localhost:5173/package'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
+          <img src="/src/img/package_nav.png" width="40px" style="margin-right: 5%;" alt="">
+          <p>แพ็กเกจ / โปรโมชัน</p>
+        </div>
+        <div onclick="window.location.href='http://localhost:5173/about'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
+          <img src="/src/img/about_nav.png" width="40px" style="margin-right: 5%;" alt="">
+          <p>เกี่ยวกับเรา</p>
+        </div>
+        <div onclick="window.location.href='http://localhost:5173/register_pet_sitter/${this.$route.params.role}/${this.$route.params.id}/${this.$route.params.login_id}'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
+          <img src="/src/img/add_account_pic.png" width="40px" style="margin-right: 5%;" alt="">
+          <p>เพิ่มบัญชีพี่เลี้ยง</p>
+        </div>
+        <div onclick="window.location.href='http://localhost:5173/register_admin/${this.$route.params.role}/${this.$route.params.id}/${this.$route.params.login_id}'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
+          <img src="/src/img/add_account_pic.png" width="40px" style="margin-right: 5%;" alt="">
+          <p>เพิ่มบัญชีแอดมิน</p>
+        </div>
+        <div  onclick="window.location.href='http://localhost:5173/logout/${this.$route.params.login_id}'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-top: 10%;"> 
+          <img src="/src/img/logout_nav.png" width="40px" style="margin-right: 5%;" alt="">
+          <p>ออกจากระบบ</p>
+        </div>
+        <div style="margin-top: 35%; display: flex; justify-content: center; align-items: end;">
+          <img src="/src/img/logo.png" width="300px" alt="">
+        </div>
+      </div>
+    </div>`;
+      }
+      if(this.$route.params.role != 'admin'){
+        this.$refs.show_menu.innerHTML = `<div style="margin-top: 100px; position: absolute; width: 30%;border-radius: 0 25px 25px 0; background:#f9f2d4 ; height: 90dvh;">
       <div style="font-size: x-large; padding-top: 10%;">
         <div onclick="window.location.href='http://localhost:5173/Homepage/${this.$route.params.role}/${this.$route.params.id}/${this.$route.params.login_id}'"  style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
           <img src="/src/img/home_nav.png" width="40px" style="margin-right: 5%;" alt="">
@@ -237,6 +257,7 @@
         </div>
       </div>
     </div>`;
+      }
     }
   },
   async select_value(){
@@ -254,6 +275,7 @@
   }
     },
     mounted(){
+      this.check_login();
       this.show_pet_sitter()
       this.show_pic();
     }

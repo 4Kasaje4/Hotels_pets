@@ -286,7 +286,7 @@ export default {
       this.profile_pic = response_data['result']['pet_sitter_pic'];
     }if(this.$route.params.role == 'user'){
       this.profile_pic = response_data['result']['user_pic'];
-    }else{
+    }    if(this.$route.params.role == 'admin'){
       this.profile_pic = response_data['result']['admin_pic'];
     }
   },

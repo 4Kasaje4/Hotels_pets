@@ -2,7 +2,7 @@
     <NavView />
     <div style="display: flex; justify-content: center; margin-top: 0%;">
 
-            <div style="width: 30vw; background-color: rgba(255, 249, 232, 1); border-radius: 10px; margin-top: 1%; padding-bottom: 2%;">
+            <div style="width: 30vw; background-color: rgba(255, 249, 232, 1); border-radius: 10px; margin-top: 2%; padding-bottom: 2%;">
             <p style="text-align: center; font-size: xx-large; margin-top: 4%;">สมัครสมาชิก</p>
             <div style="width: 80%; margin: auto; margin-top: 1%; padding-bottom: 3%;">
                 <p style="font-size: larger;">ชื่อผู้ใช้</p>
@@ -57,18 +57,6 @@
                 <button class="accept button" type="submit" @click="register_Form" >ยืนยัน</button>
             </div>
 
-            <div style="display: flex; justify-content: space-evenly; margin-top: 4%;margin-bottom: 5%;">
-                <div style="width: 30%; margin-top: 2%;"><div style="border: 1px solid #00000047;"></div></div>
-                <p>หรือ</p>
-                <div style=" width: 30%; margin-top: 2%; "><div style="border: 1px solid #00000047;"></div></div>
-            </div>
-           
-                <div class="img" style="display: flex; justify-content: space-evenly;">
-                    <img src="../img/line.png" alt="" width="50px" height="50px" >
-                    <img src="../img/facebook.png" alt="" width="50px" height="50px"  >
-                    <img src="../img/twitter.png" alt="" width="50px" height="50px" >
-                    <img src="../img/search.png" alt="" width="50px" height="50px" >
-                </div>
             </div>
 
         

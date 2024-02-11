@@ -76,11 +76,9 @@ app.post('/searchprofile',async (req,res) => {
  
         result = await getUser('user', username, email);
         if(result['user'] === 1){
-            isLogin = true
             let id = Math.random() *(10**20);
-            array_login.push({id : id, isLogin : isLogin});
+            array_login.push({id : id,});
             setTimeout(() => {   
-                isLogin = false
                 for(let i = 0; i < array_login.length; i++){
                     if(array_login[i]['id'] == id){
                         array_login.splice(i,1);
@@ -91,11 +89,9 @@ app.post('/searchprofile',async (req,res) => {
         }else{
             result = await getUser('pet_sitter', username, email);
             if(result['user'] === 1){
-                isLogin = true
                 let id = Math.random() *(10**20);
-                array_login.push({id : id, isLogin : isLogin});
+                array_login.push({id : id,});
                 setTimeout(() => { 
-                    isLogin = false
                     for(let i = 0; i < array_login.length; i++){
                         if(array_login[i]['id'] == id){
                             array_login.splice(i,1);
@@ -106,11 +102,10 @@ app.post('/searchprofile',async (req,res) => {
             }else{
                 result = await getUser('admin', username, email);
                 if(result['user'] === 1){
-                    isLogin = true
+
                     let id = Math.random() *(10**20);
-                    array_login.push({id : id, isLogin : isLogin});
+                    array_login.push({id : id,});
                     setTimeout(() => { 
-                        isLogin = false
                         for(let i = 0; i < array_login.length; i++){
                             if(array_login[i]['id'] == id){
                                 array_login.splice(i,1);
@@ -214,24 +209,22 @@ app.post('/register_pet_sitter',(req,res) => {
         const username = req.body.username;
         const email = req.body.email;
         const phone = req.body.phone;
-        const password1 = req.body.password1;
-        const password2 = req.body.password2; 
+        const password = req.body.password1;
 
-        if(password1 != password2){
-            res.json({message: "Password is not match"});
-        }else{
-            bcrypt.hash(password1, 10, (err,hash) => {
-                dbconfig.query('INSERT INTO pet_sitter(firstname, lastname, username, email, phone, password) VALUES(?, ?, ?, ?, ?, ?)',[firstname, lastname, username, email, phone, hash], (err) => {
-                    return res.status(200).json({message: "Register Pet Sitter Successfully",status:true});
-                });
+        bcrypt.hash(password, 10, (err,hash) => {
+            const password_hash = hash;
+            dbconfig.query('INSERT INTO pet_sitter(firstname, lastname, username, email, phone, password) VALUES(?, ?, ?, ?, ?, ?)',[firstname, lastname, username, email, phone, password_hash], (err) => {
+                return res.status(200).json({message: "Register User Successfully",status:true});
             });
-        }
+        });
     }
-    catch(err){
+    catch(err) {
         console.log("Error : ", err);
         res.status(500).json({error : err});
     }
+    
 });
+
 
 //Register Admin
 app.post('/register_admin',(req,res) => {
@@ -241,23 +234,20 @@ app.post('/register_admin',(req,res) => {
         const username = req.body.username;
         const email = req.body.email;
         const phone = req.body.phone;
-        const password1 = req.body.password1;
-        const password2 = req.body.password2; 
+        const password = req.body.password1;
 
-        if(password1 != password2){
-            res.json({message: "Password is not match"});
-        }else{
-            bcrypt.hash(password1, 10, (err,hash) => {
-                dbconfig.query('INSERT INTO admin(firstname, lastname, username, email, phone, password) VALUES(?, ?, ?, ?, ?, ?)',[firstname, lastname, username, email, phone, hash], (err) => {
-                    return res.status(200).json({message: "Register Admin Successfully",status:true});
-                });
+        bcrypt.hash(password, 10, (err,hash) => {
+            const password_hash = hash;
+            dbconfig.query('INSERT INTO admin(firstname, lastname, username, email, phone, password) VALUES(?, ?, ?, ?, ?, ?)',[firstname, lastname, username, email, phone, password_hash], (err) => {
+                return res.status(200).json({message: "Register User Successfully",status:true});
             });
-        }
+        });
     }
-    catch(err){
+    catch(err) {
         console.log("Error : ", err);
         res.status(500).json({error : err});
     }
+    
 });
 
 //Register user
@@ -306,7 +296,7 @@ app.post('/check_login',async (req,res) => {
         }
 
     }catch(err){
-        console.log("Error :", err);
+        // console.log("Error :", err);
     }
 });
 
@@ -340,11 +330,10 @@ app.post('/check_login',async (req,res) => {
         let result = "";
         result = await login('user', username, password);
         if(result['user'] === 1){
-            isLogin = true
             let id = Math.random() *(10**20);
-            array_login.push({id : id, isLogin : isLogin});
+            array_login.push({id : id,});
             setTimeout(() => { 
-                isLogin = false
+
                 for(let i = 0; i < array_login.length; i++){
                     if(array_login[i]['id'] == id){
                         array_login.splice(i,1);
@@ -359,11 +348,9 @@ app.post('/check_login',async (req,res) => {
         }else{  
             result = await login('pet_sitter', username, password);
             if(result['user'] === 1){
-                isLogin = true
                 let id = Math.random() *(10**20);
-                array_login.push({id : id, isLogin : isLogin});
+                array_login.push({id : id,});
                 setTimeout(() => { 
-                    isLogin = false
                     for(let i = 0; i < array_login.length; i++){
                         if(array_login[i]['id'] == id){
                             array_login.splice(i,1);
@@ -378,11 +365,9 @@ app.post('/check_login',async (req,res) => {
             }else{
                 result = await login('admin', username, password);
                 if(result['user'] === 1){
-                    isLogin = true
                     let id = Math.random() *(10**20);
-                    array_login.push({id : id, isLogin : isLogin});
+                    array_login.push({id : id,});
                     setTimeout(() => { 
-                        isLogin = false
                         for(let i = 0; i < array_login.length; i++){
                             if(array_login[i]['id'] == id){
                                 array_login.splice(i,1);
@@ -440,7 +425,6 @@ app.post('/updateprofile', upload.single('profile_pic'), async (req,res) => {
             table_db = role;
             role_id = role + "_id";
         }
-
         dbconfig.query(`SELECT ${table_db}_pic FROM ${table_db} WHERE ${role}_id = ${id}`,(err,result)=>{
             if(result[0][`${table_db}_pic`] != null && req.file == null){
                 dbconfig.query(`UPDATE ${table_db} SET firstname = ?, lastname = ?, phone = ?, email = ?, address = ? WHERE ${role_id} = ${id}`,[firstname, lastname, phone, email, address],(err,result) => {
@@ -512,6 +496,32 @@ app.post('/add_pet_to_hotel', async (req,res) => {
 app.get('/all_pet_sitter',(req,res)=> {
     try {
         dbconfig.query('SELECT * FROM pet_sitter',(err,result) => {
+            res.status(200).json(result);
+        });
+    }
+    catch(err){
+        console.log("Error : ", err);
+        res.status(500).json({error : err});
+    }
+});
+
+// Show all user 
+app.get('/all_user',(req,res)=> {
+    try {
+        dbconfig.query('SELECT * FROM user',(err,result) => {
+            res.status(200).json(result);
+        });
+    }
+    catch(err){
+        console.log("Error : ", err);
+        res.status(500).json({error : err});
+    }
+});
+
+// Show all Admin 
+app.get('/all_admin',(req,res)=> {
+    try {
+        dbconfig.query('SELECT * FROM admin',(err,result) => {
             res.status(200).json(result);
         });
     }
@@ -656,11 +666,153 @@ app.delete('/delete_account',async (req,res) => {
                 });
             }
         }
+        if(role == 'ps'){
+            dbconfig.query('SELECT ps_id FROM pet WHERE ps_id = ?',[id],(err,result) => {
+                if(err){
+                    console.log(err);
+                }else{
+                    if(result.length == 0){
+                        dbconfig.query('DELETE FROM pet_sitter WHERE ps_id = ?',[id],(err,result) => {
+                            if(err){
+                                console.log(err);
+                            }else{
+                                res.json({status : true});
+                            }
+                        });
+                    }else{
+                        res.json({status : false});
+                    }
+                }
+            });
+            }
+        }catch(err){
+        console.log("Error : ",err);
+        res.json({error : err});
+    }
+});
+
+
+// Show list chat by user_id
+app.post('/chat_user',async(req,res) => {
+    try{
+        const role = req.body.role;
+        const id = req.body.id;
+        let table = ""
+        if(role == 'ps'){
+            table = "pet_sitter"
+        }else{
+            table = role
+        }
+        dbconfig.query(`SELECT * FROM pet JOIN pet_sitter ON pet.ps_id = pet_sitter.ps_id WHERE pet.${role}_id = ?`,[id],(err,result) =>{
+            if(err){
+                console.log(err);
+            }else{
+                res.json(result);
+            }
+        });
     }catch(err){
         console.log("Error : ",err);
         res.json({error : err});
     }
 });
+
+// Show list chat by pet_sitter_id
+app.post('/chat_pet_sitter',async(req,res) => {
+    try{
+        const role = req.body.role;
+        const id = req.body.id;
+        let table = ""
+        if(role == 'ps'){
+            table = "pet_sitter"
+        }else{
+            table = role
+        }
+        dbconfig.query(`SELECT * FROM pet JOIN user ON pet.user_id = user.user_id WHERE pet.${role}_id = ?`,[id],(err,result) =>{
+            if(err){
+                console.log(err);
+            }else{
+                res.json(result);
+            }
+        });
+    }catch(err){
+        console.log("Error : ",err);
+        res.json({error : err});
+    }
+});
+
+// Show list chat by admin_id
+app.post('/chat_admin',async(req,res) => {
+    try{
+        const role = req.body.role;
+        const id = req.body.id;
+        let table = ""
+        if(role == 'ps'){
+            table = "pet_sitter"
+        }else{
+            table = role
+        }
+        dbconfig.query(``,[id],(err,result) =>{
+            if(err){
+                console.log(err);
+            }else{
+                res.json(result);
+            }
+        });
+    }catch(err){
+        console.log("Error : ",err);
+        res.json({error : err});
+    }
+});
+
+//Show chat
+app.post('/showchat',async(req,res) => {
+    try{
+        const my_role = req.body.my_role;
+        const my_id = req.body.my_id;
+        const you_id = req.body.you_id;
+        const you_role = req.body.you_role;
+        let table = ""
+        if(my_role == 'ps'){
+            table = 'pet_sitter'
+        }else{
+            table = my_role
+        }
+        dbconfig.query(`SELECT * FROM message WHERE ${you_role}_id = ? AND ${my_role}_id = ? `,[you_id, my_id],(err,result) => {
+            if(err){
+                console.log(err);
+            }else{
+                res.json(result);
+            }
+        });
+
+
+    }catch(err){
+        console.log(err);
+        res.json({error : err});
+    }
+});
+
+//Send message
+app.post('/send_message',async(req,res)=>{
+    try{
+        const my_role = req.body.my_role;
+        const my_id = req.body.my_id;
+        const you_role = req.body.you_role;
+        const you_id = req.body.you_id;
+        const message_text = req.body.message_text;
+        dbconfig.query(`INSERT INTO message(${my_role}_id, ${you_role}_id, message_text, sender) VALUES(${my_id}, ${you_id}, ?, ?)`,[message_text, my_role],(err,result)=>{
+            if(err){
+                console.log(err);
+            }else{
+                res.json({status : 1});
+            }
+        });
+    }catch(err){
+        console.log(err);
+        res.json({error : err});
+    }
+});
+
 
 
 // Listening on port

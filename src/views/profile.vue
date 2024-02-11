@@ -1,5 +1,5 @@
 <template>
-  <div ref="show_menu">
+   <div ref="show_menu">
   </div>
   <div style="height: 100px; background: linear-gradient(180deg, #fdde91 0%, #f9f2d4 100%); padding: 0 2% 0 2%; display: flex; justify-content: space-between; align-items: center;">
     <div @click="show_menu(this.count)" style="cursor: pointer;">
@@ -8,7 +8,7 @@
       <div style="border: 3.5px solid black; margin: 6%; border-radius: 20px; width: 2vw;"></div>
     </div>
     <div style="display: flex; justify-content: space-around; width: 30%; align-items: center; margin-right: -10px;">
-      <div >
+      <div v-if="this.$route.params.role != 'admin'" >
         <select @change="select_value" v-model="select_service" style=" background-color: #f7d275 ; width: 150px; height: 30px;font-size: 15px;padding-left: 5px;border: 1px solid #f7d275;border-radius: 5px;" >
           <option disabled value="null">เลือกบริการ</option>
           <option value="deposit">บริการฝากเลี้ยง</option>
@@ -17,15 +17,25 @@
           <option value="bathing">บริการอาบน้ำ</option>
         </select>
       </div>
-      <div @click="go_chat()" style="cursor: pointer; border-radius: 50%; width: 55px; height: 60px; background-color:#fdde91; display: flex; align-items: center; padding-left: 7px;">
+      <div v-if="this.$route.params.role == 'admin'"></div><div></div><div></div><div></div><div></div><div></div>
+      <div v-if="this.$route.params.role != 'admin'">
+        <div @click="go_chat()" style="cursor: pointer; border-radius: 50%; width: 55px; height: 60px; background-color:#fdde91; display: flex; align-items: center; padding-left: 7px;">
         <img src="../img/image 2.png"  alt="">
       </div>
-      <div @click="go_caretaker()" style="cursor: pointer; border-radius: 50%; width: 60px; height: 60px; background-color:#fdde91; display: flex; align-items: center; ">
-        <img src="../img/image 3.png"   alt="">
+      </div>
+      <div v-if="this.$route.params.role != 'admin'">
+        <div @click="go_caretaker()" style="cursor: pointer; border-radius: 50%; width: 60px; height: 60px; background-color:#fdde91; display: flex; align-items: center; ">
+          <img src="../img/image 3.png"   alt="">
+        </div>
+      </div>
+      <div v-if="this.$route.params.role == 'admin'">
+        <div @click="this.$router.push({name : 'adminpageView', params : {role : this.$route.params.role, id : this.$route.params.id, login_id : this.$route.params.login_id}});" style="cursor: pointer; border-radius: 50%; width: 60px; height: 60px; background-color:#fdde91; display: flex; align-items: center; ">
+          <img src="../img/image 3.png"   alt="">
+        </div>
       </div>
       <div @click="go_profile()" style="cursor: pointer; border-radius: 50%; width: 80px; height: 80px; background-color:#fdde91; display: flex; justify-content: center; align-items: center; ">
         <div v-if="profile_pic == null">
-          <img src="../img/Profile_Unknow.png" width="60px" height="60px" alt="" style="margin-top: 10%; border-radius: 50%;">
+          <img src="/src/img/Profile_Unknow.png" width="60px" height="60px" alt="" style="margin-top: 10%; border-radius: 50%;">
         </div>
         <div v-if="profile_pic != null" style=" border-radius: 50%; width: 80px; height: 80px; background-color:#fdde91; display: flex; justify-content: center; align-items: center; ">
           <img :src="path + profile_pic" width="60px" height="60px" alt="" style="border-radius: 50%" >
@@ -92,7 +102,9 @@
             <input  type="file" style="width: 97%; height: 4vh; margin-top: 1%;" @change="fileChange">
           </div>
           </div>
-          <button @click="cancel()" class="button2"> <h4 class="textbut">ประวัติการจอง</h4></button>
+          <div v-if="this.$route.params.role != 'admin'">
+            <button @click="cancel()" class="button2"> <h4 class="textbut">ประวัติการจอง</h4></button>
+          </div>
         </div>
         <div v-if="role == 'user' || role == 'admin'" style="display: flex; justify-content: center; margin: 3%;"> 
           <p id="delete" @click="Delete()">ลบบัญชีผู้ใช้</p>
@@ -274,7 +286,7 @@
     this.$router.push({name: 'profile', params: {role : role, id : id, login_id : this.$route.params.login_id}});
   },
   async go_caretaker(){
-    this.$router.push('/caretaker')
+    this.$router.push({name : 'caretaker', params : {role : this.$route.params.role, id : this.$route.params.id, login_id : this.$route.params.login_id}});
   },  
   async go_to_service(){
     const role = this.$route.params.role;
@@ -301,7 +313,8 @@
       this.profile_pic = response_data['result']['pet_sitter_pic'];
     }if(this.$route.params.role == 'user'){
       this.profile_pic = response_data['result']['user_pic'];
-    }else{
+    }
+    if(this.$route.params.role == 'admin'){
       this.profile_pic = response_data['result']['admin_pic'];
     }
   },

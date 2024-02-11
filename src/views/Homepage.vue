@@ -8,7 +8,7 @@
       <div style="border: 3.5px solid black; margin: 6%; border-radius: 20px; width: 2vw;"></div>
     </div>
     <div style="display: flex; justify-content: space-around; width: 30%; align-items: center; margin-right: -10px;">
-      <div >
+      <div v-if="this.$route.params.role != 'admin'" >
         <select @change="select_value" v-model="select_service" style=" background-color: #f7d275 ; width: 150px; height: 30px;font-size: 15px;padding-left: 5px;border: 1px solid #f7d275;border-radius: 5px;" >
           <option disabled value="null">เลือกบริการ</option>
           <option value="deposit">บริการฝากเลี้ยง</option>
@@ -17,15 +17,25 @@
           <option value="bathing">บริการอาบน้ำ</option>
         </select>
       </div>
-      <div @click="go_chat()" style="cursor: pointer; border-radius: 50%; width: 55px; height: 60px; background-color:#fdde91; display: flex; align-items: center; padding-left: 7px;">
+      <div v-if="this.$route.params.role == 'admin'"></div><div></div><div></div><div></div><div></div><div></div>
+      <div v-if="this.$route.params.role != 'admin'">
+        <div @click="go_chat()" style="cursor: pointer; border-radius: 50%; width: 55px; height: 60px; background-color:#fdde91; display: flex; align-items: center; padding-left: 7px;">
         <img src="../img/image 2.png"  alt="">
       </div>
-      <div @click="go_caretaker()" style="cursor: pointer; border-radius: 50%; width: 60px; height: 60px; background-color:#fdde91; display: flex; align-items: center; ">
-        <img src="../img/image 3.png"   alt="">
+      </div>
+      <div v-if="this.$route.params.role != 'admin'">
+        <div @click="go_caretaker()" style="cursor: pointer; border-radius: 50%; width: 60px; height: 60px; background-color:#fdde91; display: flex; align-items: center; ">
+          <img src="../img/image 3.png"   alt="">
+        </div>
+      </div>
+      <div v-if="this.$route.params.role == 'admin'">
+        <div @click="this.$router.push({name : 'adminpageView', params : {role : this.$route.params.role, id : this.$route.params.id, login_id : this.$route.params.login_id}});" style="cursor: pointer; border-radius: 50%; width: 60px; height: 60px; background-color:#fdde91; display: flex; align-items: center; ">
+          <img src="../img/image 3.png"   alt="">
+        </div>
       </div>
       <div @click="go_profile()" style="cursor: pointer; border-radius: 50%; width: 80px; height: 80px; background-color:#fdde91; display: flex; justify-content: center; align-items: center; ">
         <div v-if="profile_pic == null">
-          <img src="../img/Profile_Unknow.png" width="60px" height="60px" alt="" style="margin-top: 10%; border-radius: 50%;">
+          <img src="/src/img/Profile_Unknow.png" width="60px" height="60px" alt="" style="margin-top: 10%; border-radius: 50%;">
         </div>
         <div v-if="profile_pic != null" style=" border-radius: 50%; width: 80px; height: 80px; background-color:#fdde91; display: flex; justify-content: center; align-items: center; ">
           <img :src="path + profile_pic" width="60px" height="60px" alt="" style="border-radius: 50%" >
@@ -43,7 +53,12 @@
     </div>
     <h1 class="textser">เลือกบริการของคุณกันเลย !</h1>
     <h1 class="textchoose">เลือกใช้บริการที่คุณต้องการสำหรับสัตว์เลี้ยงของคุณ</h1>
-    <button @click="go_to_service" class="button1"> <p class="textbut">บริการ</p> </button>
+    <div v-if="this.$route.params.role != 'admin'">
+      <button @click="go_to_service" class="button1"> <p class="textbut">บริการ</p> </button>
+    </div>
+    <div v-if="this.$route.params.role == 'admin'">
+      <button disabled @click="go_to_service" class="button1" style="cursor: context-menu;"> <p class="textbut">บริการ</p> </button>
+    </div>
 
   </div>
   <FooterView />
@@ -113,9 +128,11 @@ components: { newnav },
     const response_data = await response.json();
     if(this.$route.params.role == 'ps'){
       this.profile_pic = response_data['result']['pet_sitter_pic'];
-    }if(this.$route.params.role == 'user'){
+    }
+    if(this.$route.params.role == 'user'){
       this.profile_pic = response_data['result']['user_pic'];
-    }else{
+    }
+    if(this.$route.params.role == 'admin'){
       this.profile_pic = response_data['result']['admin_pic'];
     }
   },
@@ -126,8 +143,41 @@ components: { newnav },
       this.$refs.show_menu.innerHTML = '';
     }else{
       this.count =true;
-      console.log(this.$route.params.role, this.$route.params.id, this.$route.params.login_id);
-      this.$refs.show_menu.innerHTML = `<div style="margin-top: 100px; position: absolute; width: 30%;border-radius: 0 25px 25px 0; background:#f9f2d4 ; height: 90dvh;">
+      if(this.$route.params.role == 'admin'){
+        this.$refs.show_menu.innerHTML = `<div style="margin-top: 100px; position: absolute; width: 30%;border-radius: 0 25px 25px 0; background:#f9f2d4 ; height: 90dvh;">
+      <div style="font-size: x-large; padding-top: 10%;">
+        <div onclick="window.location.href='http://localhost:5173/Homepage/${this.$route.params.role}/${this.$route.params.id}/${this.$route.params.login_id}'"  style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
+          <img src="/src/img/home_nav.png" width="40px" style="margin-right: 5%;" alt="">
+          <p>หน้าแรก</p>
+        </div>
+        <div onclick="window.location.href='http://localhost:5173/package'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
+          <img src="/src/img/package_nav.png" width="40px" style="margin-right: 5%;" alt="">
+          <p>แพ็กเกจ / โปรโมชัน</p>
+        </div>
+        <div onclick="window.location.href='http://localhost:5173/about'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
+          <img src="/src/img/about_nav.png" width="40px" style="margin-right: 5%;" alt="">
+          <p>เกี่ยวกับเรา</p>
+        </div>
+        <div onclick="window.location.href='http://localhost:5173/register_pet_sitter/${this.$route.params.role}/${this.$route.params.id}/${this.$route.params.login_id}'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
+          <img src="/src/img/add_account_pic.png" width="40px" style="margin-right: 5%;" alt="">
+          <p>เพิ่มบัญชีพี่เลี้ยง</p>
+        </div>
+        <div onclick="window.location.href='http://localhost:5173/register_admin/${this.$route.params.role}/${this.$route.params.id}/${this.$route.params.login_id}'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
+          <img src="/src/img/add_account_pic.png" width="40px" style="margin-right: 5%;" alt="">
+          <p>เพิ่มบัญชีแอดมิน</p>
+        </div>
+        <div  onclick="window.location.href='http://localhost:5173/logout/${this.$route.params.login_id}'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-top: 10%;"> 
+          <img src="/src/img/logout_nav.png" width="40px" style="margin-right: 5%;" alt="">
+          <p>ออกจากระบบ</p>
+        </div>
+        <div style="margin-top: 35%; display: flex; justify-content: center; align-items: end;">
+          <img src="/src/img/logo.png" width="300px" alt="">
+        </div>
+      </div>
+    </div>`;
+      }
+      if(this.$route.params.role != 'admin'){
+        this.$refs.show_menu.innerHTML = `<div style="margin-top: 100px; position: absolute; width: 30%;border-radius: 0 25px 25px 0; background:#f9f2d4 ; height: 90dvh;">
       <div style="font-size: x-large; padding-top: 10%;">
         <div onclick="window.location.href='http://localhost:5173/Homepage/${this.$route.params.role}/${this.$route.params.id}/${this.$route.params.login_id}'"  style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
           <img src="/src/img/home_nav.png" width="40px" style="margin-right: 5%;" alt="">
@@ -150,6 +200,8 @@ components: { newnav },
         </div>
       </div>
     </div>`;
+      }
+      
     }
   },
   async select_value(){

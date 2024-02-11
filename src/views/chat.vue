@@ -4,10 +4,45 @@
          <div class="container">
               <div class="leftSide">
                   <!-- headder -->
-                  <div class="header">
+                  <div class="header" >
 
-                      <div class="userimg">
-                          <img src="../img/user.jpg" alt="" class="cover">
+                      <div @click="go_profile()">
+                        <!-- User Profile -->
+                        <div v-if="role == 'user'">
+                          <div v-if="profile_data['user_pic'] != null" class="userimg">
+                          <img :src="path_profile" alt="" class="cover">
+                        </div>
+                        <div v-if="profile_data['user_pic'] == null" class="userimg">
+                            <div style="width: 50px; height: 50px; border-radius: 50%; background-color: aliceblue;">
+                              <img src="/src/img/Profile_Unknow.png" alt="" class="cover">
+                            </div>
+                        </div>
+                      </div>
+
+                      <!-- Pet sitter profile -->
+                      <div v-if="role == 'ps'">
+                        <div v-if="profile_data['pet_sitter_pic'] != null" class="userimg">
+                          <img :src="path_profile" alt="" class="cover">
+                        </div>
+                        <div v-if="profile_data['pet_sitter_pic'] == null" class="userimg">
+                            <div style="width: 50px; height: 50px; border-radius: 50%; background-color: aliceblue;">
+                              <img src="/src/img/Profile_Unknow.png" alt="" class="cover">
+                            </div>
+                        </div>
+                      </div>
+                      
+                      <!-- Admin profile -->
+                      <div v-if="role == 'admin'">
+                        <div v-if="profile_data['admin_pic'] != null" class="userimg">
+                          <img :src="path_profile" alt="" class="cover">
+                        </div>
+                        <div v-if="profile_data['admin_pic'] == null" class="userimg">
+                            <div style="width: 50px; height: 50px; border-radius: 50%; background-color: aliceblue;">
+                              <img src="/src/img/Profile_Unknow.png" alt="" class="cover">
+                            </div>
+                        </div>
+                      </div>
+
                       </div>
                       <ul class="nav_icons">
                           <li><ion-icon name="scan-circle-outline"></ion-icon></li>
@@ -23,64 +58,84 @@
                       </div>
                   </div>
                   <!-- chat list -->
-                  <div class="chatlist">
-                      <p class="texthead">พี่เลี้ยงสัตว์(4)</p>
-                      <div class="block active">
-                          <div class="imgbx">
-                              <img src="../img/user1.jpg" alt="" class="cover">
-                          </div>
-                          <div class="details">
-                              <div class="listHead"> 
-                                  <h4>kasaje</h4>
+
+                  <div style="display: flex; padding: 3% 0 0 1%; flex-direction: column; width: 420px; height: 560px; overflow: scroll; background-color: antiquewhite;">
+                        <div v-if="role == 'user'">
+                          <div v-for="(value, index) in list_chat_data" :key="index">
+                          
+                          <div @click="open_chat(index, value['ps_id'], 'ps')" v-if="value['pet_sitter_pic'] == null">
+                            <div  style="display: flex; height: 70px; justify-content: start; margin: 2%; cursor: pointer; background-color:#fdde91; border-radius: 10px; padding: 1%; ">
+                              <img src="/src/img/Profile_Unknow.png" width="65px" alt="">
+                              <div style="margin-left: 5%; margin-top: 3%; width: 280px;  overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                <p  style="font-size: larger;">{{ value['firstname'] }} {{ value['lastname'] }}</p>
+                                <p></p>
                               </div>
-                              <div class="message_p">
-                                  <p>สวัสดีครับ</p>
-                              </div>
+                            </div>
                           </div>
+                          <div @click="open_chat(index, value['ps_id'], 'ps')" v-if="value['pet_sitter_pic'] != null">
+                            <div style="display: flex; height: 70px; justify-content: start; margin: 2%; cursor: pointer; background-color:#fdde91; border-radius: 10px; padding: 1%; " >
+                              <img :src="path + value['pet_sitter_pic']" width="65px" style="border-radius: 50%;" alt="">
+                              <div style="margin-left: 5%; margin-top: 3%; width: 280px;  overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                <p style="font-size: larger;">{{ value['firstname'] }}  {{ value['lastname'] }}</p>
+                                <p></p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
 
-                      <div class="block">
-                          <div class="imgbx">
-                              <img src="../img/user2.jpg" alt="" class="cover">
-                          </div>
-                          <div class="details">
-                              <div class="listHead"> 
-                                  <h4>Kasaje สุดเฟี้ยว</h4>
+                      <!-- Pet sitter View -->
+                      <div v-if="role == 'ps'">
+                        <div v-for="(value, index) in list_chat_data" :key="index">
+                          <div @click="open_chat(index, value['user_id'], 'user')" v-if="value['user_pic'] == null">
+                            <div style="display: flex; height: px; justify-content: start; margin: 2%; cursor: pointer; background-color:#fdde91; border-radius: 10px; padding: 1%; ">
+                              <img src="/src/img/Profile_Unknow.png" width="65px" alt="">
+                              <div style="margin-left: 5%; margin-top: 3%; width: 280px;  overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                <p style="font-size: larger;">{{ value['firstname'] }}  {{ value['lastname'] }}</p>
+                                <p></p>
                               </div>
-                              <div class="message_p">
-                                  <p>เป็นไงบ้างคะวันนี้น้องหมาและแมว</p>
-                              </div>
+                            </div>
                           </div>
+                          <div @click="open_chat(index, value['user_id'], 'user')" v-if="value['user_pic'] != null">
+                            <div style="display: flex; height: 70px; justify-content: start; margin: 2%; cursor: pointer; background-color:#fdde91; border-radius: 10px; padding: 1%; ">
+                              <img :src="path + value['user_pic']" width="65px" style="border-radius: 50%;" alt="">
+                              <div style="margin-left: 5%; margin-top: 3%; width: 280px;  overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                <p style="font-size: larger;">{{ value['firstname'] }}  {{ value['lastname'] }}</p>
+                                <p></p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
 
-                      <div class="block">
-                          <div class="imgbx">
-                              <img src="../img/user3.jpg" alt="" class="cover">
-                          </div>
-                          <div class="details">
-                              <div class="listHead"> 
-                                  <h4>Cinnasa</h4>
+
+                      <!-- Admin View -->
+
+                      <div v-if="role == 'admin'">
+                        <div v-for="(value, index) in list_chat_data" :key="index">
+                          <div  v-if="value['admin_pic'] == null">
+                            
+                            <div style="display: flex; height: px; justify-content: start; margin: 2%; cursor: pointer; background-color:#fdde91; border-radius: 10px; padding: 1%; ">
+                              <img src="/src/img/Profile_Unknow.png" width="65px" alt="">
+                              <div style="margin-left: 5%; margin-top: 3%; width: 280px;  overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                <p style="font-size: larger;">{{ value['firstname'] }}  {{ value['lastname'] }}</p>
+                                <p></p>
                               </div>
-                              <div class="message_p">
-                                  <p>วันนี้หมาเดินเล่นยังคะ</p>
-                              </div>
+                            </div>
                           </div>
+                          <div v-if="value['admin_pic'] != null">
+                            <div style="display: flex; height: 70px; justify-content: start; margin: 2%; cursor: pointer; background-color:#fdde91; border-radius: 10px; padding: 1%; " >
+                              <img :src="path + value['admin_pic']" width="65px" style="border-radius: 50%;" alt="">
+                              <div style="margin-left: 5%; margin-top: 3%; width: 280px;  overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                <p style="font-size: larger;">{{ value['firstname'] }}  {{ value['lastname'] }}</p>
+                                <p></p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
 
-                      <div class="block">
-                          <div class="imgbx">
-                              <img src="../img/user4.jpg" alt="" class="cover">
-                          </div>
-                          <div class="details">
-                              <div class="listHead"> 
-                                  <h4>นายโบวี่สุดหล่อ ครับผม</h4>
-                              </div>
-                              <div class="message_p">
-                                  <p>แมวเป็นยังไงบ้างครับ</p>
-                              </div>
-                          </div>
-                      </div>
-
+  
                   </div>
               </div>
 
@@ -88,10 +143,12 @@
               <div class="rightSide">
                   <div class="header">
                     <div class="imgText">
-                      <div class="userimg">
-                          <img src="../img/user1.jpg" alt="" class="cover">
+                      <div v-if="profile_select == null" class="userimg">
                       </div>
-                      <h4>kasaje <br><span>online</span></h4>
+                      <div v-if="profile_select != null" class="userimg">
+                          <img :src="profile_select" style="width:40px;" alt="">
+                      </div>
+                      <h4 style="margin-bottom: 10px;">{{ name_select }}<br></h4>
                     </div>
                       <ul class="nav_icons">
                           <li><ion-icon name="search-outline"></ion-icon></li>
@@ -101,7 +158,27 @@
 
                   <!-- Chat box -->
                   <div class="chatBox">
-                      <div class="message my_message">
+
+                    <div ref="chat_box_scroll" style=" padding-top:20px; width:976px; height:600px; padding: 0 0 50px 0; overflow: scroll; white-space: nowrap; text-overflow: ellipsis;">
+                      <div style="margin-left: 3%; width:94%;">
+                        <div v-for="(value, index) in chat_data" :key="index" >
+                          <div v-if="value['sender'] == role">
+                            <div style="display:flex; justify-content: right;"  class="message mymessage">
+                              <p>{{ value['message_text'] }}</p>
+                              
+                            </div>
+                          </div>
+                          <div v-if="value['sender'] != role">
+                            <div style="display:flex; justify-content: left;"  class="message frnd_message">
+                              <p>{{ value['message_text'] }}</p>
+                              
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                      <!-- <div class="message my_message">
                           <p>สวัสดีครับ </p>
                       </div>
 
@@ -131,14 +208,15 @@
 
                       <div class="message frnd_message">
                           <p>ไม่ต้องเป็นห่วงนะครับทางเราดูแลอย่างดีครับ :)</p>
-                      </div>
+                      </div> -->
 
                   </div>
                    <!-- chatbox input -->
               <div class="chatbox_input">
                   <ion-icon name="happy-outline"></ion-icon>
                   <ion-icon name="attach-outline"></ion-icon>
-                  <input type="text" placeholder="พิมพ์ข้อความ">
+                  <input v-model="message_text" type="text" style="width: 80%;"  placeholder="พิมพ์ข้อความ">
+                  <button  @click="send_message(my_role,my_id , you_role, you_id)" id="send">send</button>
               </div>
               </div>
          </div>
@@ -149,7 +227,162 @@
 
   <script>
   export default {
-    name:'chatView'
+    name:'chatView',
+    data(){
+      return {
+        my_role : null,
+        my_id : null,
+        you_role : null,
+        you_id : null,
+        role : "",
+        path : '/API/profile_pic/',
+        profile_data : [],
+        profile_pic : null,
+        list_chat : null,
+        col_pic : '',
+        list_chat_data : "",
+        profile_select : null,
+        name_select : null,
+        chat_data : null,
+        message_text : null,
+        index : null
+      }
+    },
+    methods: {
+      async check_login() {
+      let login_id = this.$route.params.login_id;
+      const data = {
+        login_id: login_id,
+      };
+      const response = await fetch("http://localhost:3000/check_login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const response_data = await response.json();
+      if (response_data["isLogin"] == false) {
+        this.$router.push("/login");
+      }
+    },
+      async go_profile(){
+        this.$router.push({name : 'profile', params : {role : this.$route.params.role, id : this.$route.params.id, login_id : this.$route.params.login_id}});
+      },  
+      async show_profile(){
+        this.role = await this.$route.params.role
+        const data = {
+          role : this.$route.params.role,
+          id : this.$route.params.id
+        }
+        const response = await fetch('http://localhost:3000/profile',{
+          method: 'POST',
+          headers: {'Content-Type' : 'application/json'},
+          body: JSON.stringify(data)
+        });
+        const response_data = await response.json();
+        this.profile_data = response_data;
+        if(this.role == 'user' && response_data['user_pic'] != undefined){
+          this.path_profile = '/API/profile_pic/' + response_data['user_pic']
+        }if(this.role == 'ps' && response_data['pet_sitter_pic'] != undefined){
+          this.path_profile = '/API/profile_pic/' + response_data['pet_sitter_pic']
+        }if(this.role == 'admin' && response_data['admin_pic'] != undefined){
+          this.path_profile = '/API/profile_pic/' + response_data['admin_pic']
+        }
+
+      },
+      async show_list_chat(){
+        const data = {
+            role : this.$route.params.role,
+            id : this.$route.params.id
+          }
+          if(this.$route.params.role == 'user'){
+            const response = await fetch('http://localhost:3000/chat_user',{
+              method: 'POST',
+              headers: {'Content-Type' : 'application/json'},
+              body: JSON.stringify(data)
+            });
+            const response_data = await response.json();
+            this.list_chat_data = response_data;
+          }if(this.$route.params.role == 'ps'){
+            const response = await fetch('http://localhost:3000/chat_pet_sitter',{
+              method: 'POST',
+              headers: {'Content-Type' : 'application/json'},
+              body: JSON.stringify(data)
+            });
+            const response_data = await response.json();
+            this.list_chat_data = response_data;
+          }
+          if(this.$route.params.role == 'admin'){
+            const response = await fetch('http://localhost:3000/chat_admin',{
+              method: 'POST',
+              headers: {'Content-Type' : 'application/json'},
+              body: JSON.stringify(data)
+            });
+            const response_data = await response.json();
+            this.list_chat_data = response_data;
+          }
+      },
+      async open_chat(index, id, you_role){
+        this.$refs.chat_box_scroll.scrollTop = this.$refs.chat_box_scroll.scrollHeight;
+        this.index = index
+        this.my_role = this.$route.params.role;
+        this.my_id = this.$route.params.id;
+        this.you_role = you_role;
+        this.you_id = id;
+        const data = {
+          my_role : this.$route.params.role,
+          my_id : this.$route.params.id,
+          you_role : you_role,
+          you_id : id
+        }
+        const response = await fetch('http://localhost:3000/showchat',{
+          method: 'POST',
+          headers: {'Content-Type' : 'application/json'},
+          body: JSON.stringify(data)
+        });
+        if(this.list_chat_data[index]['pet_sitter_pic'] == null){
+          this.profile_select = '/src/img/Profile_Unknow.png'
+        }
+        if(this.list_chat_data[index]['pet_sitter_pic'] != null){
+          this.profile_select = '/API/profile_pic/' + this.list_chat_data[index]['pet_sitter_pic'];
+        }
+        this.name_select = this.list_chat_data[index]['firstname'] + " " + this.list_chat_data[index]['lastname'];
+        const response_data = await response.json();
+        console.log(response_data);
+        this.chat_data = response_data;
+      },
+      async send_message(my_role, my_id, you_role, you_id){
+        if(this.message_text == null || my_role == null || my_id == null || you_role == null || you_id == null){
+          alert('กรุณาเลือกช่องแชทหรือพิมพ์ข้อความก่อนส่ง');
+        }
+        else{
+          const data = {
+          my_role : my_role,
+          my_id : my_id,
+          you_role : you_role,
+          you_id : you_id,
+          message_text : this.message_text
+        }
+        const response = await fetch('http://localhost:3000/send_message',{
+          method: 'POST',
+          headers: {'Content-Type' : 'application/json'},
+          body: JSON.stringify(data)
+        });
+        const response_data = await response.json();
+        console.log(response_data);
+        if(response_data['status'] == 1){
+          this.open_chat(this.index, this.you_id, this.you_role);
+          this.message_text = ""
+        }
+      }
+        }
+    },
+    mounted(){
+      this.check_login();
+      this.show_list_chat();
+      this.show_profile();
+    }
    
   }
   
@@ -351,10 +584,7 @@
       }
       .chatBox{
         position: relative;
-        width: 100%;
-        height: calc(100% - 120px);
-        padding: 50px;
-        overflow-y: auto;
+        height: 550px;
       }
     .message{
         position: relative;
@@ -427,4 +657,12 @@
         background: #feeecd;
     }
     
+#send{
+  width: 60px; height: 35px; border-radius: 10px; cursor: pointer; background-color: #fdde91; border: 0 solid #d39417;
+}
+#send:hover{
+  background-color: #d39417;
+  transition-duration: 0.2s;
+  color: white;
+}
   </style>

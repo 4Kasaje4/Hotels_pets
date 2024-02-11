@@ -21,6 +21,13 @@ import bookingView from '@/views/booking.vue'
 import hide_logout from '@/views/hide_logout.vue'
 import chatView from '@/views/chat.vue'
 import package_no_login from '@/views/package_no_login.vue'
+import adminpageView from '@/views/adminpage.vue'
+import register_admin from '@/views/register_admin.vue'
+import register_pet_sitter from '@/views/register_pet_sitter.vue'
+import profile_for_ps from '@/views/profile_for_ps.vue'
+import profile_for_user from '@/views/profile_for_user.vue'
+import profile_for_admin from '@/views/profile_for_admin.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -135,7 +142,39 @@ const router = createRouter({
       path:'/packagenolog',
       name: 'package_no_login',
       component : package_no_login
+    },
+    {
+      path:'/adminpage/:role/:id/:login_id',
+      name: 'adminpageView',
+      component : adminpageView
+    },
+    {
+      path:'/register_admin/:role/:id/:login_id',
+      name: 'register_admin',
+      component : register_admin
+    },
+    {
+      path:'/register_pet_sitter/:role/:id/:login_id',
+      name: 'register_pet_sitter',
+      component : register_pet_sitter
+    },
+    {
+      path:'/profile_for_ps/:role/:id/:login_id/:your_role/:your_id',
+      name: 'profile_for_ps',
+      component : profile_for_ps
+    },
+    {
+      path:'/profile_for_user/:role/:id/:login_id/:your_role/:your_id',
+      name: 'profile_for_user',
+      component : profile_for_user
+    },
+    {
+      path:'/profile_for_admin/:role/:id/:login_id/:your_role/:your_id',
+      name: 'profile_for_admin',
+      component : profile_for_admin
     }
+
+
 
 
 

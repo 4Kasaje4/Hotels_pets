@@ -1,7 +1,7 @@
 @ -1,4 +1,116 @@
 <template>
-  <div>
-    <div class="box">
+  <div style="display: flex; margin-top: 12%; justify-content: center;">
+    <div >
       <div class="card">
     <div class="card-details">
       <h1 class="text-title">Welcome</h1>
