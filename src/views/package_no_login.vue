@@ -99,6 +99,7 @@
     }
     .imgbox{
       display: flex;
+      margin-left: 0%;
     }
     .smallbox{
       width: 133px;

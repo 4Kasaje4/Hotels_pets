@@ -34,11 +34,11 @@
          </div>
        </div>
        <div @click="go_profile()" style="cursor: pointer; border-radius: 50%; width: 80px; height: 80px; background-color:#fdde91; display: flex; justify-content: center; align-items: center; ">
-         <div v-if="profile_pic == null">
+         <div v-if="profile_pic_my == null">
            <img src="/src/img/Profile_Unknow.png" width="60px" height="60px" alt="" style="margin-top: 10%; border-radius: 50%;">
          </div>
-         <div v-if="profile_pic != null" style=" border-radius: 50%; width: 80px; height: 80px; background-color:#fdde91; display: flex; justify-content: center; align-items: center; ">
-           <img :src="path + profile_pic" width="60px" height="60px" alt="" style="border-radius: 50%" >
+         <div v-if="profile_pic_my != null" style=" border-radius: 50%; width: 80px; height: 80px; background-color:#fdde91; display: flex; justify-content: center; align-items: center; ">
+           <img :src="path + profile_pic_my" width="60px" height="60px" alt="" style="border-radius: 50%" >
          </div>
          
        </div>
@@ -66,6 +66,12 @@
            </div>
          </div>
          <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; margin: 3% 0 0 0 ;">
+          <div style="font-size: large;  width: 60%; margin-bottom: 2%;">
+             <p>ชื่อผู้ใช้</p>
+             <div style="width: 100%; ">
+             <input disabled  type="text" style="border-radius: 10px; width: 97%; height: 4vh; margin-top: 1%; padding-left: 10px;" :placeholder="profile_data['username']">
+           </div>
+           </div>
            <div style="font-size: large; display: flex; justify-content: space-between; width: 60%;">
              <div style="text-align: left; width: 100%; ">
                <p>ชื่อ</p>
@@ -102,9 +108,6 @@
              <input  type="file" style="width: 97%; height: 4vh; margin-top: 1%;" @change="fileChange">
            </div>
            </div>
-           <div v-if="this.$route.params.role != 'admin'">
-             <button @click="cancel()" class="button2"> <h4 class="textbut">ประวัติการจอง</h4></button>
-           </div>
          </div>
          <div v-if="role == 'user' || role == 'admin'" style="display: flex; justify-content: center; margin: 3%;"> 
            <p id="delete" @click="Delete()">ลบบัญชีผู้ใช้</p>
@@ -131,6 +134,7 @@
          email : "",
          address : "",
          profile_pic : null,
+         profile_pic_my : null,
          path_pic : "",
          column : "",
          role : "",
@@ -276,6 +280,11 @@
            alert('บัญชีพี่เลี้ยงคนนี้มีสัตว์เลี้ยงที่ต้องดูแลอยู่');
            this.$router.go(0);
          }
+         console.log(response_data);
+         if(response_data['message'] == "not delete"){
+          alert('ไม่สามารถลบบัญชีหัวหน้าแอดมินได้');
+          this.$router.go(0);
+         }
        },
        async go_profile(){
      const role = this.$route.params.role;
@@ -307,12 +316,12 @@
      });
      const response_data = await response.json();
      if(this.$route.params.role == 'ps'){
-       this.profile_pic = response_data['result']['pet_sitter_pic'];
+       this.profile_pic_my = response_data['result']['pet_sitter_pic'];
      }if(this.$route.params.role == 'user'){
-       this.profile_pic = response_data['result']['user_pic'];
+       this.profile_pic_my = response_data['result']['user_pic'];
      }
      if(this.$route.params.role == 'admin'){
-       this.profile_pic = response_data['result']['admin_pic'];
+       this.profile_pic_my = response_data['result']['admin_pic'];
      }
    },
    async show_menu(count){
@@ -322,43 +331,41 @@
        this.$refs.show_menu.innerHTML = '';
      }else{
        this.count =true;
-       this.$refs.show_menu.innerHTML = `<div style="margin-top: 100px; position: absolute; width: 30%;border-radius: 0 25px 25px 0; background:#f9f2d4 ; height: 90dvh;">
-       <div style="font-size: x-large; padding-top: 10%;">
-         <div onclick="window.location.href='http://localhost:5173/Homepage/${this.$route.params.role}/${this.$route.params.id}/${this.$route.params.login_id}'"  style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
-           <img src="/src/img/home_nav.png" width="40px" style="margin-right: 5%;" alt="">
-           <p>หน้าแรก</p>
-         </div>
-         <div onclick="window.location.href='http://localhost:5173/package'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
-           <img src="/src/img/package_nav.png" width="40px" style="margin-right: 5%;" alt="">
-           <p>แพ็กเกจ / โปรโมชัน</p>
-         </div>
-         <div onclick="window.location.href='http://localhost:5173/about'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
-           <img src="/src/img/about_nav.png" width="40px" style="margin-right: 5%;" alt="">
-           <p>เกี่ยวกับเรา</p>
-         </div>
-         <div  onclick="window.location.href='http://localhost:5173/logout/${this.$route.params.login_id}'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-top: 10%;"> 
-           <img src="/src/img/logout_nav.png" width="40px" style="margin-right: 5%;" alt="">
-           <p>ออกจากระบบ</p>
-         </div>
-         <div style="margin-top: 60%; display: flex; justify-content: center; align-items: end;">
-           <img src="/src/img/logo.png" width="300px" alt="">
-         </div>
-       </div>
-     </div>`;
+       if(this.$route.params.role == 'admin'){
+        this.$refs.show_menu.innerHTML = `<div style="margin-top: 100px; position: absolute; width: 30%;border-radius: 0 25px 25px 0; background:#f9f2d4 ; height: 90dvh;">
+      <div style="font-size: x-large; padding-top: 10%;">
+        <div onclick="window.location.href='http://localhost:5173/Homepage/${this.$route.params.role}/${this.$route.params.id}/${this.$route.params.login_id}'"  style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
+          <img src="/src/img/home_nav.png" width="40px" style="margin-right: 5%;" alt="">
+          <p>หน้าหลัก</p>
+        </div>
+        <div onclick="window.location.href='http://localhost:5173/package/${this.$route.params.role}/${this.$route.params.id}/${this.$route.params.login_id}'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
+          <img src="/src/img/package_nav.png" width="40px" style="margin-right: 5%;" alt="">
+          <p>แพ็กเกจ / โปรโมชัน</p>
+        </div>
+        <div onclick="window.location.href='http://localhost:5173/about'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
+          <img src="/src/img/about_nav.png" width="40px" style="margin-right: 5%;" alt="">
+          <p>เกี่ยวกับเรา</p>
+        </div>
+        <div onclick="window.location.href='http://localhost:5173/register_pet_sitter/${this.$route.params.role}/${this.$route.params.id}/${this.$route.params.login_id}'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
+          <img src="/src/img/add_account_pic.png" width="40px" style="margin-right: 5%;" alt="">
+          <p>เพิ่มบัญชีพี่เลี้ยง</p>
+        </div>
+        <div onclick="window.location.href='http://localhost:5173/register_admin/${this.$route.params.role}/${this.$route.params.id}/${this.$route.params.login_id}'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
+          <img src="/src/img/add_account_pic.png" width="40px" style="margin-right: 5%;" alt="">
+          <p>เพิ่มบัญชีแอดมิน</p>
+        </div>
+        <div  onclick="window.location.href='http://localhost:5173/logout/${this.$route.params.login_id}'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-top: 10%;"> 
+          <img src="/src/img/logout_nav.png" width="40px" style="margin-right: 5%;" alt="">
+          <p>ออกจากระบบ</p>
+        </div>
+        <div style="margin-top: 35%; display: flex; justify-content: center; align-items: end;">
+          <img src="/src/img/logo.png" width="300px" alt="">
+        </div>
+      </div>
+    </div>`;
+      }
      }
    },
-   async select_value(){
-     if(this.select_service == null){}
-     else if(this.select_service == "deposit"){
-       this.$router.push({name : 'confirmationpage', params : {role : this.$route.params.role, id : this.$route.params.id, login_id : this.$route.params.login_id}});
-     }else if(this.select_service == "activities"){
-       this.$router.push({name : 'newconpage', params : {role : this.$route.params.role, id : this.$route.params.id, login_id : this.$route.params.login_id}});
-     }else if(this.select_service == "grooming"){
-       this.$router.push({name : 'cutcon', params : {role : this.$route.params.role, id : this.$route.params.id, login_id : this.$route.params.login_id}});
-     }else if(this.select_service == "bathing"){
-       this.$router.push({name : 'takeacon', params : {role : this.$route.params.role, id : this.$route.params.id, login_id : this.$route.params.login_id}});
-     }
-   }
      },
      mounted(){
        this.check_login();

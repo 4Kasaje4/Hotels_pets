@@ -29,7 +29,10 @@ import profile_for_user from '@/views/profile_for_user.vue'
 import profile_for_admin from '@/views/profile_for_admin.vue'
 import homemainView from '@/views/homemain.vue'
 import caretakernologin from '@/views/caretakernologin.vue'
-
+import booking_for_ps from '@/views/booking_for_ps.vue'
+import details_ps_adminView from '@/views/details_ps_adminView.vue'
+import details_user_adminView from '@/views/details_user_adminView.vue'
+import list_pet_of_user from '@/views/list_pet_of_user.vue'
 
 
 const router = createRouter({
@@ -52,7 +55,7 @@ const router = createRouter({
       component:RegisterView
     },
     {
-      path:'/package',
+      path:'/package/:role/:id/:login_id',
       name:'package',
       component:packageView
     },
@@ -186,7 +189,27 @@ const router = createRouter({
       path:'/caretakernologin',
       name: 'caretakernologin',
       component : caretakernologin
-    }
+    },
+    {
+      path:'/booking_for_ps/:role/:id/:login_id',
+      name: 'booking_for_ps',
+      component : booking_for_ps
+    },
+    {
+      path:'/details_ps_adminView/:role/:id/:login_id/:your_id',
+      name: 'details_ps_adminView',
+      component : details_ps_adminView
+    },
+    {
+      path:'/details_user_adminView/:role/:id/:login_id/:your_id/:pet_id',
+      name: 'details_user_adminView',
+      component : details_user_adminView
+    },
+    {
+      path:'/list_pet_of_user/:role/:id/:login_id/:your_id',
+      name: 'list_pet_of_user',
+      component : list_pet_of_user
+    },
 
 
 

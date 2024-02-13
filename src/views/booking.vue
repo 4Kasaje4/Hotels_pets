@@ -244,6 +244,7 @@
   margin-top: 1%; 
   width: 60px; 
   border-radius: 50%;
+  margin-left: 2%;
 }
 
 #backward:hover{

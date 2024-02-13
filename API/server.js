@@ -570,6 +570,57 @@ app.post('/details_pet',async (req,res) => {
     }
 }); 
 
+// Show details pet by ps_id
+app.post('/details_pet_ps',async (req,res) => {
+    try {
+        const ps_id = req.body.ps_id;
+        dbconfig.query('SELECT * FROM pet WHERE ps_id = ?',[ps_id], (err,result) => {
+            if(err){
+                console.log(err);
+            }else{
+                if(result.length == 0){
+                    res.json({have_pet : false});
+                }else{
+                    res.json({have_pet : true, result : result[0]});
+                }
+            }
+        });
+    }catch(err){
+        console.log("Error : ", err); ``
+        res.json({error : err});
+    }
+}); 
+
+// Submit pet_sitter
+app.post('/submit_pet_sitter',async(req,res) => {
+    try{
+        const ps_id = req.body.ps_id;
+        dbconfig.query('DELETE FROM message WHERE ps_id = ?',[ps_id],(err,result) => {
+            if(err){
+                console.log(err);
+            }else{
+                dbconfig.query('DELETE FROM pet WHERE ps_id = ?',[ps_id],(err,result) => {
+                    if(err){
+                        console.log(err);
+                    }else{
+                        dbconfig.query('UPDATE pet_sitter SET status = NULL WHERE ps_id = ? ',[ps_id],(err,result) => {
+                            if(err){
+                                console.log(err);
+                            }else{
+                                res.json({status : true});
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }catch(err){
+        console.log(err);
+        res.json({error : err});
+    }
+});
+
+// Cancle pet 
 app.post('/cancle_pet_in_hotel',async (req,res) => {
     try {
         const ps_id = req.body.ps_id;
@@ -582,7 +633,13 @@ app.post('/cancle_pet_in_hotel',async (req,res) => {
                     if(err){
                         console.log(err);
                     }else{
-                        res.json({status : true});
+                        dbconfig.query('DELETE FROM message WHERE ps_id = ?',[ps_id],(err,result) => {
+                            if(err){
+                                console.log(err);
+                            }else{
+                                res.json({status : true});
+                            }
+                        });
                     }
                 });
             }
@@ -621,11 +678,17 @@ app.delete('/delete_account',async (req,res) => {
             // check user have pet ?
             dbconfig.query('SELECT * FROM pet WHERE user_id = ?',[id],(err,result) => {
                 if(result.length == 0){
-                    dbconfig.query('DELETE FROM user WHERE user_id = ?',[id],(err,result) => {
+                    dbconfig.query('DELETE FROM message WHERE user_id = ?',[id],(err,result) => {
                         if(err){
                             console.log(err);
                         }else{
-                            res.json({status : true});
+                            dbconfig.query('DELETE FROM user WHERE user_id = ?',[id],(err,result) => {
+                                if(err){
+                                    console.log(err);
+                                }else{
+                                    res.json({status : true});
+                                }
+                            });
                         }
                     });
                 }else{
@@ -813,7 +876,33 @@ app.post('/send_message',async(req,res)=>{
     }
 });
 
-
+//Show name user with pet_sitter 
+app.post('/show_name_user_with_pet_sitter',(req,res) => {
+    try{
+        const id = req.body.id;
+        dbconfig.query('SELECT user_id FROM pet WHERE ps_id = ?',[id],(err,result) => {
+            if(err){
+                console.log(err);
+            }else{
+                if(result.length == 0){
+                    res.json({people : false});
+                }else{
+                    const user_id  = result[0]['user_id']
+                    dbconfig.query('SELECT * FROM user WHERE user_id = ?',[user_id],(err,result) => {
+                        if(err){
+                            console.log(err);
+                        }else{
+                            res.json({people : true, result : result[0]});
+                        }
+                    });
+                }
+            }
+        });
+    }catch(err){
+        console.log(err);
+        res.json({error : err});
+    }
+});
 
 // Listening on port
 app

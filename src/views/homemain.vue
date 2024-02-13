@@ -169,13 +169,14 @@ export default {
   }
   .textcenter{
     margin-top: -25px;
+    margin-bottom: 15%;
   }
   .text2{
     margin-left: 38vw;
     display: flex;
     justify-content: center;
     color: #DA8F00;
-    margin-top: 90px;
+    margin-top: -7%;
   }
   
   .Bigbox{
@@ -188,7 +189,7 @@ export default {
     height: 454px;
     border-radius: 10px;
     background: #F6F6F6;
-    margin-top: 10%;
+    margin-top: 0%;
   }
   .pricebox{
     width: 141px;

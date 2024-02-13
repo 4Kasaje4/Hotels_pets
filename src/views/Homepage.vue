@@ -8,7 +8,7 @@
       <div style="border: 3.5px solid black; margin: 6%; border-radius: 20px; width: 2vw;"></div>
     </div>
     <div style="display: flex; justify-content: space-around; width: 30%; align-items: center; margin-right: -10px;">
-      <div v-if="this.$route.params.role != 'admin'" >
+      <div v-if="this.$route.params.role == 'user'" >
         <select @change="select_value" v-model="select_service" style=" background-color: #f7d275 ; width: 150px; height: 30px;font-size: 15px;padding-left: 5px;border: 1px solid #f7d275;border-radius: 5px;" >
           <option disabled value="null">เลือกบริการ</option>
           <option value="deposit">บริการฝากเลี้ยง</option>
@@ -46,19 +46,16 @@
   </div>
 
 
-
   <div>
     <div class="img">
       <img class="imgcat" src="../img/catty.jpg" alt="" width="1100px" height="500px">
     </div>
     <h1 class="textser">เลือกบริการของคุณกันเลย !</h1>
     <h1 class="textchoose">เลือกใช้บริการที่คุณต้องการสำหรับสัตว์เลี้ยงของคุณ</h1>
-    <div v-if="this.$route.params.role != 'admin'">
-      <button @click="go_to_service" class="button1"> <p class="textbut">บริการ</p> </button>
-    </div>
-    <div v-if="this.$route.params.role == 'admin'">
-      <button disabled @click="go_to_service" class="button1" style="cursor: context-menu;"> <p class="textbut">บริการ</p> </button>
-    </div>
+      <div v-if="this.$route.params.role == 'user'">
+        <button @click="go_to_service" class="button1"> <p class="textbut">บริการ</p> </button>
+      </div>
+
 
   </div>
   <FooterView />
@@ -148,9 +145,9 @@ components: { newnav },
       <div style="font-size: x-large; padding-top: 10%;">
         <div onclick="window.location.href='http://localhost:5173/Homepage/${this.$route.params.role}/${this.$route.params.id}/${this.$route.params.login_id}'"  style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
           <img src="/src/img/home_nav.png" width="40px" style="margin-right: 5%;" alt="">
-          <p>หน้าแรก</p>
+          <p>หน้าหลัก</p>
         </div>
-        <div onclick="window.location.href='http://localhost:5173/package'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
+        <div onclick="window.location.href='http://localhost:5173/package/${this.$route.params.role}/${this.$route.params.id}/${this.$route.params.login_id}'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
           <img src="/src/img/package_nav.png" width="40px" style="margin-right: 5%;" alt="">
           <p>แพ็กเกจ / โปรโมชัน</p>
         </div>
@@ -176,20 +173,49 @@ components: { newnav },
       </div>
     </div>`;
       }
-      if(this.$route.params.role != 'admin'){
+      if(this.$route.params.role == 'user'){
         this.$refs.show_menu.innerHTML = `<div style="margin-top: 100px; position: absolute; width: 30%;border-radius: 0 25px 25px 0; background:#f9f2d4 ; height: 90dvh;">
       <div style="font-size: x-large; padding-top: 10%;">
         <div onclick="window.location.href='http://localhost:5173/Homepage/${this.$route.params.role}/${this.$route.params.id}/${this.$route.params.login_id}'"  style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
           <img src="/src/img/home_nav.png" width="40px" style="margin-right: 5%;" alt="">
-          <p>หน้าแรก</p>
+          <p>หน้าหลัก</p>
         </div>
-        <div onclick="window.location.href='http://localhost:5173/package'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
+        <div onclick="window.location.href='http://localhost:5173/package/${this.$route.params.role}/${this.$route.params.id}/${this.$route.params.login_id}'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
           <img src="/src/img/package_nav.png" width="40px" style="margin-right: 5%;" alt="">
           <p>แพ็กเกจ / โปรโมชัน</p>
         </div>
         <div onclick="window.location.href='http://localhost:5173/about'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
           <img src="/src/img/about_nav.png" width="40px" style="margin-right: 5%;" alt="">
           <p>เกี่ยวกับเรา</p>
+        </div>
+        <div  onclick="window.location.href='http://localhost:5173/logout/${this.$route.params.login_id}'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-top: 10%;"> 
+          <img src="/src/img/logout_nav.png" width="40px" style="margin-right: 5%;" alt="">
+          <p>ออกจากระบบ</p>
+        </div>
+        <div style="margin-top: 60%; display: flex; justify-content: center; align-items: end;">
+          <img src="/src/img/logo.png" width="300px" alt="">
+        </div>
+      </div>
+    </div>`;
+      }
+      if(this.$route.params.role == 'ps'){
+        this.$refs.show_menu.innerHTML = `<div style="margin-top: 100px; position: absolute; width: 30%;border-radius: 0 25px 25px 0; background:#f9f2d4 ; height: 90dvh;">
+      <div style="font-size: x-large; padding-top: 10%;">
+        <div onclick="window.location.href='http://localhost:5173/Homepage/${this.$route.params.role}/${this.$route.params.id}/${this.$route.params.login_id}'"  style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
+          <img src="/src/img/home_nav.png" width="40px" style="margin-right: 5%;" alt="">
+          <p>หน้าหลัก</p>
+        </div>
+        <div onclick="window.location.href='http://localhost:5173/package/${this.$route.params.role}/${this.$route.params.id}/${this.$route.params.login_id}'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
+          <img src="/src/img/package_nav.png" width="40px" style="margin-right: 5%;" alt="">
+          <p>แพ็กเกจ / โปรโมชัน</p>
+        </div>
+        <div onclick="window.location.href='http://localhost:5173/about'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
+          <img src="/src/img/about_nav.png" width="40px" style="margin-right: 5%;" alt="">
+          <p>เกี่ยวกับเรา</p>
+        </div>
+        <div onclick="window.location.href='http://localhost:5173/booking_for_ps/${this.$route.params.role}/${this.$route.params.id}/${this.$route.params.login_id}'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
+          <img src="/src/img/check_status.png" width="40px" style="margin-right: 5%;" alt="">
+          <p>ยืนยันสถานะการเลี้ยง</p>
         </div>
         <div  onclick="window.location.href='http://localhost:5173/logout/${this.$route.params.login_id}'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-top: 10%;"> 
           <img src="/src/img/logout_nav.png" width="40px" style="margin-right: 5%;" alt="">

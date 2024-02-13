@@ -12,7 +12,7 @@
       <div style="margin-top: 0.5%;">
         <a id="navchoice" href="/homemain" >หน้าแรก</a>
         <a id="navchoice" @click="package()" >แพ็กเกจ/โปรโมชั่น</a>
-        <a id="navchoice" @click="about()" >พี่เลี้ยง</a>
+        <a id="navchoice" @click="caretaker()" >พี่เลี้ยง</a>
         <a id="navchoice" @click="login()" >เข้าสู่ระบบ</a>
       </div>
    </div>
@@ -25,8 +25,8 @@ export default {
       login(){
         this.$router.push('/login');
       },
-      about(){
-        this.$router.push('/caretakernologin');
+      caretaker(){
+        this.$router.push({name : 'caretaker'});
       },
       package(){
         this.$router.push('/packagenolog');

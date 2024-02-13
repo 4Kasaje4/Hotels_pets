@@ -200,7 +200,7 @@
 
                     const response_data = await response.json();
                     alert('Register Successfully.');
-                    this.$router.push({name : 'Homepage', params : {role : this.$route.params.role, id : this.$route.params.id, login_id : this.$route.params}});
+                    this.$router.push({name : 'Homepage', params : {role : this.$route.params.role, id : this.$route.params.id, login_id : this.$route.params.login_id}});
                 }
             }
         },  async go_profile(){
@@ -256,7 +256,7 @@
           <img src="/src/img/home_nav.png" width="40px" style="margin-right: 5%;" alt="">
           <p>หน้าแรก</p>
         </div>
-        <div onclick="window.location.href='http://localhost:5173/package'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
+        <div onclick="window.location.href='http://localhost:5173/package/${this.$route.params.role}/${this.$route.params.id}/${this.$route.params.login_id}'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
           <img src="/src/img/package_nav.png" width="40px" style="margin-right: 5%;" alt="">
           <p>แพ็กเกจ / โปรโมชัน</p>
         </div>
@@ -289,7 +289,7 @@
           <img src="/src/img/home_nav.png" width="40px" style="margin-right: 5%;" alt="">
           <p>หน้าแรก</p>
         </div>
-        <div onclick="window.location.href='http://localhost:5173/package'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
+        <div onclick="window.location.href='http://localhost:5173/package/${this.$route.params.role}/${this.$route.params.id}/${this.$route.params.login_id}'" style="cursor: pointer; background:rgba(255, 237, 191, 1); height: 50px; display: flex; padding-left: 5%; align-items: center; margin-bottom: 1%;"> 
           <img src="/src/img/package_nav.png" width="40px" style="margin-right: 5%;" alt="">
           <p>แพ็กเกจ / โปรโมชัน</p>
         </div>

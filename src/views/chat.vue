@@ -282,6 +282,7 @@
         });
         const response_data = await response.json();
         this.profile_data = response_data;
+        console.log(this.profile_data);
         if(this.role == 'user' && response_data['user_pic'] != undefined){
           this.path_profile = '/API/profile_pic/' + response_data['user_pic']
         }if(this.role == 'ps' && response_data['pet_sitter_pic'] != undefined){
@@ -341,15 +342,25 @@
           headers: {'Content-Type' : 'application/json'},
           body: JSON.stringify(data)
         });
-        if(this.list_chat_data[index]['pet_sitter_pic'] == null){
-          this.profile_select = '/src/img/Profile_Unknow.png'
+        if(you_role == 'ps'){
+          if(this.list_chat_data[index]['pet_sitter_pic'] == null){
+            this.profile_select = '/src/img/Profile_Unknow.png'
+          }
+          if(this.list_chat_data[index]['pet_sitter_pic'] != null){
+            this.profile_select = '/API/profile_pic/' + this.list_chat_data[index]['pet_sitter_pic'];
+          }
         }
-        if(this.list_chat_data[index]['pet_sitter_pic'] != null){
-          this.profile_select = '/API/profile_pic/' + this.list_chat_data[index]['pet_sitter_pic'];
+        if(you_role == 'user'){
+          if(this.list_chat_data[index]['user_pic'] == null){
+            this.profile_select = '/src/img/Profile_Unknow.png'
+          }
+          if(this.list_chat_data[index]['user_pic'] != null){
+            this.profile_select = '/API/profile_pic/' + this.list_chat_data[index]['user_pic'];
+          }
         }
+        
         this.name_select = this.list_chat_data[index]['firstname'] + " " + this.list_chat_data[index]['lastname'];
         const response_data = await response.json();
-        console.log(response_data);
         this.chat_data = response_data;
       },
       async send_message(my_role, my_id, you_role, you_id){

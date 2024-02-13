@@ -38,7 +38,7 @@
 
 
   <div>
-    <div ref="alert_cancle">
+    <div>
     </div>
     <div>
       <div style="display: flex; justify-content: center; margin-top: 2%">
@@ -61,7 +61,7 @@
           <p style="margin-left: 5%">ประวัติการจอง</p>
         </div>
       </div>
-
+      <div ref="alert_cancle"></div>
       <div
         v-for="(pet_data, index) in pet_data"
         :key="index"
@@ -172,8 +172,7 @@ export default {
       });
       const response_data = await response.json();
       if (response_data["user"] == 0) {
-        alert("ไม่พบข้อมูลประวัติการจอง");
-        this.$router.go(-1);
+        this.$refs.alert_cancle.innerHTML = `<h1 style='text-align: center; margin:10% 0 10% 0;'>ไม่พบข้อมูลการจอง</h1>`
       } else {
         this.pet_data = response_data["result"];
       }

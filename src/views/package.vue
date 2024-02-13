@@ -2,6 +2,9 @@
   <div class="Nav" >
         <img class="logo" src="../img/logo.png" alt="" width="300px" height="100px" style="margin-top:-30px" >
       <div style="margin-top: 0.5%;">
+        <a id="navchoice" @click="this.$router.push({name : 'Homepage', params : {role : this.$route.params.role, id : this.$route.params.id, login_id : this.$route.params.login_id}})" >หน้าหลัก</a>
+        <a id="navchoice" @click="package()" >แพ็กเกจ/โปรโมชั่น</a>
+        <a id="navchoice" @click="caretaker()" >พี่เลี้ยง</a>
         <a id="navchoice" @click="about()" >เกี่ยวกับเรา</a>
       </div>
    </div>
@@ -53,6 +56,12 @@
       about(){
         this.$router.push('/about');
       },
+      package(){
+        this.$router.push({name : 'package', params : {role : this.$route.params.role, id : this.$route.params.id, login_id : this.$route.params.login_id}});
+      },
+      caretaker(){
+        this.$router.push({name : 'caretaker', params : {role : this.$route.params.role, id : this.$route.params.id, login_id : this.$route.params.login_id}});
+      }
     },
     mounted(){
     }
@@ -108,6 +117,7 @@
   }
   .imgbox{
     display: flex;
+    margin-left: 0%;
   }
   .smallbox{
     width: 133px;
