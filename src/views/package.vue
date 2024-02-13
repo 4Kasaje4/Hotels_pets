@@ -1,148 +1,241 @@
-<template>
-  <NavView /> 
+  <template>
+    <newnav/>
     <div>
-      <div>
-        <h1 class="texthead">เเพ็กเกจ/โปรโมชั่น</h1>
-        <div class="biggbox"> 
-          <div class="bigbox">
-        
-              <h2 class="textpackage">แพ็กเกจตัดขน</h2>
-              <h2 class="textpackage1">แพ็กเกจตัดขน</h2>
-              <div class="imgbox">  
-                <img class="imgpackage" src="../img/cutcat.jpg" alt="" width="466px" >
-                <img class="imgpackage1" src="../img/dogswim.jpg" alt="" width="466px" height="315px">
-              </div>
+      <img class="arrow" src="../img/arrow-left.png" alt="" >
+      <h1 class="headtext">เกี่ยวกับเรา</h1>
 
-                 <div class="imgbox1"> 
-                  <h2 class="textpackage2">แพ็กเกจเลี้ยงฟรี</h2>
-                  <img  class="imgpackage2" src="../img/cadog.jpg" alt="" width="466px" height="315px">
-                 </div>
-
-              <div class="smallbox">
-                <p class="textsmall">5 แถม 1</p>    
-              </div>
-              
-              <div class="smallbox1">
-                <p class="textsmall1"> 5 แถม 1</p>
-              </div>
-
-              <div class="smallbox2">
-                <p class="textsmall1"> 5 แถม 1</p>
-              </div>
-              
-
-
-          </div>
+      <div class="bigbox">
+        <div class="box1">
+          <h2 class="text">วัตถุประสงค์</h2>
+          <img class="cat" src="../img/catttttttttttttt.jpg" alt="">
+          <h3 class="text1">เพื่อให้บริการแก่เจ้าของสัตว์เลี้ยงเว็บเรามีบริการรับฝากน้องหมาและน้องแมว</h3>
+          <h3 class="text2">โรงแรมมุ่งเน้นให้บริการและสร้างสภาพแวดล้อมที่เหมาะสมและปลอดภัยสำหรับ</h3>  
+          <h3 class="text3">การฝากหมาและแมวทั้งในเรื่องอาหาร การออกกำลังกาย และการดูแลสุขภาพ</h3> 
+          <h3 class="text4">เว็บไซต์นี้มีเป้าหมายที่จะให้บริการที่มีมาตรฐานในการดูแลหมาและแมว</h3>
+          <h3 class="text5">มีการให้บริการอย่างใส่ใจและเอาใจใส่ต่อน้องหมาและน้องแมวอย่างที่เหมาะสม </h3>
+          <h3 class="text6">เว็บนี้นี้มีวัตถุประสงค์ที่จะสร้างประสบการณ์ที่ดีและที่ทำให้เจ้าของสัตว์เลี้ยงมี <br> ความพึงพอใจที่สุดในการใช้บริการ</h3>
         </div>
       </div>
+
+
+      <div class="bigbox2">
+        <div class="box2">
+          <img class="imgpla" src="../img/วาฬ.jpg" alt="">
+        </div>
+      </div>
+      <h3 class="textid">65022331</h3>
+      <h3 class="textname">นางสาวกัญญารัตน์ บุญธิมา</h3>
+
+      <div class="bigbox3">
+        <div class="box2">
+          <img class="imgbo" src="../img/โบ.jpg" alt="">
+
+        </div>
+      </div>
+      <h3 class="textid1">65022375</h3>
+      <h3 class="textname1">นายเกษมสันต์ แก้วจีน</h3>
+
+      <div class="bigbox4">
+        <div class="box2">
+          <img class="imgpech" src="../img/เพชร.jpg" alt="">
+        </div>
+      </div>
+      <h3 class="textid2">65022421</h3>
+      <h3 class="textname2">นายชินพัฒน์ ทรัพย์สำเริง</h3>
+
+      <div class="bigbox5">
+        <div class="box2">
+          <img class="imggui" src="../img/ต้าร์.jpg" alt="">
+        </div>
+      </div>
+      <h3 class="textid3">65022915</h3>
+      <h3 class="textname3">นางสาวสุมิตตา กิตติชัยฤทธิ์</h3>
+      
+      <div class="boxxxx"></div>
+
+
     </div>
     <FooterView />
   </template>
-  
+
   <script>
-  export default {
-    name:'packageView',
-    methods: {
-      
-    },
-    mounted(){
-    }
+  import newnav from '@/components/newnav.vue'
+    export default {
+    components: { newnav },
+    name:'profileView',
+  
   }
   </script>
-  
-  <style scoped>
-  .texthead{
-    color: #C07E00;
-    text-align: center;
-    margin-top: 50px;
-  }
 
-  .biggbox{
+  <style scoped>
+    .imgpla{
+      position: absolute;
+      width: 230px;
+      margin-left: 15px;
+      margin-top: 10px;
+      border-radius: 20px;
+      height: 260px;
+    }
+    .imgbo{
+      position: absolute;
+      width: 230px;
+      margin-left: 15px;
+      margin-top: 10px;
+      border-radius: 20px;
+      height: 260px;
+    }
+    .imgpech{
+      position: absolute;
+      width: 230px;
+      margin-left: 15px;
+      margin-top: 10px;
+      border-radius: 20px;
+      height: 260px;
+    }
+    .imggui{
+      position: absolute;
+      width: 230px;
+      margin-left: 15px;
+      margin-top: 10px;
+      border-radius: 20px;
+      height: 260px;
+    }
+    .text1{
+      position: absolute;
+      margin-top: -280px;
+      margin-left: 10px;
+    }
+    .text2{
+      position: absolute;
+      margin-top: -250px;
+      margin-left: 10px;
+    }
+    .text3{
+      position: absolute;
+      margin-top: -220px;
+      margin-left: 10px;
+    } 
+    .text4{
+      position: absolute;
+      margin-top: -190px;
+      margin-left: 10px;
+    }
+    .text5{
+      position: absolute;
+      margin-top: -160px;
+      margin-left: 10px;
+    }
+    .text6{
+      position: absolute;
+      margin-top: -130px;
+      margin-left: 10px;
+    }
+    .arrow{
+      width: 50px;
+      margin-top: 20px;
+      margin-left: 110px;
+    }
+    .boxxxx{
+      width: 500px;
+      height: 20px;
+      margin-top: 150px;
+    }
+  .headtext{
+    text-align: center;
+    margin-top: 30px;
+    color: #765D2E;
+  }
+  .bigbox{
     display: flex;
     justify-content: center;
   }
-  .bigbox{
-    width: 1127px;
-    height: 1058px;
-    border-radius: 25px;
-    background: #F4F4F4;
+  .box1{
+    width: 1150px;
+    height: 400px;
+    background-color: #FFEDBF;
     margin-top: 50px;
   }
-
-  .textpackage{
+  .text{
+    margin-left: 240px;
+    margin-top: 20px;
+    font-size: 30px;
+    position: absolute;
+  }
+  .cat{
+    width: 450px;
+    border-radius: 10px;
+    margin-left: 660px;
     margin-top: 50px;
-    margin-left: 220px;
   }
-  .textpackage1{
-    margin-top: -36px;
-    margin-left: 750px;
-  }
-  .textpackage2{
-    margin-top: -36px;
-    margin-left: 150px;
-  }
-  
-  .imgpackage{
-    margin-top: 30px;
-    margin-left: 60px;
-    border-radius: 20px;
-  }
-  
-  .imgpackage1{
-    border-radius: 20px;
-    margin-left: 60px;
-    margin-top: 30px;
-  }
-  .imgpackage2{
-    border-radius: 20px;
-    margin-top: 30px;
-  }
-  .imgbox{
+  .bigbox2{
     display: flex;
   }
-  .smallbox{
-    width: 133px;
-    height: 52px;
-    border-radius: 25px;
-    background: rgba(255, 255, 255, 0.57);
-    margin-top: -515px;
-    margin-left: 220px;
-    position: absolute;
+  .box2{
+    width: 260px;
+    height: 280px;
+    background-color: #FFEDBF;
+    margin-top: 50px;
+    border-radius: 20px;
+    margin-left: 180px;
   }
-  .textsmall{
-    font-size: 25px;
-    margin-left: 20px;
-    margin-top: 8px;
-  }
-  .textsmall1{
-    font-size: 25px;
-    margin-left: 20px;
-    margin-top: 8px;
-  }
-  .smallbox1{
-    width: 133px;
-    height: 52px;
-    border-radius: 25px;
-    background: rgba(255, 255, 255, 0.57);
-    margin-top: -515px;
-    margin-left: 745px;
-    position: absolute;
-  }
-  .smallbox2{
-    width: 133px;
-    height: 52px;
-    border-radius: 25px;
-    background: rgba(255, 255, 255, 0.57);
-    margin-top: -70px;
-    margin-left: 225px;
+  .bigbox3{
+    margin-top: -330px;
+    margin-left: 300px;
     position: absolute;
   }
 
-  .imgbox1{
-    margin-top: 100px;
-    margin-left: 60px;
-
+  .bigbox4{
+    margin-top: -330px;
+    margin-left: 600px;
+    position: absolute;
   }
 
-      
+  .bigbox5{
+    margin-top: -330px;
+    margin-left: 900px;
+    position: absolute;
+  }
+  .textid{
+    margin-top: 10px;
+    margin-left: 270px;
+    position: absolute;
+  }
+  .textname{
+    margin-left: 200px;
+    margin-top: 40px;
+    position: absolute;
+  }
+
+  .textid1{
+    margin-top: 10px;
+    margin-left: 570px;
+    position: absolute;
+  }
+  .textname1{
+    margin-left: 520px;
+    margin-top: 40px;
+    position: absolute;
+  }
+
+  .textid2{
+    margin-top: 10px;
+    margin-left: 870px;
+    position: absolute;
+  }
+  .textname2{
+    margin-left: 800px;
+    margin-top: 40px;
+    position: absolute;
+  }
+
+  .textid3{
+    margin-top: 10px;
+    margin-left: 1175px;
+    position: absolute;
+  }
+  .textname3{
+    margin-left: 1100px;
+    margin-top: 40px;
+    position: absolute;
+  }
   </style>
