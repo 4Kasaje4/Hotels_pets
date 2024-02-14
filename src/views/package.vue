@@ -98,7 +98,7 @@
       margin-left: 15px;
       margin-top: 10px;
       border-radius: 20px;
-      height: 260px;   
+      height: 260px;         
     }
     .text1{
       position: absolute;
