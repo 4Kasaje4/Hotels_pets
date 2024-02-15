@@ -54,7 +54,7 @@
     name:'packageView',
     methods: {
       about(){
-        this.$router.push('/about');
+        this.$router.push({name : 'about', params : {role : this.$route.params.role, id : this.$route.params.id, login_id : this.$route.params.login_id}});
       },
       package(){
         this.$router.push({name : 'package', params : {role : this.$route.params.role, id : this.$route.params.id, login_id : this.$route.params.login_id}});
