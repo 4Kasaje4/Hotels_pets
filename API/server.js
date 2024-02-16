@@ -260,11 +260,19 @@ app.post('/register_user',(req,res) => {
         const phone = req.body.phone;
         const password = req.body.password1;
 
-        bcrypt.hash(password, 10, (err,hash) => {
+        bcrypt.hash(password, 10, (err,hash) => { 
             const password_hash = hash;
-            dbconfig.query('INSERT INTO user(firstname, lastname, username, email, phone, password) VALUES(?, ?, ?, ?, ?, ?)',[firstname, lastname, username, email, phone, password_hash], (err) => {
-                return res.status(200).json({message: "Register User Successfully",status:true});
-            });
+            if(err){
+                console.log(err);
+            }else{
+                dbconfig.query('INSERT INTO user(firstname, lastname, username, email, phone, password) VALUES(?, ?, ?, ?, ?, ?)',[firstname, lastname, username, email, phone, password_hash], (err) => {
+                    if(err){
+                        console.log(err);
+                    }else{
+                        res.status(200).json({message: "Register User Successfully",status:true});
+                    }
+                });
+            }
         });
     }
     catch(err) {
@@ -863,7 +871,8 @@ app.post('/send_message',async(req,res)=>{
         const you_role = req.body.you_role;
         const you_id = req.body.you_id;
         const message_text = req.body.message_text;
-        dbconfig.query(`INSERT INTO message(${my_role}_id, ${you_role}_id, message_text, sender) VALUES(${my_id}, ${you_id}, ?, ?)`,[message_text, my_role],(err,result)=>{
+
+        dbconfig.query(`INSERT INTO message(${my_role}_id, ${you_role}_id, message_text, sender) VALUES(?, ?, ?, ?)`,[my_id, you_id,  message_text, my_role],(err,result)=>{
             if(err){
                 console.log(err);
             }else{

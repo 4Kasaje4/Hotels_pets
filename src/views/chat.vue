@@ -282,7 +282,6 @@
         });
         const response_data = await response.json();
         this.profile_data = response_data;
-        console.log(this.profile_data);
         if(this.role == 'user' && response_data['user_pic'] != undefined){
           this.path_profile = '/API/profile_pic/' + response_data['user_pic']
         }if(this.role == 'ps' && response_data['pet_sitter_pic'] != undefined){
