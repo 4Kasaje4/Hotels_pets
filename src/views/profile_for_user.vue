@@ -66,6 +66,12 @@
            </div>
          </div>
          <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; margin: 3% 0 0 0 ;">
+          <div style="font-size: large;  width: 60%; margin-bottom: 2%;">
+             <p>ชื่อผู้ใช้</p>
+             <div style="width: 100%; ">
+             <input disabled  type="text" style="border-radius: 10px; width: 97%; height: 4vh; margin-top: 1%; padding-left: 10px;" :placeholder="profile_data['username']">
+           </div>
+           </div>
            <div style="font-size: large; display: flex; justify-content: space-between; width: 60%;">
              <div style="text-align: left; width: 100%; ">
                <p>ชื่อ</p>

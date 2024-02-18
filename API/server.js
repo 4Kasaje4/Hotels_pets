@@ -17,7 +17,7 @@ app.use(bodyparser.json());
 
 
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173'); // แทนที่ด้วย URL ของ Vue.js 
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173'); 
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
     res.setHeader('Access-Control-Allow-Credentials', true);
@@ -166,7 +166,7 @@ app.post('/profile',(req,res) => {
             table = role
         }
         dbconfig.query(`SELECT * FROM ${table} WHERE ${role}_id = ${id}`, (err,result) => {
-            res.status(200).json(result[0]); 
+            res.json(result[0]); 
         });
     }
     catch(err) {
@@ -191,7 +191,7 @@ app.post('/resetpassword',(req,res) => {
         bcrypt.hash(new_password,10,(err,hash)=> {
             const new_password = hash;
             dbconfig.query(`UPDATE ${table} SET password = ? WHERE ${role}_id = ?`,[new_password,id],() => {
-                res.status(200).json({status: 1});
+                res.json({status: 1});
             });
         });
     }
@@ -214,7 +214,7 @@ app.post('/register_pet_sitter',(req,res) => {
         bcrypt.hash(password, 10, (err,hash) => {
             const password_hash = hash;
             dbconfig.query('INSERT INTO pet_sitter(firstname, lastname, username, email, phone, password) VALUES(?, ?, ?, ?, ?, ?)',[firstname, lastname, username, email, phone, password_hash], (err) => {
-                return res.status(200).json({message: "Register User Successfully",status:true});
+                return res.json({message: "Register User Successfully",status:true});
             });
         });
     }
@@ -290,10 +290,7 @@ app.post('/check_login',async (req,res) => {
             res.json({isLogin : false, message : "No user login"});
         }
         if(array_login.length !== 0) {
-            // console.log("Array : ",array_login);
-            // console.log("login_id : ",login_id)
             for (let i = 0; i < array_login.length; i++) {
-                // console.log("in array : ",array_login[i]['id']);
                 if (array_login[i]['id'] == login_id) {
                     res.json({isLogin : true});
                     break;
@@ -304,7 +301,7 @@ app.post('/check_login',async (req,res) => {
         }
 
     }catch(err){
-        // console.log("Error :", err);
+        console.log("Error :", err);
     }
 });
 
@@ -504,7 +501,7 @@ app.post('/add_pet_to_hotel', async (req,res) => {
 app.get('/all_pet_sitter',(req,res)=> {
     try {
         dbconfig.query('SELECT * FROM pet_sitter',(err,result) => {
-            res.status(200).json(result);
+            res.json(result);
         });
     }
     catch(err){
@@ -811,29 +808,30 @@ app.post('/chat_pet_sitter',async(req,res) => {
     }
 });
 
-// Show list chat by admin_id
-app.post('/chat_admin',async(req,res) => {
-    try{
-        const role = req.body.role;
-        const id = req.body.id;
-        let table = ""
-        if(role == 'ps'){
-            table = "pet_sitter"
-        }else{
-            table = role
-        }
-        dbconfig.query(``,[id],(err,result) =>{
-            if(err){
-                console.log(err);
-            }else{
-                res.json(result);
-            }
-        });
-    }catch(err){
-        console.log("Error : ",err);
-        res.json({error : err});
-    }
-});
+// // Show list chat by admin_id
+// app.post('/chat_admin',async(req,res) => {
+//     try{
+//         const role = req.body.role;
+//         const id = req.body.id;
+//         let table = ""
+//         if(role == 'ps'){
+//             table = "pet_sitter"
+//         }else{
+//             table = role
+//         }
+//         dbconfig.query(``,[id],(err,result) =>{
+//             if(err){
+//                 console.log(err);
+//             }else{
+//                 res.json(result);
+//             }
+//         });
+//     }catch(err){
+//         console.log("Error : ",err);
+//         res.json({error : err});
+//     }
+// });
+
 
 //Show chat
 app.post('/showchat',async(req,res) => {

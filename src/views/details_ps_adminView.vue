@@ -128,7 +128,7 @@
                 this.$router.go(-1);
               }
               this.details = response_data['result'];
-              if(response_data['type'] == 'cat'){
+              if(response_data['result']['type'] == 'cat'){
                   this.type = "แมว"
               }else{
                   this.type = "หมา"

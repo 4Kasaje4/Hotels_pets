@@ -26,7 +26,7 @@ export default {
         this.$router.push('/login');
       },
       caretaker(){
-        this.$router.push({name : 'caretaker'});
+        this.$router.push('/caretakernologin');
       },
       package(){
         this.$router.push('/packagenolog');
